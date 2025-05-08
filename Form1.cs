@@ -8,18 +8,11 @@ namespace My_BoomSosed_NET
 
             UpdateDesign();
         }
-
         private void btnStart_Click(object sender, EventArgs e)
         {
             StartBoom();
         }
-
-        private void ctrl_Speed_TextChanged(object sender, EventArgs e)
-        {
-            UpdateDesign();
-        }
-
-        private void ctrl_FillRatio_TextChanged(object sender, EventArgs e)
+        private void btnRecalcParams_Click(object sender, EventArgs e)
         {
             UpdateDesign();
         }

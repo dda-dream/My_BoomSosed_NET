@@ -38,6 +38,7 @@
             label1 = new Label();
             ctrl_FillRatio = new TextBox();
             ctrlLog = new RichTextBox();
+            btnRecalcParams = new Button();
             groupBoxVisualBoom.SuspendLayout();
             SuspendLayout();
             // 
@@ -53,11 +54,11 @@
             // 
             // btnStart
             // 
-            btnStart.Location = new Point(695, 12);
+            btnStart.Location = new Point(648, 38);
             btnStart.Name = "btnStart";
-            btnStart.Size = new Size(75, 23);
+            btnStart.Size = new Size(81, 23);
             btnStart.TabIndex = 2;
-            btnStart.Text = "Start";
+            btnStart.Text = "Start BOOM";
             btnStart.UseVisualStyleBackColor = true;
             btnStart.Click += btnStart_Click;
             // 
@@ -69,7 +70,6 @@
             ctrl_Speed.TabIndex = 3;
             ctrl_Speed.Text = "5";
             ctrl_Speed.TextAlign = HorizontalAlignment.Center;
-            ctrl_Speed.TextChanged += ctrl_Speed_TextChanged;
             // 
             // label_Speed
             // 
@@ -119,7 +119,6 @@
             ctrl_FillRatio.TabIndex = 7;
             ctrl_FillRatio.Text = "10";
             ctrl_FillRatio.TextAlign = HorizontalAlignment.Center;
-            ctrl_FillRatio.TextChanged += ctrl_FillRatio_TextChanged;
             // 
             // ctrlLog
             // 
@@ -129,11 +128,22 @@
             ctrlLog.TabIndex = 9;
             ctrlLog.Text = "";
             // 
+            // btnRecalcParams
+            // 
+            btnRecalcParams.Location = new Point(550, 38);
+            btnRecalcParams.Name = "btnRecalcParams";
+            btnRecalcParams.Size = new Size(92, 23);
+            btnRecalcParams.TabIndex = 10;
+            btnRecalcParams.Text = "Recalc params";
+            btnRecalcParams.UseVisualStyleBackColor = true;
+            btnRecalcParams.Click += btnRecalcParams_Click;
+            // 
             // BoomSosed_MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(902, 675);
+            Controls.Add(btnRecalcParams);
             Controls.Add(ctrlLog);
             Controls.Add(label1);
             Controls.Add(ctrl_FillRatio);
@@ -161,5 +171,6 @@
         private Label label1;
         private TextBox ctrl_FillRatio;
         private RichTextBox ctrlLog;
+        private Button btnRecalcParams;
     }
 }

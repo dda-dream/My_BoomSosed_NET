@@ -29,9 +29,7 @@ namespace My_BoomSosed_NET // ###1
             Int32.TryParse(ctrl_Speed.Text, null, out val);
             if (val > 60 * 60/*час*/ || val <= 0)
             {
-                ctrl_Speed.TextChanged -= ctrl_Speed_TextChanged;
                 ctrl_Speed.Text = "5";
-                ctrl_Speed.TextChanged += ctrl_Speed_TextChanged;
                 val = 5;
             }
             label_Speed.Text = String.Format("1 шаг за {0} секунд.", ctrl_Speed.Text);
@@ -39,10 +37,9 @@ namespace My_BoomSosed_NET // ###1
             FillVisualBoomGrid();
             //--------------------//-------------------- 4 
         }
-
         private void AddLog(string s)
         {
-            ctrlLog.Text += s + "\n";
+            ctrlLog.Text += $"{DateTime.Now.ToLongTimeString()} : {s}\n";
             ctrlLog.SelectionStart = ctrlLog.Text.Length;
             ctrlLog.SelectionLength = 0;
             ctrlLog.ScrollToCaret();
@@ -72,9 +69,7 @@ namespace My_BoomSosed_NET // ###1
             Int32.TryParse(ctrl_FillRatio.Text, null, out val);
             if (val > 99 || val < 1)
             {
-                ctrl_FillRatio.TextChanged -= ctrl_FillRatio_TextChanged;
                 ctrl_FillRatio.Text = "10";
-                ctrl_FillRatio.TextChanged += ctrl_FillRatio_TextChanged;
                 val = 10;
             }
             double fillRatio = (double)val / 100;
