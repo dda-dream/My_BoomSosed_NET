@@ -107,7 +107,7 @@ jobs:
         /p:Configuration=$env:Configuration 
         /p:UapAppxPackageBuildMode=$env:Appx_Package_Build_Mode 
         /p:AppxBundle=$env:Appx_Bundle 
-        /p:PackageCertificateKeyFile=GitHubActionsWorkflow.pfx 
+        /p:PackageCertificateKeyFile="D:\a\My_BoomSosed_NET\My_BoomSosed_NET\GitHubActionsWorkflow.pfx"
         /p:PackageCertificatePassword=${{ secrets.Pfx_Key }}
       env:
         Appx_Bundle: Always
