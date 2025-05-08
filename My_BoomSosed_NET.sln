@@ -5,10 +5,7 @@ VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "My_BoomSosed_NET", "My_BoomSosed_NET.csproj", "{6501CEC9-10F5-434E-83FC-B98EA18589F9}"
 EndProject
-Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "My_BoomSosed_NET.Package", "..\My_BoomSosed_NET.WAPP\My_BoomSosed_NET.Package.wapproj", "{73DA0A33-2543-4ED5-8C7D-89C5D10C42BE}"
-	ProjectSection(ProjectDependencies) = postProject
-		{6501CEC9-10F5-434E-83FC-B98EA18589F9} = {6501CEC9-10F5-434E-83FC-B98EA18589F9}
-	EndProjectSection
+Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "My_BoomSosed_NET.Package", "My_BoomSosed_NET.WAPP\My_BoomSosed_NET.Package.wapproj", "{73DA0A33-2543-4ED5-8C7D-89C5D10C42BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
