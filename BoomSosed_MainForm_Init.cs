@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
-namespace My_BoomSosed_NET
+namespace My_BoomSosed_NET // ###1
 {
     public partial class BoomSosed_MainForm : Form
     {
