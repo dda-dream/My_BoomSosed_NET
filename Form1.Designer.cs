@@ -48,7 +48,6 @@
             // 
             ctrl_LST.FormattingEnabled = true;
             ctrl_LST.ItemHeight = 15;
-            ctrl_LST.Items.AddRange(new object[] { "aaa.LST", "bbb.LST", "ccc.LST" });
             ctrl_LST.Location = new Point(12, 12);
             ctrl_LST.Name = "ctrl_LST";
             ctrl_LST.Size = new Size(294, 49);

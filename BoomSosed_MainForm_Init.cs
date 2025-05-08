@@ -12,19 +12,21 @@ namespace My_BoomSosed_NET
 {
     public partial class BoomSosed_MainForm : Form
     {
-        int colSizeVisualBoom = 10;
-        int rowSizeVisualBoom = 10;
+        int MaxColSizeVisualBoom = 10;
+        int MaxRowSizeVisualBoom = 10;
         Random random = new Random();
         void UpdateDesign()
         {
             //--------------------//-------------------- 1
-            ctrl_LST.Items.Clear();
-            var soundsDir = Directory.EnumerateFiles(".\\sounds\\");
-
-            foreach (var file in soundsDir)
+            if (ctrl_LST.Items.Count == 0)
             {
-                if (Path.GetExtension(file).ToLower() == ".lst")
-                    ctrl_LST.Items.Add(file);
+                var soundsDir = Directory.EnumerateFiles(".\\sounds\\");
+
+                foreach (var file in soundsDir)
+                {
+                    if (Path.GetExtension(file).ToLower() == ".lst")
+                        ctrl_LST.Items.Add(file);
+                }
             }
             //--------------------//-------------------- 2
             Int32 val = 0;
@@ -56,8 +58,8 @@ namespace My_BoomSosed_NET
             ctrlVisualBoom.RowCount = 0;
             ctrlVisualBoom.ColumnCount = 0;
 
-            ctrlVisualBoom.RowCount = rowSizeVisualBoom;
-            ctrlVisualBoom.ColumnCount = colSizeVisualBoom;
+            ctrlVisualBoom.RowCount = MaxRowSizeVisualBoom;
+            ctrlVisualBoom.ColumnCount = MaxColSizeVisualBoom;
             ctrlVisualBoom.Dock = DockStyle.Fill;
             ctrlVisualBoom.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
 
@@ -76,9 +78,9 @@ namespace My_BoomSosed_NET
             }
             double fillRatio = (double)val / 100;
             AddLog($"Start filling.");
-            for (int row = 0; row < rowSizeVisualBoom; row++)
+            for (int row = 0; row < MaxRowSizeVisualBoom; row++)
             {
-                for (int col = 0; col < colSizeVisualBoom; col++)
+                for (int col = 0; col < MaxColSizeVisualBoom; col++)
                 {
                     Panel panel = new Panel
                     {
@@ -88,70 +90,78 @@ namespace My_BoomSosed_NET
                     if (random.NextDouble() < fillRatio)
                     {
                         panel.BackColor = Color.Green;
-                        panel.Text = "*";
                         Label label = new Label
                         {
                             Text = "*!*",
                         };
                         panel.Controls.Add(label);
                     }
-
-                    AddLog($"panel Controls.Add {row} {col}");
                     ctrlVisualBoom.Controls.Add(panel, col, row);
                 }
             }
             groupBoxVisualBoom.Controls.Add(ctrlVisualBoom);
             ctrlVisualBoom.Visible = true;
         }
-        
         void PlayRandomSoundFromList()
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-
             var selected = ctrl_LST.SelectedItem;
             if (selected is String && selected != null)
             {
                 var lines = File.ReadAllLines((string)selected, Encoding.GetEncoding(1251));
                 int fileSelectedNum = random.Next(lines.Count());
-
                 PlayMp3(".\\sounds\\"+lines[fileSelectedNum]);
             }
         }
         public void PlayMp3(string filePath)
         {
-            try
+            AddLog($"Boom! {filePath}");
+            var audioFilePath = Path.GetDirectoryName(Application.ExecutablePath) + filePath;
+            using (var audioFile = new AudioFileReader(audioFilePath))
+            using (var outputDevice = new WaveOutEvent())
             {
-                AddLog(filePath);
-                var audioFilePath = Path.GetDirectoryName(Application.ExecutablePath) + filePath;
-                using (var audioFile = new AudioFileReader(audioFilePath))
-                using (var outputDevice = new WaveOutEvent())
+                outputDevice.Init(audioFile);
+                outputDevice.PlaybackStopped += (sender, e) =>
                 {
-                    outputDevice.Init(audioFile);
-                    outputDevice.Play();
+                    AddLog("Воспроизведение завершено.");
+                };
+                outputDevice.Play();
+                while (outputDevice.PlaybackState == PlaybackState.Playing)
+                {
+                    System.Threading.Thread.Sleep(100);
                 }
-            } catch (Exception ex)  
-            { }
+            }
         }
+        int curRowSizeVisualBoom;
+        int curColSizeVisualBoom;
         void StartBoom()
         {
-
-            for (int row = 0; row < rowSizeVisualBoom; row++)
+            if (curColSizeVisualBoom < MaxColSizeVisualBoom)
+                curColSizeVisualBoom++;
+            if (curColSizeVisualBoom >= MaxColSizeVisualBoom)
             {
-                for (int col = 0; col < colSizeVisualBoom; col++)
+                curColSizeVisualBoom = 0;
+                curRowSizeVisualBoom++;
+            }
+            if (curRowSizeVisualBoom >= MaxRowSizeVisualBoom)
+            {
+                curColSizeVisualBoom = -1;
+                curRowSizeVisualBoom = 0;
+                FillVisualBoomGrid();
+                return;
+            }
+            var panel = (Panel?)ctrlVisualBoom.GetControlFromPosition(curColSizeVisualBoom, curRowSizeVisualBoom);
+            panel.BackColor = Color.Yellow;
+
+            if (panel != null && panel.Controls.Count > 0)
+            {
+                var isThislabel = panel.Controls[0];
+                if (isThislabel is Label)
                 {
-                    var panel = (Panel?)ctrlVisualBoom.GetControlFromPosition(col, row);
-                    if(panel != null && panel.BackColor != Color.White)
+                    var label = (Label)isThislabel;
+                    if (label != null && label.Text == "*!*")
                     {
-                        var isThislabel = panel.Controls[0];
-                        if (isThislabel is Label)
-                        {
-                            var label = (Label)isThislabel;
-                            if (label != null && label.Text == "*!*")
-                            {
-                                PlayRandomSoundFromList();
-                                AddLog("Boom!");
-                            }
-                        }
+                        PlayRandomSoundFromList();
                     }
                 }
             }

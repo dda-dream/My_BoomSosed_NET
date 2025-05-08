@@ -12,6 +12,9 @@ namespace My_BoomSosed_NET
         {
             if (!timer_boom.Enabled)
             {
+                UpdateDesign();
+                curRowSizeVisualBoom = 0;
+                curColSizeVisualBoom = -1;
                 Int32 val = 0;
                 Int32.TryParse(ctrl_Speed.Text, null, out val);
                 timer_boom.Interval = val*1000;
