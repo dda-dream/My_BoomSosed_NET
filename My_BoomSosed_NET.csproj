@@ -13,6 +13,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="NAudio" Version="2.2.1" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="sounds\Boom.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -1,12 +1,14 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.Devices;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
+using NAudio.Wave;
 
-namespace My_BoomSosed_NET // ###1
+namespace My_BoomSosed_NET
 {
     public partial class BoomSosed_MainForm : Form
     {
@@ -32,7 +34,7 @@ namespace My_BoomSosed_NET // ###1
                 ctrl_Speed.Text = "5";
                 val = 5;
             }
-            label_Speed.Text = String.Format("1 шаг за {0} секунд.", ctrl_Speed.Text);
+            label_Speed.Text = $"1 шаг за {ctrl_Speed.Text} секунд.";
             //--------------------//-------------------- 3
             FillVisualBoomGrid();
             //--------------------//-------------------- 4 
@@ -101,6 +103,35 @@ namespace My_BoomSosed_NET // ###1
             groupBoxVisualBoom.Controls.Add(ctrlVisualBoom);
             ctrlVisualBoom.Visible = true;
         }
+        
+        void PlayRandomSoundFromList()
+        {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+            var selected = ctrl_LST.SelectedItem;
+            if (selected is String && selected != null)
+            {
+                var lines = File.ReadAllLines((string)selected, Encoding.GetEncoding(1251));
+                int fileSelectedNum = random.Next(lines.Count());
+
+                PlayMp3(".\\sounds\\"+lines[fileSelectedNum]);
+            }
+        }
+        public void PlayMp3(string filePath)
+        {
+            try
+            {
+                AddLog(filePath);
+                var audioFilePath = Path.GetDirectoryName(Application.ExecutablePath) + filePath;
+                using (var audioFile = new AudioFileReader(audioFilePath))
+                using (var outputDevice = new WaveOutEvent())
+                {
+                    outputDevice.Init(audioFile);
+                    outputDevice.Play();
+                }
+            } catch (Exception ex)  
+            { }
+        }
         void StartBoom()
         {
 
@@ -117,7 +148,8 @@ namespace My_BoomSosed_NET // ###1
                             var label = (Label)isThislabel;
                             if (label != null && label.Text == "*!*")
                             {
-                                //PlayRandomSoundFromList();
+                                PlayRandomSoundFromList();
+                                AddLog("Boom!");
                             }
                         }
                     }

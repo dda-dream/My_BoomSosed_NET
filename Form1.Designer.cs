@@ -29,6 +29,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             ctrl_LST = new ListBox();
             btnStart = new Button();
             ctrl_Speed = new TextBox();
@@ -39,6 +40,7 @@
             ctrl_FillRatio = new TextBox();
             ctrlLog = new RichTextBox();
             btnRecalcParams = new Button();
+            timer_boom = new System.Windows.Forms.Timer(components);
             groupBoxVisualBoom.SuspendLayout();
             SuspendLayout();
             // 
@@ -165,12 +167,12 @@
         private Button btnStart;
         private TextBox ctrl_Speed;
         private Label label_Speed;
-        private PictureBox pictureBox1;
         private TableLayoutPanel ctrlVisualBoom;
         private GroupBox groupBoxVisualBoom;
         private Label label1;
         private TextBox ctrl_FillRatio;
         private RichTextBox ctrlLog;
         private Button btnRecalcParams;
+        private System.Windows.Forms.Timer timer_boom;
     }
 }
