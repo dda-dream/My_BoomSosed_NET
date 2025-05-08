@@ -60,8 +60,8 @@ jobs:
 
       Solution_Name: My_BoomSosed_NET.sln                         # Replace with your solution name, i.e. MyWpfApp.sln.
       Test_Project_Path: your-test-project-path                 # Replace with the path to your test project, i.e. MyWpfApp.Tests\MyWpfApp.Tests.csproj.
-      Wap_Project_Directory: My_BoomSosed_NET.Package    # Replace with the Wap project directory relative to the solution, i.e. MyWpfApp.Package.
-      Wap_Project_Path: My_BoomSosed_NET.Package\My_BoomSosed_NET.Package.wapproj # Replace with the path to your Wap project, i.e. MyWpf.App.Package\MyWpfApp.Package.wapproj.
+      Wap_Project_Directory: My_BoomSosed_NET.WAPP    # Replace with the Wap project directory relative to the solution, i.e. MyWpfApp.Package.
+      Wap_Project_Path: My_BoomSosed_NET.WAPP\My_BoomSosed_NET.Package.wapproj # Replace with the path to your Wap project, i.e. MyWpf.App.Package\MyWpfApp.Package.wapproj.
     steps:
     - name: Checkout
       uses: actions/checkout@v4
