@@ -7,7 +7,7 @@ namespace My_BoomSosed_NET
         public BoomSosed_MainForm()
         {
             InitializeComponent();
-
+            AddLog("ver 08-05-2025");
             UpdateDesign();
         }
         private void btnStart_Click(object sender, EventArgs e)
@@ -23,12 +23,12 @@ namespace My_BoomSosed_NET
                 timer_boom.Start();
                 timer_boom.Tick += Timer_boom_Tick;
                 timer_boom.Enabled = true;
-                AddLog("Timer start.");
+                AddLog("Timer started.");
             }
             else
             {
                 timer_boom.Enabled = false;
-                AddLog("Timer end.");
+                AddLog("Timer stopped.");
             }
         }
 
@@ -63,7 +63,6 @@ namespace My_BoomSosed_NET
             var selected = ctrl_FilesInLST.SelectedItem;
             if (selected is String && selected != null)
             {
-                AddLog("//PlayFile();");
                 PlayMp3(".\\sounds\\" + selected);
             }
         }

@@ -62,7 +62,7 @@
             btnStart.Name = "btnStart";
             btnStart.Size = new Size(81, 23);
             btnStart.TabIndex = 2;
-            btnStart.Text = "Start BOOM";
+            btnStart.Text = "Start/Stop";
             btnStart.UseVisualStyleBackColor = true;
             btnStart.Click += btnStart_Click;
             // 
@@ -128,7 +128,7 @@
             // 
             ctrlLog.Location = new Point(419, 77);
             ctrlLog.Name = "ctrlLog";
-            ctrlLog.Size = new Size(471, 329);
+            ctrlLog.Size = new Size(310, 160);
             ctrlLog.TabIndex = 9;
             ctrlLog.Text = "";
             // 
@@ -146,16 +146,16 @@
             // 
             ctrl_FilesInLST.FormattingEnabled = true;
             ctrl_FilesInLST.ItemHeight = 15;
-            ctrl_FilesInLST.Location = new Point(12, 441);
+            ctrl_FilesInLST.Location = new Point(418, 296);
             ctrl_FilesInLST.Name = "ctrl_FilesInLST";
-            ctrl_FilesInLST.Size = new Size(294, 109);
+            ctrl_FilesInLST.Size = new Size(311, 109);
             ctrl_FilesInLST.TabIndex = 11;
             ctrl_FilesInLST.SelectedIndexChanged += ctrl_FilesInLST_SelectedIndexChanged;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(12, 423);
+            label2.Location = new Point(418, 278);
             label2.Name = "label2";
             label2.Size = new Size(285, 15);
             label2.TabIndex = 12;
@@ -165,7 +165,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(902, 675);
+            ClientSize = new Size(738, 417);
             Controls.Add(label2);
             Controls.Add(ctrl_FilesInLST);
             Controls.Add(btnRecalcParams);

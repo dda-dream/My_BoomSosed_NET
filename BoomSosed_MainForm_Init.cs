@@ -15,6 +15,7 @@ namespace My_BoomSosed_NET
         int MaxColSizeVisualBoom = 10;
         int MaxRowSizeVisualBoom = 10;
         Random random = new Random();
+        
         void UpdateDesign()
         {
             //--------------------//-------------------- 1
@@ -49,6 +50,49 @@ namespace My_BoomSosed_NET
             ctrlLog.ScrollToCaret();
             ctrlLog.Update();
         }
+        public int[,] FillArrayWithRandomValues(int fillPercentage = 10, int rows = 10, int columns = 10)
+        {
+        // Проверка входных параметров
+        if (fillPercentage < 0 || fillPercentage > 100)
+            throw new ArgumentException("Коэффициент заполнения должен быть в диапазоне от 0 до 100.");
+        if (rows <= 0 || columns <= 0)
+            throw new ArgumentException("Размер массива должен быть положительным числом.");
+
+        int[,] array = new int[rows, columns];
+        Random random = new Random();
+
+        // Общее количество элементов в массиве
+        int totalElements = rows * columns;
+
+        // Количество единиц, которые нужно разместить
+        int onesCount = (int)(totalElements * fillPercentage / 100.0);
+
+        // Создаем список индексов для случайного размещения единиц
+        var indices = new System.Collections.Generic.List<(int row, int col)>();
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                indices.Add((i, j));
+            }
+        }
+
+        // Перемешиваем индексы
+        for (int i = indices.Count - 1; i > 0; i--)
+        {
+            int j = random.Next(i + 1);
+            (indices[i], indices[j]) = (indices[j], indices[i]);
+        }
+
+        // Размещаем единицы
+        for (int i = 0; i < onesCount; i++)
+        {
+            var (row, col) = indices[i];
+            array[row, col] = 1;
+        }
+
+        return array;
+    }
         private void FillVisualBoomGrid()
         {
             ctrlVisualBoom.Visible = false;
@@ -76,8 +120,9 @@ namespace My_BoomSosed_NET
                 ctrl_FillRatio.Text = "10";
                 val = 10;
             }
-            double fillRatio = (double)val / 100;
-            AddLog($"Start filling.");
+
+            int[,] arr = FillArrayWithRandomValues(val, MaxRowSizeVisualBoom, MaxColSizeVisualBoom);
+
             for (int row = 0; row < MaxRowSizeVisualBoom; row++)
             {
                 for (int col = 0; col < MaxColSizeVisualBoom; col++)
@@ -87,7 +132,7 @@ namespace My_BoomSosed_NET
                         Dock = DockStyle.Fill,
                         BackColor = Color.White 
                     };
-                    if (random.NextDouble() < fillRatio)
+                    if (arr[row, col] == 1)
                     {
                         panel.BackColor = Color.Green;
                         Label label = new Label
