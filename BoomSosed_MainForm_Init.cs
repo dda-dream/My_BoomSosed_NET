@@ -42,7 +42,7 @@ namespace My_BoomSosed_NET
             FillVisualBoomGrid();
             //--------------------//-------------------- 4 
         }
-        private void AddLog(string s)
+        public void AddLog(string s)
         {
             ctrlLog.Text += $"{DateTime.Now.ToLongTimeString()} : {s}\n";
             ctrlLog.SelectionStart = ctrlLog.Text.Length;
@@ -93,7 +93,7 @@ namespace My_BoomSosed_NET
 
         return array;
     }
-        private void FillVisualBoomGrid()
+        public void FillVisualBoomGrid()
         {
             ctrlVisualBoom.Visible = false;
             ctrlVisualBoom.ColumnStyles.Clear();
@@ -147,7 +147,7 @@ namespace My_BoomSosed_NET
             groupBoxVisualBoom.Controls.Add(ctrlVisualBoom);
             ctrlVisualBoom.Visible = true;
         }
-        void PlayRandomSoundFromList()
+        public void PlayRandomSoundFromList()
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             var selected = ctrl_LST.SelectedItem;
@@ -179,7 +179,7 @@ namespace My_BoomSosed_NET
         }
         int curRowSizeVisualBoom;
         int curColSizeVisualBoom;
-        void StartBoom()
+        public void StartBoom()
         {
             if (curColSizeVisualBoom < MaxColSizeVisualBoom)
                 curColSizeVisualBoom++;
