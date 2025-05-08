@@ -41,6 +41,8 @@
             ctrlLog = new RichTextBox();
             btnRecalcParams = new Button();
             timer_boom = new System.Windows.Forms.Timer(components);
+            ctrl_FilesInLST = new ListBox();
+            label2 = new Label();
             groupBoxVisualBoom.SuspendLayout();
             SuspendLayout();
             // 
@@ -52,6 +54,7 @@
             ctrl_LST.Name = "ctrl_LST";
             ctrl_LST.Size = new Size(294, 49);
             ctrl_LST.TabIndex = 1;
+            ctrl_LST.SelectedIndexChanged += ctrl_LST_SelectedIndexChanged;
             // 
             // btnStart
             // 
@@ -139,11 +142,32 @@
             btnRecalcParams.UseVisualStyleBackColor = true;
             btnRecalcParams.Click += btnRecalcParams_Click;
             // 
+            // ctrl_FilesInLST
+            // 
+            ctrl_FilesInLST.FormattingEnabled = true;
+            ctrl_FilesInLST.ItemHeight = 15;
+            ctrl_FilesInLST.Location = new Point(12, 441);
+            ctrl_FilesInLST.Name = "ctrl_FilesInLST";
+            ctrl_FilesInLST.Size = new Size(294, 109);
+            ctrl_FilesInLST.TabIndex = 11;
+            ctrl_FilesInLST.SelectedIndexChanged += ctrl_FilesInLST_SelectedIndexChanged;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(12, 423);
+            label2.Name = "label2";
+            label2.Size = new Size(285, 15);
+            label2.TabIndex = 12;
+            label2.Text = "Файлы в LST. Кликни на файле для проигрывания.";
+            // 
             // BoomSosed_MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(902, 675);
+            Controls.Add(label2);
+            Controls.Add(ctrl_FilesInLST);
             Controls.Add(btnRecalcParams);
             Controls.Add(ctrlLog);
             Controls.Add(label1);
@@ -173,5 +197,7 @@
         private RichTextBox ctrlLog;
         private Button btnRecalcParams;
         private System.Windows.Forms.Timer timer_boom;
+        private ListBox ctrl_FilesInLST;
+        private Label label2;
     }
 }
