@@ -10,6 +10,7 @@ namespace My_BoomSosed_NET
             AddLog("ver 08-05-2025");
             UpdateDesign();
         }
+        bool firstTimeTimer = true;
         private void btnStart_Click(object sender, EventArgs e)
         {
             if (!timer_boom.Enabled)
@@ -21,7 +22,11 @@ namespace My_BoomSosed_NET
                 Int32.TryParse(ctrl_Speed.Text, null, out val);
                 timer_boom.Interval = val * 1000;
                 timer_boom.Start();
-                timer_boom.Tick += Timer_boom_Tick;
+                if (firstTimeTimer)
+                {
+                    timer_boom.Tick += Timer_boom_Tick;
+                    firstTimeTimer = false;
+                }
                 timer_boom.Enabled = true;
                 AddLog("Timer started.");
             }
