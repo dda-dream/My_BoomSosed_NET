@@ -37,6 +37,7 @@
             groupBoxVisualBoom = new GroupBox();
             label1 = new Label();
             ctrl_FillRatio = new TextBox();
+            ctrlLog = new RichTextBox();
             groupBoxVisualBoom.SuspendLayout();
             SuspendLayout();
             // 
@@ -120,11 +121,20 @@
             ctrl_FillRatio.TextAlign = HorizontalAlignment.Center;
             ctrl_FillRatio.TextChanged += ctrl_FillRatio_TextChanged;
             // 
+            // ctrlLog
+            // 
+            ctrlLog.Location = new Point(419, 77);
+            ctrlLog.Name = "ctrlLog";
+            ctrlLog.Size = new Size(471, 329);
+            ctrlLog.TabIndex = 9;
+            ctrlLog.Text = "";
+            // 
             // BoomSosed_MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(902, 675);
+            Controls.Add(ctrlLog);
             Controls.Add(label1);
             Controls.Add(ctrl_FillRatio);
             Controls.Add(groupBoxVisualBoom);
@@ -150,5 +160,6 @@
         private GroupBox groupBoxVisualBoom;
         private Label label1;
         private TextBox ctrl_FillRatio;
+        private RichTextBox ctrlLog;
     }
 }
