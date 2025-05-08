@@ -60,7 +60,7 @@ jobs:
       Solution_Name: My_BoomSosed_NET.sln                         # Replace with your solution name, i.e. MyWpfApp.sln.
 #      Test_Project_Path: your-test-project-path                 # Replace with the path to your test project, i.e. MyWpfApp.Tests\MyWpfApp.Tests.csproj.
       Wap_Project_Directory: My_BoomSosed_NET.Package    # Replace with the Wap project directory relative to the solution, i.e. MyWpfApp.Package.
-      Wap_Project_Path: My_BoomSosed_NET.Package\My_BoomSosed_NET.Package.wapproj                   # Replace with the path to your Wap project, i.e. MyWpf.App.Package\MyWpfApp.Package.wapproj.
+      Wap_Project_Path: My_BoomSosed_NET\My_BoomSosed_NET.Package.wapproj                   # Replace with the path to your Wap project, i.e. MyWpf.App.Package\MyWpfApp.Package.wapproj.
 
     steps:
     - name: Checkout
@@ -92,15 +92,16 @@ jobs:
     - name: Decode the pfx
       run: |
         $pfx_cert_byte = [System.Convert]::FromBase64String("${{ secrets.Base64_Encoded_Pfx }}")
-        $certificatePath = "D:\a\My_BoomSosed_NET\GitHubActionsWorkflow.pfx"
+        $certificatePath = "D:\a\My_BoomSosed_NET\My_BoomSosed_NET\GitHubActionsWorkflow.pfx"
         New-Item -ItemType Directory -Path (Split-Path $certificatePath -Parent) -Force
 
         [IO.File]::WriteAllBytes("$certificatePath", $pfx_cert_byte)
 #        $certificatePath = Join-Path -Path $env:Wap_Project_Directory -ChildPath GitHubActionsWorkflow.pfx
 
-    # Create the app package by building and packaging the Windows Application Packaging project
     - name: List files (debug)
       run: ls -R
+      
+    # Create the app package by building and packaging the Windows Application Packaging project
     - name: Create the app package
       run: msbuild $env:Wap_Project_Path 
         /p:Configuration=$env:Configuration 
