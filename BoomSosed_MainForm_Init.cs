@@ -42,16 +42,6 @@ namespace My_BoomSosed_NET
             FillVisualBoomGrid();
             //--------------------//-------------------- 4 
         }
-        /*
-        public void AddLog(string s)
-        {
-            ctrlLog.Text += $"{DateTime.Now.ToLongTimeString()} : {s}\n";
-            ctrlLog.SelectionStart = ctrlLog.Text.Length;
-            ctrlLog.SelectionLength = 0;
-            ctrlLog.ScrollToCaret();
-            ctrlLog.Update();
-        }
-        */
         public int[,] FillArrayWithRandomValues(int fillPercentage = 10, int rows = 10, int columns = 10)
         {
         // Проверка входных параметров
