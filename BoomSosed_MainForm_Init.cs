@@ -42,6 +42,7 @@ namespace My_BoomSosed_NET
             FillVisualBoomGrid();
             //--------------------//-------------------- 4 
         }
+        /*
         public void AddLog(string s)
         {
             ctrlLog.Text += $"{DateTime.Now.ToLongTimeString()} : {s}\n";
@@ -50,6 +51,7 @@ namespace My_BoomSosed_NET
             ctrlLog.ScrollToCaret();
             ctrlLog.Update();
         }
+        */
         public int[,] FillArrayWithRandomValues(int fillPercentage = 10, int rows = 10, int columns = 10)
         {
         // Проверка входных параметров
@@ -160,7 +162,7 @@ namespace My_BoomSosed_NET
         }
         public void PlayMp3(string filePath)
         {
-            AddLog($"Boom! {filePath}");
+            logger.AddLog($"Boom! {filePath}");
             var audioFilePath = Path.GetDirectoryName(Application.ExecutablePath) + filePath;
             using (var audioFile = new AudioFileReader(audioFilePath))
             using (var outputDevice = new WaveOutEvent())
@@ -168,7 +170,7 @@ namespace My_BoomSosed_NET
                 outputDevice.Init(audioFile);
                 outputDevice.PlaybackStopped += (sender, e) =>
                 {
-                    AddLog("Воспроизведение завершено.");
+                    logger.AddLog("Воспроизведение завершено.");
                 };
                 outputDevice.Play();
                 while (outputDevice.PlaybackState == PlaybackState.Playing)
@@ -210,6 +212,18 @@ namespace My_BoomSosed_NET
                     }
                 }
             }
+        }
+        bool ValidBeforeStartTimer()
+        {
+            bool retVal = true;
+
+            var selected = ctrl_LST.SelectedItem;
+            if (selected == null)
+            {
+                logger.AddLog("Choose PlayList!");
+                retVal = false;
+            }
+            return retVal;
         }
     }
 }

@@ -4,17 +4,25 @@ namespace My_BoomSosed_NET
 {
     public partial class BoomSosed_MainForm : Form
     {
+        Logger logger;
         public BoomSosed_MainForm()
         {
             InitializeComponent();
-            AddLog("ver 08-05-2025");
+            logger = new Logger(ctrlLog);
+            logger.AddLog("ver 08-05-2025");            
             UpdateDesign();
+
         }
         bool firstTimeTimer = true;
         private void btnStart_Click(object sender, EventArgs e)
         {
             if (!timer_boom.Enabled)
             {
+                if (!ValidBeforeStartTimer())
+                {
+                    logger.AddLog("Timer is NOT started.");
+                    return;
+                }
                 UpdateDesign();
                 curRowSizeVisualBoom = 0;
                 curColSizeVisualBoom = -1;
@@ -28,12 +36,12 @@ namespace My_BoomSosed_NET
                     firstTimeTimer = false;
                 }
                 timer_boom.Enabled = true;
-                AddLog("Timer started.");
+                logger.AddLog("Timer started.");
             }
             else
             {
                 timer_boom.Enabled = false;
-                AddLog("Timer stopped.");
+                logger.AddLog("Timer stopped.");
             }
         }
 
