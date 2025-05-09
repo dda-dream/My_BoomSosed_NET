@@ -9,7 +9,7 @@ namespace My_BoomSosed_NET
         {
             InitializeComponent();
             logger = new Logger(ctrlLog);
-            logger.AddLog("ver 08-05-2025");            
+            logger.AddLog("ver 08-05-2025 v0.1");            
             UpdateDesign();
 
         }
