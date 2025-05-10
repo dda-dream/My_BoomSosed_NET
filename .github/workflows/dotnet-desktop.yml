@@ -51,8 +51,8 @@ jobs:
     - name: Create Release 1
       uses: softprops/action-gh-release@v1
       with:
-        name: myReleaseName
-        tag_name: REL ${{ github.ref_name }}
+        name: myReleaseName_ ${{ github.ref_name }}
+        tag_name: ${{ github.ref_name }}
         files: |
           *.zip
         draft: false
