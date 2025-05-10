@@ -38,25 +38,37 @@ jobs:
       env:
         Configuration: ${{ matrix.configuration }}
 
+###################################################################################################
+
     - name: PUBLISH
       run: dotnet publish --self-contained true /p:PublishSingleFile=true
 
     - name: Zip publish folder
       run: |
         dir
-        # Создаем ZIP-архив из содержимого папки publish
         $releaseName = "MyApp-${{ github.ref_name }}"
         Compress-Archive -Path ./bin/Release/net8.0-windows/win-x64/publish/* -DestinationPath ./$releaseName.zip -Force
         echo "ZIP_PATH=./$releaseName.zip" >> $env:GITHUB_ENV
-###################################################################################################
+
        
-    - name: Create Release MY
-      uses: softprops/action-gh-release@v1
-      with:
-          tag_name: "v1.0"
-          name: Release =My v1.0=
-          generate_release_notes: true
-          draft: false
-          prerelease: false
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref_name }}
+        release_name: Release ${{ github.ref_name }}
+        draft: false
+        prerelease: false
+
+    - name: Upload Release Asset
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ${{ env.ZIP_PATH }}
+        asset_name: ${{ env.ZIP_PATH.split('/')[-1] }}
+        asset_content_type: application/zip
