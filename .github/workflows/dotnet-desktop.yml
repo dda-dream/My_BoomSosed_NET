@@ -65,7 +65,6 @@ jobs:
         release_name: Release ${{ env.TAG_NAME }}
         draft: false
         prerelease: false
-        body: "Automated release with artifact"
         generate_release_notes: false
 
     - name: Upload Release Asset
