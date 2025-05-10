@@ -76,15 +76,6 @@ jobs:
 
 
 ###################################################################################################
-    - name: Create Git Tag
-      id: tag
-      run: |
-        $date = Get-Date -Format "yyyy.MM.dd"
-        $tagName = "v$date"
-        echo "TAG_NAME=$tagName" >> $env:GITHUB_OUTPUT
-        git tag $tagName
-        git push origin $tagName
-
     - name: Build artifacts MY
       run: |
         # Здесь команды для сборки вашего проекта
@@ -94,7 +85,7 @@ jobs:
     - name: Create Release MY
       uses: softprops/action-gh-release@v1
       with:
-          tag_name: ${{ steps.tag.outputs.TAG_NAME }}
+          tag_name: "v1.0"
           name: Release ${{ steps.tag.outputs.TAG_NAME }}
           generate_release_notes: true
           draft: false
