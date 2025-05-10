@@ -38,6 +38,8 @@ jobs:
       env:
         Configuration: ${{ matrix.configuration }}
 
+    - name: PUBLISH
+      run: dotnet publish --self-contained true /p:PublishSingleFile=true
 
 ###################################################################################################
        
