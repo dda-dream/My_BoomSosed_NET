@@ -175,7 +175,8 @@ namespace My_BoomSosed_NET
                 return;
             }
             var panel = (Panel?)ctrlVisualBoom.GetControlFromPosition(curColSizeVisualBoom, curRowSizeVisualBoom);
-            panel.BackColor = Color.Yellow;
+            if(panel is Panel)
+                panel.BackColor = Color.Yellow;
 
             if (panel != null && panel.Controls.Count > 0)
             {
