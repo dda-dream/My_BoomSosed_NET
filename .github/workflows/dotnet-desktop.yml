@@ -72,3 +72,25 @@ jobs:
         asset_path: ${{ env.ZIP_PATH }}
         asset_name: ${{ env.ZIP_PATH }}
         asset_content_type: application/zip
+
+###################################
+
+    - name: Publish application
+      run: dotnet publish -c Release -o publish --nologo
+
+    - name: Create ZIP archive
+      run: |
+        $version = $env:GITHUB_REF -replace "refs/tags/v", ""
+        Compress-Archive -Path publish/* -DestinationPath "MyApp-v$version.zip" -Force
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          MyApp*.zip
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+        
