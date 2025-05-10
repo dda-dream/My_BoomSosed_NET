@@ -152,7 +152,7 @@ namespace My_BoomSosed_NET
         }
         public void PlayMp3(string filePath)
         {
-            logger.AddLog($"Boom! {filePath}");
+            logger.Add($"Boom! {filePath}");
             var audioFilePath = Path.GetDirectoryName(Application.ExecutablePath) + filePath;
             using (var audioFile = new AudioFileReader(audioFilePath))
             using (var outputDevice = new WaveOutEvent())
@@ -160,7 +160,7 @@ namespace My_BoomSosed_NET
                 outputDevice.Init(audioFile);
                 outputDevice.PlaybackStopped += (sender, e) =>
                 {
-                    logger.AddLog("Воспроизведение завершено.");
+                    logger.Add("Воспроизведение завершено.");
                 };
                 outputDevice.Play();
                 while (outputDevice.PlaybackState == PlaybackState.Playing)
@@ -210,7 +210,7 @@ namespace My_BoomSosed_NET
             var selected = ctrl_LST.SelectedItem;
             if (selected == null)
             {
-                logger.AddLog("Choose PlayList!");
+                logger.Add("Choose PlayList!");
                 retVal = false;
             }
             return retVal;

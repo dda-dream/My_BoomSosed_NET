@@ -9,7 +9,7 @@ namespace My_BoomSosed_NET
         {
             InitializeComponent();
             logger = new Logger(ctrlLog);
-            logger.AddLog("ver 08-05-2025 v0.1");            
+            logger.Add("ver 08-05-2025 v0.1");            
             UpdateDesign();
 
         }
@@ -20,7 +20,7 @@ namespace My_BoomSosed_NET
             {
                 if (!ValidBeforeStartTimer())
                 {
-                    logger.AddLog("Timer is NOT started.");
+                    logger.Add("Timer is NOT started.");
                     return;
                 }
                 UpdateDesign();
@@ -36,12 +36,12 @@ namespace My_BoomSosed_NET
                     firstTimeTimer = false;
                 }
                 timer_boom.Enabled = true;
-                logger.AddLog("Timer started.");
+                logger.Add("Timer started.");
             }
             else
             {
                 timer_boom.Enabled = false;
-                logger.AddLog("Timer stopped.");
+                logger.Add("Timer stopped.");
             }
         }
 

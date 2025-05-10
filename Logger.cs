@@ -8,13 +8,17 @@
         {
             this.loggerControl = loggerControl;
         }
-        public void AddLog(string s)
+        public void Add(string s)
         {
             loggerControl.Text += $"{DateTime.Now.ToLongTimeString()} : {s}\n";
             loggerControl.SelectionStart = loggerControl.Text.Length;
             loggerControl.SelectionLength = 0;
             loggerControl.ScrollToCaret();
             loggerControl.Update();
+        }
+        public void Clear()
+        {
+            loggerControl.Text = "";
         }
     }
 }
