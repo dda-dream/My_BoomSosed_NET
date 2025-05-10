@@ -43,6 +43,7 @@
             timer_boom = new System.Windows.Forms.Timer(components);
             ctrl_FilesInLST = new ListBox();
             label2 = new Label();
+            ctrl_RecalcVisualBoom = new CheckBox();
             groupBoxVisualBoom.SuspendLayout();
             SuspendLayout();
             // 
@@ -50,7 +51,7 @@
             // 
             ctrl_LST.FormattingEnabled = true;
             ctrl_LST.ItemHeight = 15;
-            ctrl_LST.Location = new Point(12, 12);
+            ctrl_LST.Location = new Point(12, 2);
             ctrl_LST.Name = "ctrl_LST";
             ctrl_LST.Size = new Size(294, 49);
             ctrl_LST.TabIndex = 1;
@@ -58,7 +59,7 @@
             // 
             // btnStart
             // 
-            btnStart.Location = new Point(648, 38);
+            btnStart.Location = new Point(648, 21);
             btnStart.Name = "btnStart";
             btnStart.Size = new Size(81, 23);
             btnStart.TabIndex = 2;
@@ -68,7 +69,7 @@
             // 
             // ctrl_Speed
             // 
-            ctrl_Speed.Location = new Point(312, 38);
+            ctrl_Speed.Location = new Point(312, 21);
             ctrl_Speed.Name = "ctrl_Speed";
             ctrl_Speed.Size = new Size(100, 23);
             ctrl_Speed.TabIndex = 3;
@@ -78,7 +79,7 @@
             // label_Speed
             // 
             label_Speed.AutoSize = true;
-            label_Speed.Location = new Point(312, 20);
+            label_Speed.Location = new Point(312, 3);
             label_Speed.Name = "label_Speed";
             label_Speed.Size = new Size(101, 15);
             label_Speed.TabIndex = 4;
@@ -109,7 +110,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(419, 20);
+            label1.Location = new Point(419, 3);
             label1.Name = "label1";
             label1.Size = new Size(125, 15);
             label1.TabIndex = 8;
@@ -117,7 +118,7 @@
             // 
             // ctrl_FillRatio
             // 
-            ctrl_FillRatio.Location = new Point(419, 38);
+            ctrl_FillRatio.Location = new Point(419, 21);
             ctrl_FillRatio.Name = "ctrl_FillRatio";
             ctrl_FillRatio.Size = new Size(125, 23);
             ctrl_FillRatio.TabIndex = 7;
@@ -126,15 +127,15 @@
             // 
             // ctrlLog
             // 
-            ctrlLog.Location = new Point(419, 77);
+            ctrlLog.Location = new Point(418, 77);
             ctrlLog.Name = "ctrlLog";
-            ctrlLog.Size = new Size(310, 160);
+            ctrlLog.Size = new Size(310, 228);
             ctrlLog.TabIndex = 9;
             ctrlLog.Text = "";
             // 
             // btnRecalcParams
             // 
-            btnRecalcParams.Location = new Point(550, 38);
+            btnRecalcParams.Location = new Point(550, 21);
             btnRecalcParams.Name = "btnRecalcParams";
             btnRecalcParams.Size = new Size(92, 23);
             btnRecalcParams.TabIndex = 10;
@@ -146,26 +147,37 @@
             // 
             ctrl_FilesInLST.FormattingEnabled = true;
             ctrl_FilesInLST.ItemHeight = 15;
-            ctrl_FilesInLST.Location = new Point(418, 296);
+            ctrl_FilesInLST.Location = new Point(418, 326);
             ctrl_FilesInLST.Name = "ctrl_FilesInLST";
-            ctrl_FilesInLST.Size = new Size(311, 109);
+            ctrl_FilesInLST.Size = new Size(311, 79);
             ctrl_FilesInLST.TabIndex = 11;
             ctrl_FilesInLST.SelectedIndexChanged += ctrl_FilesInLST_SelectedIndexChanged;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(418, 278);
+            label2.Location = new Point(419, 308);
             label2.Name = "label2";
             label2.Size = new Size(285, 15);
             label2.TabIndex = 12;
             label2.Text = "Файлы в LST. Кликни на файле для проигрывания.";
+            // 
+            // ctrl_RecalcVisualBoom
+            // 
+            ctrl_RecalcVisualBoom.AutoSize = true;
+            ctrl_RecalcVisualBoom.Location = new Point(419, 51);
+            ctrl_RecalcVisualBoom.Name = "ctrl_RecalcVisualBoom";
+            ctrl_RecalcVisualBoom.Size = new Size(294, 19);
+            ctrl_RecalcVisualBoom.TabIndex = 13;
+            ctrl_RecalcVisualBoom.Text = "Построение BOOM плана снова, после прохода.";
+            ctrl_RecalcVisualBoom.UseVisualStyleBackColor = true;
             // 
             // BoomSosed_MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(738, 417);
+            Controls.Add(ctrl_RecalcVisualBoom);
             Controls.Add(label2);
             Controls.Add(ctrl_FilesInLST);
             Controls.Add(btnRecalcParams);
@@ -199,5 +211,6 @@
         private System.Windows.Forms.Timer timer_boom;
         private ListBox ctrl_FilesInLST;
         private Label label2;
+        private CheckBox ctrl_RecalcVisualBoom;
     }
 }

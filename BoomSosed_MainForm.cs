@@ -184,7 +184,8 @@ namespace My_BoomSosed_NET
             {
                 curColSizeVisualBoom = -1;
                 curRowSizeVisualBoom = 0;
-                FillVisualBoomGrid();
+                if(ctrl_RecalcVisualBoom.Enabled)
+                    FillVisualBoomGrid();
                 return;
             }
             var panel = (Panel?)ctrlVisualBoom.GetControlFromPosition(curColSizeVisualBoom, curRowSizeVisualBoom);

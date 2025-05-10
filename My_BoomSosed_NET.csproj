@@ -18,32 +18,28 @@
 
   <ItemGroup>
     <PackageReference Include="NAudio" Version="2.2.1" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.4" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="sounds\Boom.mp3">
+    <None Update="sounds\mp3\Boom.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="sounds\FromBoomSosed\Boom_1.mp3">
+    <None Update="sounds\mp3\falling.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="sounds\падение предмета.mp3">
+    <None Update="sounds\BOOM_1.LST">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="sounds\Boom_1.LST">
+    <None Update="sounds\FALLING.LST">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="sounds\ПадениеПредмета.LST">
+    <None Update="sounds\mp3\draggingFloor0.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="sounds\передвигание по полу0.mp3">
+    <None Update="sounds\mp3\draggingFloor1.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="sounds\передвигание по полу1.mp3">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="sounds\ПередвиганиеПоПолу.LST">
+    <None Update="sounds\DRAGGING.LST">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
