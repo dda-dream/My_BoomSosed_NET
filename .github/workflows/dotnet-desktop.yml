@@ -43,7 +43,6 @@ jobs:
 
     - name: Zip publish folder
       run: |
-        cd publish
         # Создаем ZIP-архив из содержимого папки publish
         $releaseName = "MyApp-${{ github.ref_name }}"
         Compress-Archive -Path ./My_BoomSosed_NET/bin/Release/net8.0-windows/win-x64/publish/* -DestinationPath ./$releaseName.zip -Force
