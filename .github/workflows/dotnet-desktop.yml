@@ -48,6 +48,7 @@ jobs:
         $version = $env:GITHUB_REF -replace "refs/tags/v", ""
         Compress-Archive -Path ./publish/* -DestinationPath ./My_BoomSosed_NET_1.zip -Force
 
+      if: false
     - name: Create timestamp tag
       id: tag
       run: |
@@ -55,6 +56,7 @@ jobs:
         echo "TAG_NAME=$date" | Out-File -FilePath $env:GITHUB_ENV -Append
         echo "::set-output name=tag::$date"
 
+      if: false
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -67,6 +69,7 @@ jobs:
         prerelease: false
         generate_release_notes: false
 
+      if: false
     - name: Upload Release Asset
       id: upload_asset
       uses: actions/upload-release-asset@v1
