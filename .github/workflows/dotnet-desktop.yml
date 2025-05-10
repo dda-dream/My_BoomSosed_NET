@@ -46,7 +46,7 @@ jobs:
     - name: Create ZIP archive
       run: |
         $version = $env:GITHUB_REF -replace "refs/tags/v", ""
-        Compress-Archive -Path ./bin/Release/net8.0-windows/win-x64/publish/* -DestinationPath ./My_BoomSosed_NET_1.zip -Force
+        Compress-Archive -Path ./publish/* -DestinationPath ./My_BoomSosed_NET_1.zip -Force
 
     - name: Create Release 1
       uses: softprops/action-gh-release@v1
