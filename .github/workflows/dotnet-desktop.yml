@@ -72,12 +72,7 @@ jobs:
 
 
 ###################################################################################################
-    - name: Build artifacts MY
-      run: |
-        # Здесь команды для сборки вашего проекта
-        mkdir -p dist
-        echo "Built artifact" > dist/example.txt
-        
+       
     - name: Create Release MY
       uses: softprops/action-gh-release@v1
       with:
