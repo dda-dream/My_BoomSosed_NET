@@ -9,7 +9,9 @@ namespace My_BoomSosed_NET
         {
             InitializeComponent();
             logger = new Logger(ctrlLog);
-            logger.Add("ver 08-05-2025 v0.1");            
+            logger.Add("ver 08-05-2025 v0.1");
+            ctrl_Speed.Text = "1";
+            ctrl_FillRatio.Text = "5";
             UpdateDesign();
 
         }
@@ -59,11 +61,10 @@ namespace My_BoomSosed_NET
             if (ctrl_LST.Items.Count != 0)
             {
                 ctrl_FilesInLST.Items.Clear();
-                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
                 var selected = ctrl_LST.SelectedItem;
                 if (selected is String && selected != null)
                 {
-                    var lines = File.ReadAllLines((string)selected, Encoding.GetEncoding(1251));
+                    var lines = File.ReadAllLines((string)selected);
                     foreach (var line in lines)
                     {
                         ctrl_FilesInLST.Items.Add(line);

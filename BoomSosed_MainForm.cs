@@ -44,22 +44,10 @@ namespace My_BoomSosed_NET
         }
         public int[,] FillArrayWithRandomValues(int fillPercentage = 10, int rows = 10, int columns = 10)
         {
-        // Проверка входных параметров
-        if (fillPercentage < 0 || fillPercentage > 100)
-            throw new ArgumentException("Коэффициент заполнения должен быть в диапазоне от 0 до 100.");
-        if (rows <= 0 || columns <= 0)
-            throw new ArgumentException("Размер массива должен быть положительным числом.");
-
         int[,] array = new int[rows, columns];
         Random random = new Random();
 
-        // Общее количество элементов в массиве
-        int totalElements = rows * columns;
-
-        // Количество единиц, которые нужно разместить
-        int onesCount = (int)(totalElements * fillPercentage / 100.0);
-
-        // Создаем список индексов для случайного размещения единиц
+        int onesCount = rows * columns * fillPercentage / 100;
         var indices = new System.Collections.Generic.List<(int row, int col)>();
         for (int i = 0; i < rows; i++)
         {
@@ -69,20 +57,17 @@ namespace My_BoomSosed_NET
             }
         }
 
-        // Перемешиваем индексы
         for (int i = indices.Count - 1; i > 0; i--)
         {
             int j = random.Next(i + 1);
             (indices[i], indices[j]) = (indices[j], indices[i]);
         }
 
-        // Размещаем единицы
         for (int i = 0; i < onesCount; i++)
         {
             var (row, col) = indices[i];
             array[row, col] = 1;
         }
-
         return array;
     }
         public void FillVisualBoomGrid()
@@ -109,7 +94,7 @@ namespace My_BoomSosed_NET
             Int32.TryParse(ctrl_FillRatio.Text, null, out val);
             if (val > 99 || val < 1)
             {
-                ctrl_FillRatio.Text = "10";
+                ctrl_FillRatio.Text = "5";
                 val = 10;
             }
 
@@ -141,11 +126,10 @@ namespace My_BoomSosed_NET
         }
         public void PlayRandomSoundFromList()
         {
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             var selected = ctrl_LST.SelectedItem;
             if (selected is String && selected != null)
             {
-                var lines = File.ReadAllLines((string)selected, Encoding.GetEncoding(1251));
+                var lines = File.ReadAllLines((string)selected);
                 int fileSelectedNum = random.Next(lines.Count());
                 PlayMp3(".\\sounds\\"+lines[fileSelectedNum]);
             }

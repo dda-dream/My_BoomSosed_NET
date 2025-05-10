@@ -51,9 +51,9 @@
             // 
             ctrl_LST.FormattingEnabled = true;
             ctrl_LST.ItemHeight = 15;
-            ctrl_LST.Location = new Point(12, 2);
+            ctrl_LST.Location = new Point(2, 2);
             ctrl_LST.Name = "ctrl_LST";
-            ctrl_LST.Size = new Size(294, 49);
+            ctrl_LST.Size = new Size(306, 49);
             ctrl_LST.TabIndex = 1;
             ctrl_LST.SelectedIndexChanged += ctrl_LST_SelectedIndexChanged;
             // 
@@ -73,7 +73,7 @@
             ctrl_Speed.Name = "ctrl_Speed";
             ctrl_Speed.Size = new Size(100, 23);
             ctrl_Speed.TabIndex = 3;
-            ctrl_Speed.Text = "5";
+            ctrl_Speed.Text = "-";
             ctrl_Speed.TextAlign = HorizontalAlignment.Center;
             // 
             // label_Speed
@@ -100,9 +100,9 @@
             // groupBoxVisualBoom
             // 
             groupBoxVisualBoom.Controls.Add(ctrlVisualBoom);
-            groupBoxVisualBoom.Location = new Point(12, 77);
+            groupBoxVisualBoom.Location = new Point(2, 77);
             groupBoxVisualBoom.Name = "groupBoxVisualBoom";
-            groupBoxVisualBoom.Size = new Size(400, 329);
+            groupBoxVisualBoom.Size = new Size(410, 337);
             groupBoxVisualBoom.TabIndex = 6;
             groupBoxVisualBoom.TabStop = false;
             groupBoxVisualBoom.Text = "Визуальный план BOOM";
@@ -122,14 +122,14 @@
             ctrl_FillRatio.Name = "ctrl_FillRatio";
             ctrl_FillRatio.Size = new Size(125, 23);
             ctrl_FillRatio.TabIndex = 7;
-            ctrl_FillRatio.Text = "10";
+            ctrl_FillRatio.Text = "-";
             ctrl_FillRatio.TextAlign = HorizontalAlignment.Center;
             // 
             // ctrlLog
             // 
-            ctrlLog.Location = new Point(418, 77);
+            ctrlLog.Location = new Point(418, 76);
             ctrlLog.Name = "ctrlLog";
-            ctrlLog.Size = new Size(310, 228);
+            ctrlLog.Size = new Size(318, 228);
             ctrlLog.TabIndex = 9;
             ctrlLog.Text = "";
             // 
@@ -139,7 +139,7 @@
             btnRecalcParams.Name = "btnRecalcParams";
             btnRecalcParams.Size = new Size(92, 23);
             btnRecalcParams.TabIndex = 10;
-            btnRecalcParams.Text = "Recalc params";
+            btnRecalcParams.Text = "Recalc";
             btnRecalcParams.UseVisualStyleBackColor = true;
             btnRecalcParams.Click += btnRecalcParams_Click;
             // 
@@ -147,9 +147,9 @@
             // 
             ctrl_FilesInLST.FormattingEnabled = true;
             ctrl_FilesInLST.ItemHeight = 15;
-            ctrl_FilesInLST.Location = new Point(418, 326);
+            ctrl_FilesInLST.Location = new Point(418, 335);
             ctrl_FilesInLST.Name = "ctrl_FilesInLST";
-            ctrl_FilesInLST.Size = new Size(311, 79);
+            ctrl_FilesInLST.Size = new Size(318, 79);
             ctrl_FilesInLST.TabIndex = 11;
             ctrl_FilesInLST.SelectedIndexChanged += ctrl_FilesInLST_SelectedIndexChanged;
             // 
@@ -167,9 +167,9 @@
             ctrl_RecalcVisualBoom.AutoSize = true;
             ctrl_RecalcVisualBoom.Location = new Point(419, 51);
             ctrl_RecalcVisualBoom.Name = "ctrl_RecalcVisualBoom";
-            ctrl_RecalcVisualBoom.Size = new Size(294, 19);
+            ctrl_RecalcVisualBoom.Size = new Size(271, 19);
             ctrl_RecalcVisualBoom.TabIndex = 13;
-            ctrl_RecalcVisualBoom.Text = "Построение BOOM плана снова, после прохода.";
+            ctrl_RecalcVisualBoom.Text = "Перестроение BOOM плана, после прохода.";
             ctrl_RecalcVisualBoom.UseVisualStyleBackColor = true;
             // 
             // BoomSosed_MainForm
