@@ -48,14 +48,6 @@ jobs:
         $version = $env:GITHUB_REF -replace "refs/tags/v", ""
         Compress-Archive -Path ./publish/* -DestinationPath ./My_BoomSosed_NET_1.zip -Force
 
-    - name: Remove source code
-      run: |
-        # Удаляем все исходные коды (подстройте под вашу структуру проекта)
-        Remove-Item -Recurse -Force *.cpp, *.h, *.cs, *.py, CMakeLists.txt, *.sln, *.vcxproj* -ErrorAction SilentlyContinue
-        Remove-Item -Recurse -Force src\ -ErrorAction SilentlyContinue
-        Remove-Item -Recurse -Force include\ -ErrorAction SilentlyContinue
-        Remove-Item -Recurse -Force .git\ -ErrorAction SilentlyContinue
-
     - name: Create timestamp tag
       id: tag
       run: |
@@ -86,17 +78,5 @@ jobs:
         asset_path: ./My_BoomSosed_NET_1.zip
         asset_name: My_BoomSosed_NET_1.zip
         asset_content_type: application/zip
-
-    - name: Create Release 1
-      uses: softprops/action-gh-release@v1
-      with:
-        name: myReleaseName_ ${{ github.ref_name }}
-        tag_name: ${{ github.ref_name }}
-        files: |
-          *.zip
-        draft: false
-        prerelease: false
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
         
