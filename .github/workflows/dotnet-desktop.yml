@@ -41,6 +41,13 @@ jobs:
     - name: PUBLISH
       run: dotnet publish --self-contained true /p:PublishSingleFile=true
 
+    - name: Zip publish folder
+      run: |
+        cd publish
+        # Создаем ZIP-архив из содержимого папки publish
+        $releaseName = "MyApp-${{ github.ref_name }}"
+        Compress-Archive -Path ./My_BoomSosed_NET/bin/Release/net8.0-windows/win-x64/publish/* -DestinationPath ./$releaseName.zip -Force
+        echo "ZIP_PATH=./$releaseName.zip" >> $env:GITHUB_ENV
 ###################################################################################################
        
     - name: Create Release MY
