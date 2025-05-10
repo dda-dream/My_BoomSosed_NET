@@ -48,6 +48,11 @@
   <PropertyGroup>
     <WapProjPath Condition="'$(WapProjPath)'==''">$(MSBuildExtensionsPath)\Microsoft\DesktopBridge\</WapProjPath>
   </PropertyGroup>
+
+  <Target Name="PrintMSBuildExtensionsPath" AfterTargets="Build">
+    <Message Importance="high" Text="MSBuildExtensionsPath = $(MSBuildExtensionsPath)" />
+  </Target>
+  
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.props" />
   <PropertyGroup>
     <ProjectGuid>73da0a33-2543-4ed5-8c7d-89c5d10c42be</ProjectGuid>
