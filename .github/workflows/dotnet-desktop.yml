@@ -57,7 +57,7 @@ jobs:
     env:
       Solution_Name: My_BoomSosed_NET.sln                         
       Wap_Project_Directory: My_BoomSosed_NET.WAPP    
-      Wap_Project_Path: My_BoomSosed_NET.Package.wapproj    
+      Wap_Project_Path: My_BoomSosed_NET.WAPP\My_BoomSosed_NET.Package.wapproj    
 
     steps:
     - name: Checkout
