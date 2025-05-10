@@ -38,18 +38,44 @@ jobs:
       env:
         Configuration: ${{ matrix.configuration }}
 
-    - name: PUBLISH
-      run: dotnet publish --self-contained true /p:PublishSingleFile=true
+###############
 
-###################################################################################################
-       
-    - name: Create Release MY
-      uses: softprops/action-gh-release@v1
-      with:
-          tag_name: "v1.0"
-          name: Release =My v1.0=
-          generate_release_notes: true
-          draft: false
-          prerelease: false
+    - name: Publish application
+      run: dotnet publish -c Release -o publish 
+
+    - name: Create ZIP archive
+      run: |
+        $version = $env:GITHUB_REF -replace "refs/tags/v", ""
+        Compress-Archive -Path ./publish/* -DestinationPath ./My_BoomSosed_NET_1.zip -Force
+
+    - name: Create timestamp tag
+      id: tag
+      run: |
+        $date = Get-Date -Format "yyyy.MM.dd-HHmm"
+        echo "TAG_NAME=$date" | Out-File -FilePath $env:GITHUB_ENV -Append
+        echo "::set-output name=tag::$date"
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ env.TAG_NAME }}
+        release_name: Release ${{ env.TAG_NAME }}
+        draft: false
+        prerelease: false
+        generate_release_notes: false
+
+    - name: Upload Release Asset
+      id: upload_asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./My_BoomSosed_NET_1.zip
+        asset_name: My_BoomSosed_NET_1.zip
+        asset_content_type: application/zip
+
+        
