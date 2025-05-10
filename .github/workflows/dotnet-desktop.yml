@@ -75,6 +75,14 @@ jobs:
         path: ${{ env.Wap_Project_Directory }}\AppPackages0
 
 
+###################################################################################################
+    - name: Create Git Tag
+      id: tag
+      run: |
+        TAG_NAME="v$(date +%Y.%m.%d)"
+        echo "TAG_NAME=$TAG_NAME" >> $GITHUB_OUTPUT
+        git tag $TAG_NAME
+        git push origin $TAG_NAME
 
     - name: Build artifacts MY
       run: |
@@ -85,7 +93,10 @@ jobs:
     - name: Create Release MY
       uses: softprops/action-gh-release@v1
       with:
-        files: dist/*
-        generate_release_notes: true
+          tag_name: ${{ steps.tag.outputs.TAG_NAME }}
+          name: Release ${{ steps.tag.outputs.TAG_NAME }}
+          generate_release_notes: true
+          draft: false
+          prerelease: false
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
