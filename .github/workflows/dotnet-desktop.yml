@@ -48,6 +48,14 @@ jobs:
         $version = $env:GITHUB_REF -replace "refs/tags/v", ""
         Compress-Archive -Path ./publish/* -DestinationPath ./My_BoomSosed_NET_1.zip -Force
 
+    - name: Remove source code
+      run: |
+        # Удаляем все исходные коды (подстройте под вашу структуру проекта)
+        Remove-Item -Recurse -Force *.cpp, *.h, *.cs, *.py, CMakeLists.txt, *.sln, *.vcxproj* -ErrorAction SilentlyContinue
+        Remove-Item -Recurse -Force src\ -ErrorAction SilentlyContinue
+        Remove-Item -Recurse -Force include\ -ErrorAction SilentlyContinue
+        Remove-Item -Recurse -Force .git\ -ErrorAction SilentlyContinue
+
     - name: Create timestamp tag
       id: tag
       run: |
