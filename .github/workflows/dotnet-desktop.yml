@@ -47,18 +47,17 @@ jobs:
       run: |
         dir
         $releaseName = "MyApp-${{ github.ref_name }}"
-        Compress-Archive -Path ./bin/Release/net8.0-windows/win-x64/publish/* -DestinationPath ./$releaseName.zip -Force
+        Compress-Archive -Path ./bin/Release/net8.0-windows/win-x64/publish/* -DestinationPath ./My_BoomSosed_NET_0.zip -Force
         echo "ZIP_PATH=./$releaseName.zip" >> $env:GITHUB_ENV
 
        
-    - name: Create Release
-      id: create_release
+    - name: Create Release 0
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name: ${{ github.ref_name }}
-        release_name: Release ${{ github.ref_name }}
+        release_name: Release My_BoomSosed_NET_0.zip
         draft: false
         prerelease: false
 
@@ -81,13 +80,14 @@ jobs:
     - name: Create ZIP archive
       run: |
         $version = $env:GITHUB_REF -replace "refs/tags/v", ""
-        Compress-Archive -Path ./bin/Release/net8.0-windows/win-x64/publish/* -DestinationPath ./$releaseName.zip -Force
+        Compress-Archive -Path ./bin/Release/net8.0-windows/win-x64/publish/* -DestinationPath ./My_BoomSosed_NET_1.zip -Force
 
-    - name: Create Release
+    - name: Create Release 1
       uses: softprops/action-gh-release@v1
       with:
+        tag_name: ${{ github.ref_name }}
         files: |
-          MyApp*.zip
+          *.zip
         draft: false
         prerelease: false
       env:
