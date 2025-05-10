@@ -81,7 +81,7 @@ jobs:
     - name: Create ZIP archive
       run: |
         $version = $env:GITHUB_REF -replace "refs/tags/v", ""
-        Compress-Archive -Path publish/* -DestinationPath "MyApp-v$version.zip" -Force
+        Compress-Archive -Path ./bin/Release/net8.0-windows/win-x64/publish/* -DestinationPath ./$releaseName.zip -Force
 
     - name: Create Release
       uses: softprops/action-gh-release@v1
