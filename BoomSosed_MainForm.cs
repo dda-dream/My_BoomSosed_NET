@@ -136,16 +136,18 @@ namespace My_BoomSosed_NET
         }
         public void PlayMp3(string filePath)
         {
-            logger.Add($"Boom! {filePath}");
             var audioFilePath = Path.GetDirectoryName(Application.ExecutablePath) + filePath;
+            if (!File.Exists(audioFilePath))
+            { 
+                logger.Add($"PlayMp3: File not exist {filePath}");
+                return;
+            }
+
+            logger.Add($"Boom! {filePath}");
             using (var audioFile = new AudioFileReader(audioFilePath))
             using (var outputDevice = new WaveOutEvent())
             {
                 outputDevice.Init(audioFile);
-                outputDevice.PlaybackStopped += (sender, e) =>
-                {
-                    logger.Add("Воспроизведение завершено.");
-                };
                 outputDevice.Play();
                 while (outputDevice.PlaybackState == PlaybackState.Playing)
                 {
