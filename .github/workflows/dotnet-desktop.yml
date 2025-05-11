@@ -12,6 +12,7 @@ jobs:
         configuration: [Release]
 
     runs-on: self-hosted  
+#    runs-on: windows-latest  
     
     env:
       Solution_Name: My_BoomSosed_NET.sln                         
@@ -48,34 +49,37 @@ jobs:
         $version = $env:GITHUB_REF -replace "refs/tags/v", ""
         Compress-Archive -Path ./publish/* -DestinationPath ./My_BoomSosed_NET_1.zip -Force
 
-    - name: Create timestamp tag
-      id: tag
-      run: |
-        $date = Get-Date -Format "yyyy.MM.dd-HHmm"
-        echo "TAG_NAME=$date" | Out-File -FilePath $env:GITHUB_ENV -Append
-        echo "::set-output name=tag::$date"
 
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ env.TAG_NAME }}
-        release_name: Release ${{ env.TAG_NAME }}
-        draft: false
-        prerelease: false
-        generate_release_notes: false
+#    - name: Create timestamp tag
+#      id: tag
+#      run: |
+#        $date = Get-Date -Format "yyyy.MM.dd-HHmm"
+#        echo "TAG_NAME=$date" | Out-File -FilePath $env:GITHUB_ENV -Append
+#        echo "::set-output name=tag::$date"
 
-    - name: Upload Release Asset
-      id: upload_asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./My_BoomSosed_NET_1.zip
-        asset_name: My_BoomSosed_NET_1.zip
-        asset_content_type: application/zip
+
+#    - name: Create Release
+#      id: create_release
+#      uses: actions/create-release@v1
+#      env:
+#        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      with:
+#        tag_name: ${{ env.TAG_NAME }}
+#        release_name: Release ${{ env.TAG_NAME }}
+#        draft: false
+#        prerelease: false
+#        generate_release_notes: false
+
+
+#    - name: Upload Release Asset
+#      id: upload_asset
+#      uses: actions/upload-release-asset@v1
+#      env:
+#        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      with:
+#        upload_url: ${{ steps.create_release.outputs.upload_url }}
+#        asset_path: ./My_BoomSosed_NET_1.zip
+#        asset_name: My_BoomSosed_NET_1.zip
+#        asset_content_type: application/zip
 
         
