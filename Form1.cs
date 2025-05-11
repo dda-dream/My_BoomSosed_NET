@@ -16,7 +16,6 @@ namespace My_BoomSosed_NET
             FillVisualBoomGrid();
         }
         bool firstTimeTimer = true;
-        bool isTimerStarted = false;
         private void btnStart_Click(object sender, EventArgs e)
         {
             if (!timer_boom.Enabled)
@@ -40,13 +39,11 @@ namespace My_BoomSosed_NET
                     firstTimeTimer = false;
                 }
                 timer_boom.Enabled = true;
-                isTimerStarted = true;
                 logger.Add("Timer started.");
             }
             else
             {
                 timer_boom.Enabled = false;
-                isTimerStarted = false;
                 logger.Add("Timer stopped.");
             }
         }
