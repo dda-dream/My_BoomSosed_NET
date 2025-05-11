@@ -11,7 +11,7 @@ jobs:
       matrix:
         configuration: [Release]
 
-    runs-on: self-hosted  
+#    runs-on: self-hosted  
     
     env:
       Solution_Name: My_BoomSosed_NET.sln                         
