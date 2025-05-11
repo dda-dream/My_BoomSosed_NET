@@ -141,6 +141,7 @@ namespace My_BoomSosed_NET
                 }
             }
         }
+        WaveOutEvent outputDevice = new WaveOutEvent();
         public void PlayMp3(string filePath)
         {
             var audioFilePath = Path.GetDirectoryName(Application.ExecutablePath) + filePath;
@@ -152,16 +153,25 @@ namespace My_BoomSosed_NET
 
             logger.Add($"Boom! {filePath}");
             using (var audioFile = new AudioFileReader(audioFilePath))
-            using (var outputDevice = new WaveOutEvent())
+            //using (var outputDevice = new WaveOutEvent())
             {
                 outputDevice.Init(audioFile);
                 outputDevice.Play();
-                while (outputDevice.PlaybackState == PlaybackState.Playing)
-                {
-                    System.Threading.Thread.Sleep(100);
-                }
+                outputDevice.PlaybackStopped += OutputDevice_PlaybackStopped;
+
+                //while (outputDevice.PlaybackState == PlaybackState.Playing)
+                //{
+                //    System.Threading.Thread.Sleep(100);
+                //}
             }
         }
+
+        private void OutputDevice_PlaybackStopped(object? sender, StoppedEventArgs e)
+        {
+            if (timer_boom.Enabled)
+                timer_boom.Start();
+        }
+
         int curRowSizeVisualBoom;
         int curColSizeVisualBoom;
         public void StartBoom()
@@ -177,7 +187,7 @@ namespace My_BoomSosed_NET
             {
                 curColSizeVisualBoom = -1;
                 curRowSizeVisualBoom = 0;
-                if(ctrl_RecalcVisualBoom.Enabled)
+                if(ctrl_RecalcVisualBoom.Checked)
                     FillVisualBoomGrid();
                 return;
             }
