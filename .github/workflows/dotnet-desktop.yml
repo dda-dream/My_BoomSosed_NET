@@ -45,7 +45,7 @@ jobs:
 ###############
 
     - name: Publish application
-      run: dotnet publish -c Release -o publish 
+      run: dotnet publish -o publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true
 
     - name: Create ZIP archive
       run: |
