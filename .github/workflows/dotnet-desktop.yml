@@ -2,7 +2,10 @@ name: My_BoomSosed_NET
 
 on:
   workflow_dispatch:
-
+  
+  push:
+    paths: [ "run_workflow.txt" ] 
+    
 jobs:
 
   build:
