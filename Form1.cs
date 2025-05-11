@@ -13,7 +13,7 @@ namespace My_BoomSosed_NET
             ctrl_Speed.Text = "1";
             ctrl_FillRatio.Text = "5";
             UpdateDesign();
-
+            FillVisualBoomGrid();
         }
         bool firstTimeTimer = true;
         private void btnStart_Click(object sender, EventArgs e)
@@ -55,6 +55,7 @@ namespace My_BoomSosed_NET
         private void btnRecalcParams_Click(object sender, EventArgs e)
         {
             UpdateDesign();
+            FillVisualBoomGrid();
         }
         private void ctrl_LST_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -74,17 +75,21 @@ namespace My_BoomSosed_NET
         }
         private void ctrl_FilesInLST_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var selected = ctrl_FilesInLST.SelectedItem;
-            if (selected is String && selected != null)
-            {
-                PlayMp3(".\\sounds\\" + selected);
-            }
         }
 
         private void label5_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Перевод на карту Сбер:");
             //logger.Add("Перевод на карту Сбер: ", Color.Blue);
+        }
+
+        private void ctrl_FilesInLST_DoubleClick(object sender, EventArgs e)
+        {
+            var selected = ctrl_FilesInLST.SelectedItem;
+            if (selected is String && selected != null)
+            {
+                PlayMp3(".\\sounds\\" + selected);
+            }
         }
     }
 }

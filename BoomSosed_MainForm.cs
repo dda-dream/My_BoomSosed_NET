@@ -38,7 +38,7 @@ namespace My_BoomSosed_NET
                 val = 5;
             }
             //--------------------//-------------------- 3
-            FillVisualBoomGrid();
+            //FillVisualBoomGrid();
             //--------------------//-------------------- 4 
         }
         public int[,] FillArrayWithRandomValues(int fillPercentage = 10, int rows = 10, int columns = 10)
@@ -125,12 +125,20 @@ namespace My_BoomSosed_NET
         }
         public void PlayRandomSoundFromList()
         {
-            var selected = ctrl_LST.SelectedItem;
-            if (selected is String && selected != null)
+            var selectedLST = ctrl_LST.SelectedItem;
+            var selectedFile = ctrl_FilesInLST.SelectedItem;
+            if (selectedLST is String && selectedLST != null)
             {
-                var lines = File.ReadAllLines((string)selected);
-                int fileSelectedNum = random.Next(lines.Count());
-                PlayMp3(".\\sounds\\"+lines[fileSelectedNum]);
+                if (selectedFile is String && selectedFile != null)
+                {
+                    PlayMp3(".\\sounds\\" + selectedFile);
+                }
+                else
+                {
+                    var lines = File.ReadAllLines((string)selectedLST);
+                    int fileSelectedNum = random.Next(lines.Count());
+                    PlayMp3(".\\sounds\\" + lines[fileSelectedNum]);
+                }
             }
         }
         public void PlayMp3(string filePath)

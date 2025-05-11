@@ -56,6 +56,7 @@
             ctrl_LST.ItemHeight = 15;
             ctrl_LST.Location = new Point(2, 20);
             ctrl_LST.Name = "ctrl_LST";
+            ctrl_LST.ScrollAlwaysVisible = true;
             ctrl_LST.Size = new Size(318, 49);
             ctrl_LST.TabIndex = 1;
             ctrl_LST.SelectedIndexChanged += ctrl_LST_SelectedIndexChanged;
@@ -152,18 +153,20 @@
             ctrl_FilesInLST.ItemHeight = 15;
             ctrl_FilesInLST.Location = new Point(2, 90);
             ctrl_FilesInLST.Name = "ctrl_FilesInLST";
+            ctrl_FilesInLST.ScrollAlwaysVisible = true;
             ctrl_FilesInLST.Size = new Size(318, 79);
             ctrl_FilesInLST.TabIndex = 11;
             ctrl_FilesInLST.SelectedIndexChanged += ctrl_FilesInLST_SelectedIndexChanged;
+            ctrl_FilesInLST.DoubleClick += ctrl_FilesInLST_DoubleClick;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Location = new Point(2, 72);
             label2.Name = "label2";
-            label2.Size = new Size(285, 15);
+            label2.Size = new Size(301, 15);
             label2.TabIndex = 12;
-            label2.Text = "Файлы в LST. Кликни на файле для проигрывания.";
+            label2.Text = "Файлы в LST. 1клик-выбор. 2клик для проигрывания.";
             // 
             // ctrl_RecalcVisualBoom
             // 
