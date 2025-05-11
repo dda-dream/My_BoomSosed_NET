@@ -16,6 +16,7 @@ namespace My_BoomSosed_NET
             FillVisualBoomGrid();
         }
         bool firstTimeTimer = true;
+        bool isTimerStarted = false;
         private void btnStart_Click(object sender, EventArgs e)
         {
             if (!timer_boom.Enabled)
@@ -31,6 +32,7 @@ namespace My_BoomSosed_NET
                 Int32 val = 0;
                 Int32.TryParse(ctrl_Speed.Text, null, out val);
                 timer_boom.Interval = val * 1000;
+            
                 timer_boom.Start();
                 if (firstTimeTimer)
                 {
@@ -38,18 +40,22 @@ namespace My_BoomSosed_NET
                     firstTimeTimer = false;
                 }
                 timer_boom.Enabled = true;
+                isTimerStarted = true;
                 logger.Add("Timer started.");
             }
             else
             {
                 timer_boom.Enabled = false;
+                isTimerStarted = false;
                 logger.Add("Timer stopped.");
             }
         }
 
         private void Timer_boom_Tick(object? sender, EventArgs e)
         {
+            timer_boom.Stop();
             StartBoom();
+            timer_boom.Start();
         }
 
         private void btnRecalcParams_Click(object sender, EventArgs e)
