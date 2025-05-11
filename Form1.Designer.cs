@@ -40,7 +40,6 @@
             ctrl_FillRatio = new TextBox();
             ctrlLog = new RichTextBox();
             btnRecalcParams = new Button();
-            timer_boom = new System.Windows.Forms.Timer(components);
             ctrl_FilesInLST = new ListBox();
             label2 = new Label();
             ctrl_RecalcVisualBoom = new CheckBox();
@@ -247,7 +246,6 @@
         private TextBox ctrl_FillRatio;
         private RichTextBox ctrlLog;
         private Button btnRecalcParams;
-        private System.Windows.Forms.Timer timer_boom;
         private ListBox ctrl_FilesInLST;
         private Label label2;
         private CheckBox ctrl_RecalcVisualBoom;

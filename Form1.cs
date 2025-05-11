@@ -5,6 +5,7 @@ namespace My_BoomSosed_NET
     public partial class BoomSosed_MainForm : Form
     {
         Logger logger;
+        System.Timers.Timer timer_boom = new System.Timers.Timer();
         public BoomSosed_MainForm()
         {
             InitializeComponent();
@@ -12,13 +13,14 @@ namespace My_BoomSosed_NET
             logger.Add("ver 08-05-2025 v0.1");
             ctrl_Speed.Text = "1";
             ctrl_FillRatio.Text = "5";
+            CalcArray();
             UpdateDesign();
-            FillVisualBoomGrid();
         }
         bool firstTimeTimer = true;
+        bool timerEnabled = false;
         private void btnStart_Click(object sender, EventArgs e)
         {
-            if (!timer_boom.Enabled)
+            if (!timerEnabled)
             {
                 if (!ValidBeforeStartTimer())
                 {
@@ -31,19 +33,20 @@ namespace My_BoomSosed_NET
                 Int32 val = 0;
                 Int32.TryParse(ctrl_Speed.Text, null, out val);
                 timer_boom.Interval = val * 1000;
-            
-                timer_boom.Start();
+                timerEnabled = true;
                 if (firstTimeTimer)
                 {
-                    timer_boom.Tick += Timer_boom_Tick;
+                    timer_boom.Elapsed += Timer_boom_Tick;
                     firstTimeTimer = false;
                 }
-                timer_boom.Enabled = true;
                 logger.Add("Timer started.");
+                
+                timer_boom.Start();
             }
             else
             {
-                timer_boom.Enabled = false;
+                timer_boom.Stop();
+                timerEnabled = false; 
                 logger.Add("Timer stopped.");
             }
         }
@@ -52,13 +55,12 @@ namespace My_BoomSosed_NET
         {
             timer_boom.Stop();
             StartBoom();
-            timer_boom.Start();
         }
 
         private void btnRecalcParams_Click(object sender, EventArgs e)
         {
+            CalcArray();
             UpdateDesign();
-            FillVisualBoomGrid();
         }
         private void ctrl_LST_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -73,6 +75,7 @@ namespace My_BoomSosed_NET
                     {
                         ctrl_FilesInLST.Items.Add(line);
                     }
+                    ctrl_FilesInLST.Sorted = true;
                 }
             }
         }

@@ -38,37 +38,51 @@ namespace My_BoomSosed_NET
                 val = 5;
             }
             //--------------------//-------------------- 3
-            //FillVisualBoomGrid();
+            FillVisualBoomGrid();
             //--------------------//-------------------- 4 
         }
         public int[,] FillArrayWithRandomValues(int fillPercentage = 10, int rows = 10, int columns = 10)
         {
-        int[,] array = new int[rows, columns];
-        Random random = new Random();
+            int[,] array = new int[rows, columns];
+            Random random = new Random();
 
-        int onesCount = rows * columns * fillPercentage / 100;
-        var indices = new System.Collections.Generic.List<(int row, int col)>();
-        for (int i = 0; i < rows; i++)
-        {
-            for (int j = 0; j < columns; j++)
+            int onesCount = rows * columns * fillPercentage / 100;
+            var indices = new System.Collections.Generic.List<(int row, int col)>();
+            for (int i = 0; i < rows; i++)
             {
-                indices.Add((i, j));
+                for (int j = 0; j < columns; j++)
+                {
+                    indices.Add((i, j));
+                }
             }
-        }
 
-        for (int i = indices.Count - 1; i > 0; i--)
-        {
-            int j = random.Next(i + 1);
-            (indices[i], indices[j]) = (indices[j], indices[i]);
-        }
+            for (int i = indices.Count - 1; i > 0; i--)
+            {
+                int j = random.Next(i + 1);
+                (indices[i], indices[j]) = (indices[j], indices[i]);
+            }
 
-        for (int i = 0; i < onesCount; i++)
-        {
-            var (row, col) = indices[i];
-            array[row, col] = 1;
+            for (int i = 0; i < onesCount; i++)
+            {
+                var (row, col) = indices[i];
+                array[row, col] = 1;
+            }
+            return array;
         }
-        return array;
-    }
+        int[,] arr;
+
+        public void CalcArray()
+        {
+            Int32 val = 0;
+            Int32.TryParse(ctrl_FillRatio.Text, null, out val);
+            if (val > 99 || val < 1)
+            {
+                ctrl_FillRatio.Text = "5";
+                val = 10;
+            }
+
+            arr = FillArrayWithRandomValues(val, MaxRowSizeVisualBoom, MaxColSizeVisualBoom);        
+        }
         public void FillVisualBoomGrid()
         {
             ctrlVisualBoom.Visible = false;
@@ -89,15 +103,6 @@ namespace My_BoomSosed_NET
                 ctrlVisualBoom.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f / 10));
             }
 
-            Int32 val = 0;
-            Int32.TryParse(ctrl_FillRatio.Text, null, out val);
-            if (val > 99 || val < 1)
-            {
-                ctrl_FillRatio.Text = "5";
-                val = 10;
-            }
-
-            int[,] arr = FillArrayWithRandomValues(val, MaxRowSizeVisualBoom, MaxColSizeVisualBoom);
 
             for (int row = 0; row < MaxRowSizeVisualBoom; row++)
             {
@@ -155,20 +160,23 @@ namespace My_BoomSosed_NET
             using (var audioFile = new AudioFileReader(audioFilePath))
             //using (var outputDevice = new WaveOutEvent())
             {
-                outputDevice.Init(audioFile);
-                outputDevice.Play();
-                outputDevice.PlaybackStopped += OutputDevice_PlaybackStopped;
-
-                //while (outputDevice.PlaybackState == PlaybackState.Playing)
-                //{
-                //    System.Threading.Thread.Sleep(100);
-                //}
+                if (outputDevice.PlaybackState != PlaybackState.Playing)
+                {
+                    outputDevice.Init(audioFile);
+                    outputDevice.Play();
+                    outputDevice.PlaybackStopped += OutputDevice_PlaybackStopped;
+                }
+                else 
+                { 
+                    if (timerEnabled)
+                        timer_boom.Start();
+                }
             }
         }
 
         private void OutputDevice_PlaybackStopped(object? sender, StoppedEventArgs e)
         {
-            if (timer_boom.Enabled)
+            if (timerEnabled)
                 timer_boom.Start();
         }
 
@@ -187,8 +195,13 @@ namespace My_BoomSosed_NET
             {
                 curColSizeVisualBoom = -1;
                 curRowSizeVisualBoom = 0;
-                if(ctrl_RecalcVisualBoom.Checked)
+                if (ctrl_RecalcVisualBoom.Checked)
+                {
+                    CalcArray();
                     FillVisualBoomGrid();
+                }
+                if (timerEnabled)
+                    timer_boom.Start();
                 return;
             }
             var panel = (Panel?)ctrlVisualBoom.GetControlFromPosition(curColSizeVisualBoom, curRowSizeVisualBoom);
@@ -205,8 +218,19 @@ namespace My_BoomSosed_NET
                     {
                         PlayRandomSoundFromList();
                     }
+                    else
+                    {
+                        if (timer_boom.Enabled)
+                            timer_boom.Start();
+                    }
                 }
             }
+            else 
+            { 
+                if (timerEnabled)
+                    timer_boom.Start();
+            }
+
         }
         bool ValidBeforeStartTimer()
         {
