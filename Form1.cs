@@ -1,11 +1,13 @@
 using System.Text;
 
 namespace My_BoomSosed_NET
-{
+{    
     public partial class BoomSosed_MainForm : Form
     {
         Logger logger;
-        System.Timers.Timer timer_boom = new System.Timers.Timer();
+        //System.Timers.Timer timer_boom = new System.Timers.Timer();
+        System.Windows.Forms.Timer timer_boom = new ();
+
         public BoomSosed_MainForm()
         {
             InitializeComponent();
@@ -18,15 +20,18 @@ namespace My_BoomSosed_NET
         }
         bool firstTimeTimer = true;
         bool timerEnabled = false;
+        string selectedLST="";
+        string selectedFile="";
         private void btnStart_Click(object sender, EventArgs e)
         {
-            if (!timerEnabled)
+            if (!timer_boom.Enabled)
             {
                 if (!ValidBeforeStartTimer())
                 {
                     logger.Add("Timer is NOT started.");
                     return;
                 }
+
                 UpdateDesign();
                 curRowSizeVisualBoom = 0;
                 curColSizeVisualBoom = -1;
@@ -36,11 +41,20 @@ namespace My_BoomSosed_NET
                 timerEnabled = true;
                 if (firstTimeTimer)
                 {
-                    timer_boom.Elapsed += Timer_boom_Tick;
+                    timer_boom.Tick += Timer_boom_Tick;
                     firstTimeTimer = false;
                 }
+                if(ctrl_LST.SelectedItem is String)
+                    selectedLST = (String)ctrl_LST.SelectedItem;
+                if(ctrl_FilesInLST.SelectedItem is String)
+                    selectedFile = (String)ctrl_FilesInLST.SelectedItem;
+                logger.Add($"selected playlist: {selectedLST}");
+                if(!string.IsNullOrEmpty(selectedFile))
+                    logger.Add($"selected file: {selectedFile}");
+                else
+                    logger.Add($"selected file: RANDOM");
                 logger.Add("Timer started.");
-                
+                btnStart.Text = "Stop";
                 timer_boom.Start();
             }
             else
@@ -48,13 +62,16 @@ namespace My_BoomSosed_NET
                 timer_boom.Stop();
                 timerEnabled = false; 
                 logger.Add("Timer stopped.");
+                btnStart.Text = "Start";
             }
         }
-
         private void Timer_boom_Tick(object? sender, EventArgs e)
         {
-            timer_boom.Stop();
-            StartBoom();
+            if (timerEnabled)
+            {
+                timerEnabled = false;
+                StartBoom();
+            }
         }
 
         private void btnRecalcParams_Click(object sender, EventArgs e)
@@ -91,10 +108,13 @@ namespace My_BoomSosed_NET
 
         private void ctrl_FilesInLST_DoubleClick(object sender, EventArgs e)
         {
-            var selected = ctrl_FilesInLST.SelectedItem;
-            if (selected is String && selected != null)
+            if (timer_boom.Enabled == false)
             {
-                PlayMp3(".\\sounds\\" + selected);
+                var selected = ctrl_FilesInLST.SelectedItem;
+                if (selected is String && selected != null)
+                {
+                    PlayMp3(".\\sounds\\" + selected);
+                }
             }
         }
     }
