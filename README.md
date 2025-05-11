@@ -2,7 +2,8 @@
 
 # Publishing
 
-dotnet publish -o publish --self-contained true /p:PublishSingleFile=true
+dotnet publish -o publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true
+
 # ChangeLog
 08-05-2025 9:30 - release #1
 
