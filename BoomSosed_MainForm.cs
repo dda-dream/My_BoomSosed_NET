@@ -37,7 +37,6 @@ namespace My_BoomSosed_NET
                 ctrl_Speed.Text = "5";
                 val = 5;
             }
-            label_Speed.Text = $"1 шаг за {ctrl_Speed.Text} секунд.";
             //--------------------//-------------------- 3
             FillVisualBoomGrid();
             //--------------------//-------------------- 4 
@@ -199,6 +198,7 @@ namespace My_BoomSosed_NET
             if (selected == null)
             {
                 logger.Add("Choose PlayList!");
+                MessageBox.Show("Choose PlayList!");
                 retVal = false;
             }
             return retVal;

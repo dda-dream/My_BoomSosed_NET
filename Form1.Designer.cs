@@ -44,6 +44,9 @@
             ctrl_FilesInLST = new ListBox();
             label2 = new Label();
             ctrl_RecalcVisualBoom = new CheckBox();
+            label3 = new Label();
+            label4 = new Label();
+            label5 = new Label();
             groupBoxVisualBoom.SuspendLayout();
             SuspendLayout();
             // 
@@ -51,17 +54,17 @@
             // 
             ctrl_LST.FormattingEnabled = true;
             ctrl_LST.ItemHeight = 15;
-            ctrl_LST.Location = new Point(2, 2);
+            ctrl_LST.Location = new Point(2, 20);
             ctrl_LST.Name = "ctrl_LST";
-            ctrl_LST.Size = new Size(306, 49);
+            ctrl_LST.Size = new Size(318, 49);
             ctrl_LST.TabIndex = 1;
             ctrl_LST.SelectedIndexChanged += ctrl_LST_SelectedIndexChanged;
             // 
             // btnStart
             // 
-            btnStart.Location = new Point(648, 21);
+            btnStart.Location = new Point(325, 119);
             btnStart.Name = "btnStart";
-            btnStart.Size = new Size(81, 23);
+            btnStart.Size = new Size(98, 23);
             btnStart.TabIndex = 2;
             btnStart.Text = "Start/Stop";
             btnStart.UseVisualStyleBackColor = true;
@@ -69,9 +72,9 @@
             // 
             // ctrl_Speed
             // 
-            ctrl_Speed.Location = new Point(312, 21);
+            ctrl_Speed.Location = new Point(324, 60);
             ctrl_Speed.Name = "ctrl_Speed";
-            ctrl_Speed.Size = new Size(100, 23);
+            ctrl_Speed.Size = new Size(82, 23);
             ctrl_Speed.TabIndex = 3;
             ctrl_Speed.Text = "-";
             ctrl_Speed.TextAlign = HorizontalAlignment.Center;
@@ -79,17 +82,17 @@
             // label_Speed
             // 
             label_Speed.AutoSize = true;
-            label_Speed.Location = new Point(312, 3);
+            label_Speed.Location = new Point(324, 42);
             label_Speed.Name = "label_Speed";
-            label_Speed.Size = new Size(101, 15);
+            label_Speed.Size = new Size(78, 15);
             label_Speed.TabIndex = 4;
-            label_Speed.Text = "1 шаг за 5 секунд";
+            label_Speed.Text = "сек. на 1 шаг";
             // 
             // ctrlVisualBoom
             // 
             ctrlVisualBoom.ColumnCount = 1;
             ctrlVisualBoom.ColumnStyles.Add(new ColumnStyle());
-            ctrlVisualBoom.Location = new Point(86, 164);
+            ctrlVisualBoom.Location = new Point(31, 32);
             ctrlVisualBoom.Name = "ctrlVisualBoom";
             ctrlVisualBoom.RowCount = 1;
             ctrlVisualBoom.RowStyles.Add(new RowStyle());
@@ -100,9 +103,9 @@
             // groupBoxVisualBoom
             // 
             groupBoxVisualBoom.Controls.Add(ctrlVisualBoom);
-            groupBoxVisualBoom.Location = new Point(2, 77);
+            groupBoxVisualBoom.Location = new Point(2, 175);
             groupBoxVisualBoom.Name = "groupBoxVisualBoom";
-            groupBoxVisualBoom.Size = new Size(410, 337);
+            groupBoxVisualBoom.Size = new Size(239, 239);
             groupBoxVisualBoom.TabIndex = 6;
             groupBoxVisualBoom.TabStop = false;
             groupBoxVisualBoom.Text = "Визуальный план BOOM";
@@ -110,36 +113,36 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(419, 3);
+            label1.Location = new Point(412, 42);
             label1.Name = "label1";
-            label1.Size = new Size(125, 15);
+            label1.Size = new Size(99, 15);
             label1.TabIndex = 8;
-            label1.Text = "коэфф заполнения %";
+            label1.Text = "коэфф заполн %";
             // 
             // ctrl_FillRatio
             // 
-            ctrl_FillRatio.Location = new Point(419, 21);
+            ctrl_FillRatio.Location = new Point(412, 61);
             ctrl_FillRatio.Name = "ctrl_FillRatio";
-            ctrl_FillRatio.Size = new Size(125, 23);
+            ctrl_FillRatio.Size = new Size(99, 23);
             ctrl_FillRatio.TabIndex = 7;
             ctrl_FillRatio.Text = "-";
             ctrl_FillRatio.TextAlign = HorizontalAlignment.Center;
             // 
             // ctrlLog
             // 
-            ctrlLog.Location = new Point(418, 76);
+            ctrlLog.Location = new Point(247, 175);
             ctrlLog.Name = "ctrlLog";
-            ctrlLog.Size = new Size(318, 228);
+            ctrlLog.Size = new Size(395, 239);
             ctrlLog.TabIndex = 9;
             ctrlLog.Text = "";
             // 
             // btnRecalcParams
             // 
-            btnRecalcParams.Location = new Point(550, 21);
+            btnRecalcParams.Location = new Point(324, 90);
             btnRecalcParams.Name = "btnRecalcParams";
-            btnRecalcParams.Size = new Size(92, 23);
+            btnRecalcParams.Size = new Size(99, 23);
             btnRecalcParams.TabIndex = 10;
-            btnRecalcParams.Text = "Recalc";
+            btnRecalcParams.Text = "Обновить план";
             btnRecalcParams.UseVisualStyleBackColor = true;
             btnRecalcParams.Click += btnRecalcParams_Click;
             // 
@@ -147,7 +150,7 @@
             // 
             ctrl_FilesInLST.FormattingEnabled = true;
             ctrl_FilesInLST.ItemHeight = 15;
-            ctrl_FilesInLST.Location = new Point(418, 335);
+            ctrl_FilesInLST.Location = new Point(2, 90);
             ctrl_FilesInLST.Name = "ctrl_FilesInLST";
             ctrl_FilesInLST.Size = new Size(318, 79);
             ctrl_FilesInLST.TabIndex = 11;
@@ -156,7 +159,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(419, 308);
+            label2.Location = new Point(2, 72);
             label2.Name = "label2";
             label2.Size = new Size(285, 15);
             label2.TabIndex = 12;
@@ -165,18 +168,51 @@
             // ctrl_RecalcVisualBoom
             // 
             ctrl_RecalcVisualBoom.AutoSize = true;
-            ctrl_RecalcVisualBoom.Location = new Point(419, 51);
+            ctrl_RecalcVisualBoom.Location = new Point(326, 150);
             ctrl_RecalcVisualBoom.Name = "ctrl_RecalcVisualBoom";
             ctrl_RecalcVisualBoom.Size = new Size(271, 19);
             ctrl_RecalcVisualBoom.TabIndex = 13;
             ctrl_RecalcVisualBoom.Text = "Перестроение BOOM плана, после прохода.";
             ctrl_RecalcVisualBoom.UseVisualStyleBackColor = true;
             // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(2, 2);
+            label3.Name = "label3";
+            label3.Size = new Size(91, 15);
+            label3.TabIndex = 14;
+            label3.Text = "Плейлисты LST";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.ForeColor = SystemColors.Highlight;
+            label4.Location = new Point(327, 2);
+            label4.Name = "label4";
+            label4.Size = new Size(243, 15);
+            label4.TabIndex = 15;
+            label4.Text = "Письмо разработчику: dda_dream@mail.ru";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.ForeColor = SystemColors.Highlight;
+            label5.Location = new Point(327, 20);
+            label5.Name = "label5";
+            label5.Size = new Size(131, 15);
+            label5.TabIndex = 16;
+            label5.Text = "Помочь разработчику";
+            label5.Click += label5_Click;
+            // 
             // BoomSosed_MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(738, 417);
+            ClientSize = new Size(644, 417);
+            Controls.Add(label5);
+            Controls.Add(label4);
+            Controls.Add(label3);
             Controls.Add(ctrl_RecalcVisualBoom);
             Controls.Add(label2);
             Controls.Add(ctrl_FilesInLST);
@@ -212,5 +248,8 @@
         private ListBox ctrl_FilesInLST;
         private Label label2;
         private CheckBox ctrl_RecalcVisualBoom;
+        private Label label3;
+        private Label label4;
+        private Label label5;
     }
 }

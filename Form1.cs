@@ -80,5 +80,11 @@ namespace My_BoomSosed_NET
                 PlayMp3(".\\sounds\\" + selected);
             }
         }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Перевод на карту Сбер:");
+            //logger.Add("Перевод на карту Сбер: ", Color.Blue);
+        }
     }
 }

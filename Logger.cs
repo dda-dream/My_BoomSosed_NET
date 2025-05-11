@@ -16,6 +16,11 @@
             loggerControl.ScrollToCaret();
             loggerControl.Update();
         }
+        public void Add(string s, Color color)
+        {
+            loggerControl.ForeColor = color;
+            this.Add(s);
+        }
         public void Clear()
         {
             loggerControl.Text = "";
