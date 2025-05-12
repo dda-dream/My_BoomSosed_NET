@@ -45,7 +45,7 @@ jobs:
 ###############
 
     - name: Publish application
-      run: dotnet publish -o publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:EnableCompressionInSingleFile=true
+      run: dotnet publish My_BoomSosed_NET.csproj -o publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:EnableCompressionInSingleFile=true
 
     - name: Create ZIP archive
       run: |
