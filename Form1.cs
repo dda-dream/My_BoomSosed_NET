@@ -89,8 +89,8 @@ namespace My_BoomSosed_NET
                 {
                     var lines = File.ReadAllLines((string)selected);
                     foreach (var line in lines)
-                    {
-                        ctrl_FilesInLST.Items.Add(line);
+                    {   if(line.Trim()!="")
+                            ctrl_FilesInLST.Items.Add(line);
                     }
                     ctrl_FilesInLST.Sorted = true;
                 }
