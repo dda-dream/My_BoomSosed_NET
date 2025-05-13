@@ -25,6 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="config.cfg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
     <None Update="sounds\50Hz\50Hz.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

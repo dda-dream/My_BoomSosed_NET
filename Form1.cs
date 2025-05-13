@@ -1,7 +1,7 @@
 using System.Text;
 
 namespace My_BoomSosed_NET
-{    
+{
     public partial class BoomSosed_MainForm : Form
     {
         Logger logger;
@@ -13,19 +13,21 @@ namespace My_BoomSosed_NET
             InitializeComponent();
             arr = new int[MaxRowSizeVisualBoom, MaxColSizeVisualBoom];
             logger = new Logger(ctrlLog);
-            config = new Config (logger);
+            config = new Config(logger);
             timer_boom = new System.Windows.Forms.Timer();
             ctrl_Speed.Text = "1";
             ctrl_FillRatio.Text = "5";
 
             logger.Add("ver 08-05-2025 v0.1");
+            InitDesign();
+            InitFormConfig();
             CalcArray();
             UpdateDesign();
         }
         bool firstTimeTimer = true;
         bool timerEnabled = false;
-        string selectedLST="";
-        string selectedFile="";
+        string selectedLST = "";
+        string selectedFile = "";
         private void btnStart_Click(object sender, EventArgs e)
         {
             if (!timer_boom.Enabled)
@@ -48,12 +50,12 @@ namespace My_BoomSosed_NET
                     timer_boom.Tick += Timer_boom_Tick;
                     firstTimeTimer = false;
                 }
-                if(ctrl_LST.SelectedItem is String)
+                if (ctrl_LST.SelectedItem is String)
                     selectedLST = (String)ctrl_LST.SelectedItem;
-                if(ctrl_FilesInLST.SelectedItem is String)
+                if (ctrl_FilesInLST.SelectedItem is String)
                     selectedFile = (String)ctrl_FilesInLST.SelectedItem;
                 logger.Add($"selected playlist: {selectedLST}");
-                if(!string.IsNullOrEmpty(selectedFile))
+                if (!string.IsNullOrEmpty(selectedFile))
                     logger.Add($"selected file: {selectedFile}");
                 else
                     logger.Add($"selected file: RANDOM");
@@ -64,7 +66,7 @@ namespace My_BoomSosed_NET
             else
             {
                 timer_boom.Stop();
-                timerEnabled = false; 
+                timerEnabled = false;
                 logger.Add("Timer stopped.");
                 btnStart.Text = "Start";
             }
@@ -85,7 +87,7 @@ namespace My_BoomSosed_NET
         }
         private void ctrl_LST_SelectedIndexChanged(object sender, EventArgs e)
         {
-            selectedFile="";
+            selectedFile = "";
             if (ctrl_LST.Items.Count != 0)
             {
                 ctrl_FilesInLST.Items.Clear();
@@ -94,7 +96,8 @@ namespace My_BoomSosed_NET
                 {
                     var lines = File.ReadAllLines((string)selected);
                     foreach (var line in lines)
-                    {   if(line.Trim()!="")
+                    {
+                        if (line.Trim() != "")
                             ctrl_FilesInLST.Items.Add(line);
                     }
                     ctrl_FilesInLST.Sorted = true;
@@ -121,6 +124,29 @@ namespace My_BoomSosed_NET
                     PlayMp3(".\\sounds\\" + selected);
                 }
             }
+        }
+
+        private void BoomSosed_MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SafeFormConfig();
+            config.Save();
+        }
+        void SafeFormConfig()
+        {
+            config.Add("ctrl_Speed", ctrl_Speed.Text);
+            config.Add("ctrl_FillRatio", ctrl_FillRatio.Text);
+            config.Add("ctrl_RecalcVisualBoom", ctrl_RecalcVisualBoom.Checked == true ? "true" : "false");
+            config.Add("ctrl_LST", ctrl_LST.Text);
+            config.Add("ctrl_FilesInLST", ctrl_FilesInLST.Text);
+        }
+        void InitFormConfig()
+        {
+            ctrl_Speed.Text = config.Get("ctrl_Speed");
+            ctrl_FillRatio.Text = config.Get("ctrl_FillRatio");
+            ctrl_RecalcVisualBoom.Checked = config.Get("ctrl_RecalcVisualBoom") == "true" ? true : false;
+            //ctrl_LST.SelectedValue = config.Get("ctrl_LST");            
+            //ctrl_LST.Text = config.Get("ctrl_LST");
+            //ctrl_FilesInLST.Text = config.Get("ctrl_FilesInLST");
         }
     }
 }

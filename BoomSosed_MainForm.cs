@@ -15,10 +15,9 @@ namespace My_BoomSosed_NET
         int MaxColSizeVisualBoom = 10;
         int MaxRowSizeVisualBoom = 10;
         Random random = new Random();
-        
-        void UpdateDesign()
-        {
-            //--------------------//-------------------- 1
+
+        void InitDesign()
+        { 
             if (ctrl_LST.Items.Count == 0)
             {
                 var soundsDir = Directory.EnumerateFiles(".\\sounds\\");
@@ -29,6 +28,10 @@ namespace My_BoomSosed_NET
                         ctrl_LST.Items.Add(file);
                 }
             }
+        }
+        void UpdateDesign()
+        {
+            //--------------------//-------------------- 1
             //--------------------//-------------------- 2
             Int32 val = 0;
             Int32.TryParse(ctrl_Speed.Text, null, out val);

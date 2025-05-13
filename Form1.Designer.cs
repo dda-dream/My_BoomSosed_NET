@@ -264,6 +264,7 @@
             Controls.Add(tabControl);
             Name = "BoomSosed_MainForm";
             Text = "My BoomSosed .NET";
+            FormClosing += BoomSosed_MainForm_FormClosing;
             groupBoxVisualBoom.ResumeLayout(false);
             tabControl.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
