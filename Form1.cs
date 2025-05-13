@@ -108,6 +108,7 @@ namespace My_BoomSosed_NET
         private void ctrl_FilesInLST_SelectedIndexChanged(object sender, EventArgs e)
         {
         }
+
         private void label5_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Перевод на карту Сбер:");
