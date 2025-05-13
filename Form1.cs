@@ -6,21 +6,22 @@ namespace My_BoomSosed_NET
     {
         Logger logger;
         System.Windows.Forms.Timer timer_boom;
-        Config config;
-
+        //Config config;
+        FormController formController;
         public BoomSosed_MainForm()
         {
             InitializeComponent();
             arr = new int[MaxRowSizeVisualBoom, MaxColSizeVisualBoom];
             logger = new Logger(ctrlLog);
-            config = new Config(logger);
+            //config = new Config(logger);
             timer_boom = new System.Windows.Forms.Timer();
+            formController = new FormController(this);
             ctrl_Speed.Text = "1";
             ctrl_FillRatio.Text = "5";
 
             logger.Add("ver 08-05-2025 v0.1");
             InitDesign();
-            InitFormConfig();
+            formController.InitFormConfig();
             CalcArray();
             UpdateDesign();
         }
@@ -107,13 +108,11 @@ namespace My_BoomSosed_NET
         private void ctrl_FilesInLST_SelectedIndexChanged(object sender, EventArgs e)
         {
         }
-
         private void label5_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Перевод на карту Сбер:");
             //logger.Add("Перевод на карту Сбер: ", Color.Blue);
         }
-
         private void ctrl_FilesInLST_DoubleClick(object sender, EventArgs e)
         {
             if (timer_boom.Enabled == false)
@@ -124,29 +123,16 @@ namespace My_BoomSosed_NET
                     PlayMp3(".\\sounds\\" + selected);
                 }
             }
+            else 
+            {
+                logger.Add("Проигрывание файла невозможно, так как запущено проигрывание по плану.");
+            }
         }
 
         private void BoomSosed_MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            SafeFormConfig();
-            config.Save();
+            formController.SafeToConfig();
         }
-        void SafeFormConfig()
-        {
-            config.Add("ctrl_Speed", ctrl_Speed.Text);
-            config.Add("ctrl_FillRatio", ctrl_FillRatio.Text);
-            config.Add("ctrl_RecalcVisualBoom", ctrl_RecalcVisualBoom.Checked == true ? "true" : "false");
-            config.Add("ctrl_LST", ctrl_LST.Text);
-            config.Add("ctrl_FilesInLST", ctrl_FilesInLST.Text);
-        }
-        void InitFormConfig()
-        {
-            ctrl_Speed.Text = config.Get("ctrl_Speed");
-            ctrl_FillRatio.Text = config.Get("ctrl_FillRatio");
-            ctrl_RecalcVisualBoom.Checked = config.Get("ctrl_RecalcVisualBoom") == "true" ? true : false;
-            //ctrl_LST.SelectedValue = config.Get("ctrl_LST");            
-            //ctrl_LST.Text = config.Get("ctrl_LST");
-            //ctrl_FilesInLST.Text = config.Get("ctrl_FilesInLST");
-        }
+        
     }
 }
