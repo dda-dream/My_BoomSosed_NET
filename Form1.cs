@@ -5,16 +5,20 @@ namespace My_BoomSosed_NET
     public partial class BoomSosed_MainForm : Form
     {
         Logger logger;
-        //System.Timers.Timer timer_boom = new System.Timers.Timer();
-        System.Windows.Forms.Timer timer_boom = new ();
+        System.Windows.Forms.Timer timer_boom;
+        Config config;
 
         public BoomSosed_MainForm()
         {
             InitializeComponent();
+            arr = new int[MaxRowSizeVisualBoom, MaxColSizeVisualBoom];
             logger = new Logger(ctrlLog);
-            logger.Add("ver 08-05-2025 v0.1");
+            config = new Config (logger);
+            timer_boom = new System.Windows.Forms.Timer();
             ctrl_Speed.Text = "1";
             ctrl_FillRatio.Text = "5";
+
+            logger.Add("ver 08-05-2025 v0.1");
             CalcArray();
             UpdateDesign();
         }
@@ -81,6 +85,7 @@ namespace My_BoomSosed_NET
         }
         private void ctrl_LST_SelectedIndexChanged(object sender, EventArgs e)
         {
+            selectedFile="";
             if (ctrl_LST.Items.Count != 0)
             {
                 ctrl_FilesInLST.Items.Clear();
