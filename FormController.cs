@@ -1,10 +1,15 @@
-﻿namespace My_BoomSosed_NET
+﻿using NAudio.Wave;
+
+namespace My_BoomSosed_NET
 {
     class FormController
     {
         List<Control> controls;
         Config config;
         Logger logger;
+
+
+
         public FormController(Control form)
         {
             controls = new List<Control>();
@@ -23,6 +28,10 @@
             config = new Config(logger);
         }
 
+        public void LoggerAdd(string s)
+        {
+            logger.Add(s);
+        }
         public static List<Control> GetAllControls(Control parent)
         {
             List<Control> controlList = new List<Control>();
@@ -50,5 +59,6 @@
             config.Add("ctrl_FilesInLST", controls.Find( x => x.Name == "ctrl_FilesInLST").Text);
             config.Save();
         }
+
     }
 }
