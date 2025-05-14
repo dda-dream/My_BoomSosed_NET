@@ -24,7 +24,7 @@ namespace My_BoomSosed_NET
             InitializeComponent();
             arr = new int[MaxRowSizeVisualBoom, MaxColSizeVisualBoom];
             timer_boom = new System.Windows.Forms.Timer();
-            formController = new FormController(this);
+            formController = new FormController(this, ctrlLog);
             ctrl_Speed.Text = "1";
             ctrl_FillRatio.Text = "5";
 
