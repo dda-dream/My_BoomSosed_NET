@@ -18,6 +18,11 @@ namespace My_BoomSosed_NET
             logger = new Logger(logControl);
             config = new Config(logger);
 
+            var a0 = typeof(BoomSosed_MainForm);
+
+            var a1 = a0.GetFields();
+            var a2 = a0.GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
+
             var serializableFields = typeof(BoomSosed_MainForm)
                 .GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
                 .Where(f => f.GetCustomAttribute<SaveToConfigFileAttribute>() != null);
@@ -55,35 +60,39 @@ namespace My_BoomSosed_NET
                 var attribute = field.GetCustomAttribute<SaveToConfigFileAttribute>();
                 string fieldName = attribute.Name ?? field.Name;
 
-
                 var control = form.Controls.Find(fieldName, true).FirstOrDefault();
                 if (control is CheckBox checkBox)
                 {
-                    checkBox.Checked = true;
+                    checkBox.Checked = config.Get(fieldName).ToString().ToLower() == "true";
                 }
                 else
                 {
                     control.Text = config.Get(fieldName);
                 }
             }
-
-            /*
-            controls.Find( x => x.Name == "ctrl_Speed").Text = config.Get("ctrl_Speed");
-            controls.Find( x => x.Name == "ctrl_FillRatio").Text = config.Get("ctrl_FillRatio");
-            ((CheckBox)controls.Find(x => x.Name == "ctrl_RecalcVisualBoom")).Checked = config.Get("ctrl_RecalcVisualBoom").ToLower() == "true";
-            */
         }
         public void SafeToConfig()
-        {            
-            /*
-            config.Add("ctrl_Speed", controls.Find( x => x.Name == "ctrl_Speed").Text);
-            config.Add("ctrl_FillRatio", controls.Find( x => x.Name == "ctrl_FillRatio").Text);
-            config.Add("ctrl_RecalcVisualBoom", ((CheckBox)controls.Find(x => x.Name == "ctrl_RecalcVisualBoom")).Checked.ToString().ToLower());
-            config.Add("ctrl_LST", controls.Find( x => x.Name == "ctrl_LST").Text);
-            config.Add("ctrl_FilesInLST", controls.Find( x => x.Name == "ctrl_FilesInLST").Text);
-            config.Save();
-            */
-        }
+        {      
+            var serializableFields = typeof(BoomSosed_MainForm)
+                .GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
+                .Where(f => f.GetCustomAttribute<SaveToConfigFileAttribute>() != null);
+            foreach (var field in serializableFields)
+            {
+                var attribute = field.GetCustomAttribute<SaveToConfigFileAttribute>();
+                string fieldName = attribute.Name ?? field.Name;
 
+                var control = form.Controls.Find(fieldName, true).FirstOrDefault();
+                if (control is CheckBox checkBox)
+                {
+                    config.Add(fieldName, checkBox.Checked.ToString().ToLower());
+                }
+                else
+                {
+                    config.Add(fieldName, control.Text);
+                }
+            }
+
+            config.Save();
+        }
     }
 }
