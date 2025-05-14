@@ -1,9 +1,11 @@
 ﻿using NAudio.Wave;
+using System.Reflection;
 
 namespace My_BoomSosed_NET
 {
     class FormController
     {
+        BoomSosed_MainForm form;
         List<Control> controls;
         Config config;
         Logger logger;
@@ -12,6 +14,7 @@ namespace My_BoomSosed_NET
 
         public FormController(Control form)
         {
+            this.form = (BoomSosed_MainForm)form;
             controls = new List<Control>();
             foreach (Control control in form.Controls)
             {
@@ -26,6 +29,16 @@ namespace My_BoomSosed_NET
                 }
             }
             config = new Config(logger);
+
+            var serializableFields = typeof(BoomSosed_MainForm)
+                .GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
+                .Where(f => f.GetCustomAttribute<SaveToConfigFileAttribute>() != null);
+            foreach (var field in serializableFields)
+            {
+                var attribute = field.GetCustomAttribute<SaveToConfigFileAttribute>();
+                string fieldName = attribute.Name ?? field.Name;
+                logger.Add($"SaveToConfigFileAttribute:  {fieldName}");
+            }
         }
 
         public void LoggerAdd(string s)
@@ -52,6 +65,8 @@ namespace My_BoomSosed_NET
         }
         public void SafeToConfig()
         {
+            
+
             config.Add("ctrl_Speed", controls.Find( x => x.Name == "ctrl_Speed").Text);
             config.Add("ctrl_FillRatio", controls.Find( x => x.Name == "ctrl_FillRatio").Text);
             config.Add("ctrl_RecalcVisualBoom", ((CheckBox)controls.Find(x => x.Name == "ctrl_RecalcVisualBoom")).Checked.ToString().ToLower());

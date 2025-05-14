@@ -1,5 +1,6 @@
 using NAudio.Wave;
 using System;
+using System.Reflection;
 using System.Text;
 
 namespace My_BoomSosed_NET
@@ -11,6 +12,13 @@ namespace My_BoomSosed_NET
         Random random = new Random();
         System.Windows.Forms.Timer timer_boom;
         FormController formController;
+
+
+        [Obsolete("типа устарело")]
+        int xxx = 10;
+
+
+
         public BoomSosed_MainForm()
         {
             InitializeComponent();
@@ -25,6 +33,30 @@ namespace My_BoomSosed_NET
             formController.InitFormConfig();
             CalcArray();
             UpdateDesign();
+
+            // Получаем тип класса (в данном случае - текущей формы)
+            Type formType = this.GetType();
+            // Получаем поле по имени (можно также перебрать все поля через GetFields())
+            FieldInfo fieldInfo = formType.GetField("ctrl_Speed", BindingFlags.NonPublic | BindingFlags.Instance);
+            if (fieldInfo != null)
+            {
+                // Проверяем наличие атрибута
+                bool hasAttribute = fieldInfo.GetCustomAttribute<SaveToConfigFileAttribute>() != null;
+            }
+
+
+            var serializableFields = typeof(BoomSosed_MainForm)
+                .GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
+                .Where(f => f.GetCustomAttribute<SaveToConfigFileAttribute>() != null);
+            foreach (var field in serializableFields)
+            {
+                var attribute = field.GetCustomAttribute<SaveToConfigFileAttribute>();
+                string fieldName = attribute.Name ?? field.Name;
+                //TextBox textBox = (TextBox)field.GetValue(this);  // Получаем значение поля
+
+                //formController.LoggerAdd($"Serializable Field: {fieldName}");
+            }
+
         }
         bool firstTimeTimer = true;
         bool timerEnabled = false;
@@ -123,7 +155,7 @@ namespace My_BoomSosed_NET
                     PlayMp3(".\\sounds\\" + selected);
                 }
             }
-            else 
+            else
             {
                 formController.LoggerAdd("Проигрывание файла невозможно, так как запущено проигрывание по плану.");
             }
@@ -133,7 +165,7 @@ namespace My_BoomSosed_NET
             formController.SafeToConfig();
         }
         void InitDesign()
-        { 
+        {
             if (ctrl_LST.Items.Count == 0)
             {
                 var soundsDir = Directory.EnumerateFiles(".\\sounds\\");
@@ -200,7 +232,7 @@ namespace My_BoomSosed_NET
                 val = 10;
             }
 
-            arr = FillArrayWithRandomValues(val, MaxRowSizeVisualBoom, MaxColSizeVisualBoom);        
+            arr = FillArrayWithRandomValues(val, MaxRowSizeVisualBoom, MaxColSizeVisualBoom);
         }
         public void InitVisualBoomGrid()
         {
@@ -229,7 +261,7 @@ namespace My_BoomSosed_NET
                     Panel panel = new Panel
                     {
                         Dock = DockStyle.Fill,
-                        BackColor = Color.White 
+                        BackColor = Color.White
                     };
                     if (arr[row, col] == 1)
                     {
@@ -267,7 +299,7 @@ namespace My_BoomSosed_NET
         {
             var audioFilePath = Path.GetDirectoryName(Application.ExecutablePath) + filePath;
             if (!File.Exists(audioFilePath))
-            { 
+            {
                 formController.LoggerAdd($"PlayMp3: File not exist {filePath}");
                 return;
             }
@@ -281,7 +313,7 @@ namespace My_BoomSosed_NET
                     outputDevice.Play();
                     outputDevice.PlaybackStopped += OutputDevice_PlaybackStopped;
                 }
-                else 
+                else
                 {
                     if (timer_boom.Enabled)
                         timerEnabled = true;
@@ -319,7 +351,7 @@ namespace My_BoomSosed_NET
                 return;
             }
             var panel = (Panel?)ctrlVisualBoom.GetControlFromPosition(curColSizeVisualBoom, curRowSizeVisualBoom);
-            if(panel is Panel)
+            if (panel is Panel)
                 panel.BackColor = Color.Yellow;
 
             if (panel != null && panel.Controls.Count > 0)
@@ -339,8 +371,8 @@ namespace My_BoomSosed_NET
                     }
                 }
             }
-            else 
-            { 
+            else
+            {
                 if (timer_boom.Enabled)
                     timerEnabled = true;
             }
@@ -357,6 +389,10 @@ namespace My_BoomSosed_NET
                 retVal = false;
             }
             return retVal;
+        }
+
+        private void BoomSosed_MainForm_Shown(object sender, EventArgs e)
+        {
         }
     }
 }

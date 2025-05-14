@@ -265,6 +265,7 @@
             Name = "BoomSosed_MainForm";
             Text = "My BoomSosed .NET";
             FormClosing += BoomSosed_MainForm_FormClosing;
+            Shown += BoomSosed_MainForm_Shown;
             groupBoxVisualBoom.ResumeLayout(false);
             tabControl.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
@@ -276,16 +277,19 @@
 
         private ListBox ctrl_LST;
         private Button btnStart;
-        private TextBox ctrl_Speed;
+        [SaveToConfigFileAttribute("ctrl_Speed")]
+        private  TextBox ctrl_Speed;
         private Label label_Speed;
         private TableLayoutPanel ctrlVisualBoom;
         private GroupBox groupBoxVisualBoom;
         private Label label1;
+        [SaveToConfigFileAttribute("ctrl_FillRatio")]
         private TextBox ctrl_FillRatio;
         private RichTextBox ctrlLog;
         private Button btnRecalcParams;
         private ListBox ctrl_FilesInLST;
         private Label label2;
+        [SaveToConfigFileAttribute("ctrl_RecalcVisualBoom")]
         private CheckBox ctrl_RecalcVisualBoom;
         private Label label3;
         private Label label4;
