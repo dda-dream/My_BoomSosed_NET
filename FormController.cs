@@ -65,7 +65,6 @@ namespace My_BoomSosed_NET
                 {
                     control.Text = config.Get(fieldName);
                 }
-                
             }
 
             /*
