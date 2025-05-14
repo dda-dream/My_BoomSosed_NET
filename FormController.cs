@@ -1,4 +1,5 @@
-﻿using NAudio.Wave;
+﻿using NAudio.MediaFoundation;
+using NAudio.Wave;
 using System;
 using System.Reflection;
 
@@ -52,43 +53,37 @@ namespace My_BoomSosed_NET
         }
         public void InitFormConfig()
         {
-            var serializableFields = typeof(BoomSosed_MainForm)
+            var attributedFields = typeof(BoomSosed_MainForm)
                 .GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
                 .Where(f => f.GetCustomAttribute<SaveToConfigFileAttribute>() != null);
-            foreach (var field in serializableFields)
+            foreach (var field in attributedFields)
             {
-                var attribute = field.GetCustomAttribute<SaveToConfigFileAttribute>();
-                string fieldName = attribute.Name ?? field.Name;
-
-                var control = form.Controls.Find(fieldName, true).FirstOrDefault();
+                var control = form.Controls.Find(field.Name, true).FirstOrDefault();
                 if (control is CheckBox checkBox)
                 {
-                    checkBox.Checked = config.Get(fieldName).ToString().ToLower() == "true";
+                    checkBox.Checked = config.Get(field.Name).ToString().ToLower() == "true";
                 }
                 else
                 {
-                    control.Text = config.Get(fieldName);
+                    control.Text = config.Get(field.Name);
                 }
             }
         }
         public void SafeToConfig()
         {      
-            var serializableFields = typeof(BoomSosed_MainForm)
+            var attributedFields = typeof(BoomSosed_MainForm)
                 .GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
                 .Where(f => f.GetCustomAttribute<SaveToConfigFileAttribute>() != null);
-            foreach (var field in serializableFields)
+            foreach (var field in attributedFields)
             {
-                var attribute = field.GetCustomAttribute<SaveToConfigFileAttribute>();
-                string fieldName = attribute.Name ?? field.Name;
-
-                var control = form.Controls.Find(fieldName, true).FirstOrDefault();
+                var control = form.Controls.Find(field.Name, true).FirstOrDefault();
                 if (control is CheckBox checkBox)
                 {
-                    config.Add(fieldName, checkBox.Checked.ToString().ToLower());
+                    config.Add(field.Name, checkBox.Checked.ToString().ToLower());
                 }
                 else
                 {
-                    config.Add(fieldName, control.Text);
+                    config.Add(field.Name, control.Text);
                 }
             }
 

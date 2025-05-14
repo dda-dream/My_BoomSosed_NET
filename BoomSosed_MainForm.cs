@@ -1,24 +1,19 @@
+using NAudio.SoundFont;
 using NAudio.Wave;
 using System;
 using System.Reflection;
 using System.Text;
-
 namespace My_BoomSosed_NET
 {
     public partial class BoomSosed_MainForm : Form
     {
+        const string _VERSION_ = "Initial: 08-05-2025 Last: 14-05-2025";
+
         int MaxColSizeVisualBoom = 10;
         int MaxRowSizeVisualBoom = 10;
         Random random = new Random();
         System.Windows.Forms.Timer timer_boom;
         FormController formController;
-
-
-        [Obsolete("типа устарело")]
-        int xxx = 10;
-
-
-
         public BoomSosed_MainForm()
         {
             InitializeComponent();
@@ -28,35 +23,11 @@ namespace My_BoomSosed_NET
             ctrl_Speed.Text = "1";
             ctrl_FillRatio.Text = "5";
 
-            formController.LoggerAdd("ver 08-05-2025 v0.1");
+            formController.LoggerAdd(_VERSION_);
             InitDesign();
             formController.InitFormConfig();
             CalcArray();
             UpdateDesign();
-
-            // Получаем тип класса (в данном случае - текущей формы)
-            Type formType = this.GetType();
-            // Получаем поле по имени (можно также перебрать все поля через GetFields())
-            FieldInfo fieldInfo = formType.GetField("ctrl_Speed", BindingFlags.NonPublic | BindingFlags.Instance);
-            if (fieldInfo != null)
-            {
-                // Проверяем наличие атрибута
-                bool hasAttribute = fieldInfo.GetCustomAttribute<SaveToConfigFileAttribute>() != null;
-            }
-
-
-            var serializableFields = typeof(BoomSosed_MainForm)
-                .GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
-                .Where(f => f.GetCustomAttribute<SaveToConfigFileAttribute>() != null);
-            foreach (var field in serializableFields)
-            {
-                var attribute = field.GetCustomAttribute<SaveToConfigFileAttribute>();
-                string fieldName = attribute.Name ?? field.Name;
-                //TextBox textBox = (TextBox)field.GetValue(this);  // Получаем значение поля
-
-                //formController.LoggerAdd($"Serializable Field: {fieldName}");
-            }
-
         }
         bool firstTimeTimer = true;
         bool timerEnabled = false;
@@ -84,6 +55,7 @@ namespace My_BoomSosed_NET
                     timer_boom.Tick += Timer_boom_Tick;
                     firstTimeTimer = false;
                 }
+                //Зафиксировать выбранный плейлист и файл
                 if (ctrl_LST.SelectedItem is String)
                     selectedLST = (String)ctrl_LST.SelectedItem;
                 if (ctrl_FilesInLST.SelectedItem is String)
@@ -93,6 +65,7 @@ namespace My_BoomSosed_NET
                     formController.LoggerAdd($"selected file: {selectedFile}");
                 else
                     formController.LoggerAdd($"selected file: RANDOM");
+
                 formController.LoggerAdd("Timer started.");
                 btnStart.Text = "Stop";
                 timer_boom.Start();
@@ -103,12 +76,27 @@ namespace My_BoomSosed_NET
                 timerEnabled = false;
                 formController.LoggerAdd("Timer stopped.");
                 btnStart.Text = "Start";
+                ctrl_schedule_info.Text = "-";
             }
         }
         private void Timer_boom_Tick(object? sender, EventArgs e)
         {
             if (timerEnabled)
             {
+                if (ctrl_mainSсheduler.Checked)
+                {
+                    DateTime df = DateTime.Parse(ctrl_AllTimeF.Text);
+                    DateTime dt = DateTime.Parse(ctrl_AllTimeT.Text);
+                    if (DateTime.Now < df || DateTime.Now > dt)
+                    {
+                        ctrl_schedule_info.Text = "ВЫКЛ по планировщику";
+                        return;
+                    }
+                    else
+                    {
+                        ctrl_schedule_info.Text = "ВКЛ по планировщику";
+                    }
+                }
                 timerEnabled = false;
                 StartBoom();
             }

@@ -4,9 +4,8 @@
     public class SaveToConfigFileAttribute : Attribute
     { 
         public string Name { get; }
-        public SaveToConfigFileAttribute(string Name)
+        public SaveToConfigFileAttribute()
         {
-            this.Name = Name; 
         }
     }
 }

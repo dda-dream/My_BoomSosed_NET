@@ -47,10 +47,16 @@
             label5 = new Label();
             tabControl = new TabControl();
             tabPage1 = new TabPage();
+            ctrl_schedule_info = new Label();
             tabPage2 = new TabPage();
+            ctrl_mainSсheduler = new CheckBox();
+            ctrl_AllTimeT = new DateTimePicker();
+            label6 = new Label();
+            ctrl_AllTimeF = new DateTimePicker();
             groupBoxVisualBoom.SuspendLayout();
             tabControl.SuspendLayout();
             tabPage1.SuspendLayout();
+            tabPage2.SuspendLayout();
             SuspendLayout();
             // 
             // ctrl_LST
@@ -194,7 +200,7 @@
             // 
             label4.AutoSize = true;
             label4.ForeColor = SystemColors.Highlight;
-            label4.Location = new Point(331, 3);
+            label4.Location = new Point(331, 1);
             label4.Name = "label4";
             label4.Size = new Size(243, 15);
             label4.TabIndex = 15;
@@ -204,7 +210,7 @@
             // 
             label5.AutoSize = true;
             label5.ForeColor = SystemColors.Highlight;
-            label5.Location = new Point(331, 21);
+            label5.Location = new Point(331, 15);
             label5.Name = "label5";
             label5.Size = new Size(131, 15);
             label5.TabIndex = 16;
@@ -223,6 +229,7 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(ctrl_schedule_info);
             tabPage1.Controls.Add(label3);
             tabPage1.Controls.Add(label5);
             tabPage1.Controls.Add(ctrl_LST);
@@ -246,8 +253,21 @@
             tabPage1.Text = "Основная";
             tabPage1.UseVisualStyleBackColor = true;
             // 
+            // ctrl_schedule_info
+            // 
+            ctrl_schedule_info.AutoSize = true;
+            ctrl_schedule_info.Location = new Point(433, 124);
+            ctrl_schedule_info.Name = "ctrl_schedule_info";
+            ctrl_schedule_info.Size = new Size(12, 15);
+            ctrl_schedule_info.TabIndex = 17;
+            ctrl_schedule_info.Text = "-";
+            // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(ctrl_mainSсheduler);
+            tabPage2.Controls.Add(ctrl_AllTimeT);
+            tabPage2.Controls.Add(label6);
+            tabPage2.Controls.Add(ctrl_AllTimeF);
             tabPage2.Location = new Point(4, 24);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
@@ -255,6 +275,43 @@
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Планировщик";
             tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // ctrl_mainSсheduler
+            // 
+            ctrl_mainSсheduler.AutoSize = true;
+            ctrl_mainSсheduler.Location = new Point(270, 6);
+            ctrl_mainSсheduler.Name = "ctrl_mainSсheduler";
+            ctrl_mainSсheduler.Size = new Size(112, 19);
+            ctrl_mainSсheduler.TabIndex = 3;
+            ctrl_mainSсheduler.Text = "Основной план";
+            ctrl_mainSсheduler.UseVisualStyleBackColor = true;
+            // 
+            // ctrl_AllTimeT
+            // 
+            ctrl_AllTimeT.Format = DateTimePickerFormat.Time;
+            ctrl_AllTimeT.Location = new Point(196, 3);
+            ctrl_AllTimeT.Name = "ctrl_AllTimeT";
+            ctrl_AllTimeT.Size = new Size(68, 23);
+            ctrl_AllTimeT.TabIndex = 2;
+            ctrl_AllTimeT.Value = new DateTime(2025, 5, 14, 21, 0, 0, 0);
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(6, 7);
+            label6.Name = "label6";
+            label6.Size = new Size(110, 15);
+            label6.TabIndex = 1;
+            label6.Text = "Каждый день с-по:";
+            // 
+            // ctrl_AllTimeF
+            // 
+            ctrl_AllTimeF.Format = DateTimePickerFormat.Time;
+            ctrl_AllTimeF.Location = new Point(122, 3);
+            ctrl_AllTimeF.Name = "ctrl_AllTimeF";
+            ctrl_AllTimeF.Size = new Size(68, 23);
+            ctrl_AllTimeF.TabIndex = 0;
+            ctrl_AllTimeF.Value = new DateTime(2025, 5, 14, 8, 0, 0, 0);
             // 
             // BoomSosed_MainForm
             // 
@@ -270,6 +327,8 @@
             tabControl.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
+            tabPage2.ResumeLayout(false);
+            tabPage2.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -277,19 +336,19 @@
 
         private ListBox ctrl_LST;
         private Button btnStart;
-        [SaveToConfigFileAttribute("ctrl_Speed")]
+        [SaveToConfigFileAttribute]
         private  TextBox ctrl_Speed;
         private Label label_Speed;
         private TableLayoutPanel ctrlVisualBoom;
         private GroupBox groupBoxVisualBoom;
         private Label label1;
-        [SaveToConfigFileAttribute("ctrl_FillRatio")]
+        [SaveToConfigFileAttribute]
         private TextBox ctrl_FillRatio;
         private RichTextBox ctrlLog;
         private Button btnRecalcParams;
         private ListBox ctrl_FilesInLST;
         private Label label2;
-        [SaveToConfigFileAttribute("ctrl_RecalcVisualBoom")]
+        [SaveToConfigFileAttribute]
         private CheckBox ctrl_RecalcVisualBoom;
         private Label label3;
         private Label label4;
@@ -297,5 +356,12 @@
         private TabControl tabControl;
         private TabPage tabPage1;
         private TabPage tabPage2;
+        private Label label6;
+        [SaveToConfigFileAttribute]
+        private DateTimePicker ctrl_AllTimeF;
+        [SaveToConfigFileAttribute]
+        private DateTimePicker ctrl_AllTimeT;
+        private CheckBox ctrl_mainSсheduler;
+        private Label ctrl_schedule_info;
     }
 }
