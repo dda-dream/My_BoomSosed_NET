@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 namespace My_BoomSosed_NET
 {
-    public partial class BoomSosed_MainForm : Form
+    public partial class MainForm : Form
     {
         const string _VERSION_ = "Initial: 08-05-2025 Last: 14-05-2025";
 
@@ -14,7 +14,7 @@ namespace My_BoomSosed_NET
         Random random = new Random();
         System.Windows.Forms.Timer timer_boom;
         FormController formController;
-        public BoomSosed_MainForm()
+        public MainForm()
         {
             InitializeComponent();
             arr = new int[MaxRowSizeVisualBoom, MaxColSizeVisualBoom];
@@ -28,6 +28,9 @@ namespace My_BoomSosed_NET
             formController.InitFormConfig();
             CalcArray();
             UpdateDesign();
+            
+            var a = label6.Text;
+            var aa = ctrl_AllTimeF.Text;
         }
         bool firstTimeTimer = true;
         bool timerEnabled = false;
@@ -77,23 +80,25 @@ namespace My_BoomSosed_NET
                 formController.LoggerAdd("Timer stopped.");
                 btnStart.Text = "Start";
                 ctrl_schedule_info.Text = "-";
+                ctrl_schedule_info.BackColor = Color.Black;
             }
         }
         private void Timer_boom_Tick(object? sender, EventArgs e)
         {
             if (timerEnabled)
             {
+                var aa = ctrl_AllTimeF.Text;
                 if (ctrl_mainSсheduler.Checked)
                 {
-                    DateTime df = DateTime.Parse(ctrl_AllTimeF.Text);
-                    DateTime dt = DateTime.Parse(ctrl_AllTimeT.Text);
-                    if (DateTime.Now < df || DateTime.Now > dt)
+                    if (DateTime.Now.TimeOfDay < ctrl_AllTimeF.Value.TimeOfDay || DateTime.Now.TimeOfDay > ctrl_AllTimeT.Value.TimeOfDay)
                     {
+                        ctrl_schedule_info.BackColor = Color.Red;
                         ctrl_schedule_info.Text = "ВЫКЛ по планировщику";
                         return;
                     }
                     else
                     {
+                        ctrl_schedule_info.BackColor = Color.Green;
                         ctrl_schedule_info.Text = "ВКЛ по планировщику";
                     }
                 }

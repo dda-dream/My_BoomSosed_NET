@@ -1,6 +1,6 @@
 ﻿namespace My_BoomSosed_NET
 {
-    partial class BoomSosed_MainForm
+    partial class MainForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -356,11 +356,13 @@
         private TabControl tabControl;
         private TabPage tabPage1;
         private TabPage tabPage2;
+        [SaveToConfigFileAttribute]
         private Label label6;
         [SaveToConfigFileAttribute]
         private DateTimePicker ctrl_AllTimeF;
         [SaveToConfigFileAttribute]
         private DateTimePicker ctrl_AllTimeT;
+        [SaveToConfigFileAttribute]
         private CheckBox ctrl_mainSсheduler;
         private Label ctrl_schedule_info;
     }

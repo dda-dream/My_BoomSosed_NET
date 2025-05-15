@@ -1,40 +1,38 @@
 ﻿using NAudio.MediaFoundation;
 using NAudio.Wave;
 using System;
+using System.Globalization;
 using System.Reflection;
 
 namespace My_BoomSosed_NET
 {
     class FormController
     {
-        BoomSosed_MainForm form;
+        MainForm form;
         Config config;
         Logger logger;
 
-
-
         public FormController(Control form, RichTextBox logControl)
         {
-            this.form = (BoomSosed_MainForm)form;
+            this.form = (MainForm)form;
             logger = new Logger(logControl);
             config = new Config(logger);
 
-            var a0 = typeof(BoomSosed_MainForm);
+            var a0 = typeof(MainForm);
 
             var a1 = a0.GetFields();
             var a2 = a0.GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
 
-            var serializableFields = typeof(BoomSosed_MainForm)
+            var serializableFields = typeof(MainForm)
                 .GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
                 .Where(f => f.GetCustomAttribute<SaveToConfigFileAttribute>() != null);
             foreach (var field in serializableFields)
             {
                 var attribute = field.GetCustomAttribute<SaveToConfigFileAttribute>();
                 string fieldName = attribute.Name ?? field.Name;
-                logger.Add($"SaveToConfigFileAttribute:  {fieldName}");
+                logger.Add($"SaveToConfigFile:  {fieldName}");
             }
         }
-
         public void LoggerAdd(string s)
         {
             logger.Add(s);
@@ -53,16 +51,24 @@ namespace My_BoomSosed_NET
         }
         public void InitFormConfig()
         {
-            var attributedFields = typeof(BoomSosed_MainForm)
+            var attributedFields = typeof(MainForm)
                 .GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
                 .Where(f => f.GetCustomAttribute<SaveToConfigFileAttribute>() != null);
             foreach (var field in attributedFields)
             {
+                if (config.Get(field.Name).Trim() == "")
+                    continue;
+
                 var control = form.Controls.Find(field.Name, true).FirstOrDefault();
+
                 if (control is CheckBox checkBox)
                 {
                     checkBox.Checked = config.Get(field.Name).ToString().ToLower() == "true";
                 }
+                else if (control is DateTimePicker dateTimePicker)
+                {
+                    dateTimePicker.Text = config.Get(field.Name);
+                } 
                 else
                 {
                     control.Text = config.Get(field.Name);
@@ -71,7 +77,7 @@ namespace My_BoomSosed_NET
         }
         public void SafeToConfig()
         {      
-            var attributedFields = typeof(BoomSosed_MainForm)
+            var attributedFields = typeof(MainForm)
                 .GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
                 .Where(f => f.GetCustomAttribute<SaveToConfigFileAttribute>() != null);
             foreach (var field in attributedFields)
@@ -81,12 +87,15 @@ namespace My_BoomSosed_NET
                 {
                     config.Add(field.Name, checkBox.Checked.ToString().ToLower());
                 }
+                else if (control is DateTimePicker dateTimePicker)
+                { 
+                    config.Add(field.Name, dateTimePicker.Value.ToLongTimeString());
+                } 
                 else
                 {
                     config.Add(field.Name, control.Text);
                 }
             }
-
             config.Save();
         }
     }

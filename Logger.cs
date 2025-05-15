@@ -3,7 +3,6 @@
     class Logger
     {
         RichTextBox loggerControl;
-
         public Logger(RichTextBox loggerControl)
         {
             this.loggerControl = loggerControl;
