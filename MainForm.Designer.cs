@@ -336,19 +336,19 @@
 
         private ListBox ctrl_LST;
         private Button btnStart;
-        [SaveToConfigFileAttribute]
+        [SaveToConfigAttribute]
         private  TextBox ctrl_Speed;
         private Label label_Speed;
         private TableLayoutPanel ctrlVisualBoom;
         private GroupBox groupBoxVisualBoom;
         private Label label1;
-        [SaveToConfigFileAttribute]
+        [SaveToConfigAttribute]
         private TextBox ctrl_FillRatio;
         private RichTextBox ctrlLog;
         private Button btnRecalcParams;
         private ListBox ctrl_FilesInLST;
         private Label label2;
-        [SaveToConfigFileAttribute]
+        [SaveToConfigAttribute]
         private CheckBox ctrl_RecalcVisualBoom;
         private Label label3;
         private Label label4;
@@ -356,13 +356,13 @@
         private TabControl tabControl;
         private TabPage tabPage1;
         private TabPage tabPage2;
-        [SaveToConfigFileAttribute]
+        [SaveToConfigAttribute]
         private Label label6;
-        [SaveToConfigFileAttribute]
+        [SaveToConfigAttribute]
         private DateTimePicker ctrl_AllTimeF;
-        [SaveToConfigFileAttribute]
+        [SaveToConfigAttribute]
         private DateTimePicker ctrl_AllTimeT;
-        [SaveToConfigFileAttribute]
+        [SaveToConfigAttribute]
         private CheckBox ctrl_mainSсheduler;
         private Label ctrl_schedule_info;
     }

@@ -1,4 +1,4 @@
-﻿using System.Drawing.Drawing2D;
+﻿using System.Text;
 
 namespace My_BoomSosed_NET
 {
@@ -61,8 +61,7 @@ namespace My_BoomSosed_NET
                 i++;
             }           
             
-            
-            File.WriteAllLines(file, lines);
+            File.WriteAllLines(file, lines, Encoding.UTF8);
         }
     }
 }

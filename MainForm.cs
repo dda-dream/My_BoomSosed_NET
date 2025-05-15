@@ -28,9 +28,6 @@ namespace My_BoomSosed_NET
             formController.InitFormConfig();
             CalcArray();
             UpdateDesign();
-            
-            var a = label6.Text;
-            var aa = ctrl_AllTimeF.Text;
         }
         bool firstTimeTimer = true;
         bool timerEnabled = false;
@@ -92,13 +89,13 @@ namespace My_BoomSosed_NET
                 {
                     if (DateTime.Now.TimeOfDay < ctrl_AllTimeF.Value.TimeOfDay || DateTime.Now.TimeOfDay > ctrl_AllTimeT.Value.TimeOfDay)
                     {
-                        ctrl_schedule_info.BackColor = Color.Red;
+                        ctrl_schedule_info.ForeColor = Color.Red;
                         ctrl_schedule_info.Text = "ВЫКЛ по планировщику";
                         return;
                     }
                     else
                     {
-                        ctrl_schedule_info.BackColor = Color.Green;
+                        ctrl_schedule_info.ForeColor = Color.Green;
                         ctrl_schedule_info.Text = "ВКЛ по планировщику";
                     }
                 }

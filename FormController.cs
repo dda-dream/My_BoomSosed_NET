@@ -25,10 +25,10 @@ namespace My_BoomSosed_NET
 
             var serializableFields = typeof(MainForm)
                 .GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
-                .Where(f => f.GetCustomAttribute<SaveToConfigFileAttribute>() != null);
+                .Where(f => f.GetCustomAttribute<SaveToConfigAttribute>() != null);
             foreach (var field in serializableFields)
             {
-                var attribute = field.GetCustomAttribute<SaveToConfigFileAttribute>();
+                var attribute = field.GetCustomAttribute<SaveToConfigAttribute>();
                 string fieldName = attribute.Name ?? field.Name;
                 logger.Add($"SaveToConfigFile:  {fieldName}");
             }
@@ -53,7 +53,7 @@ namespace My_BoomSosed_NET
         {
             var attributedFields = typeof(MainForm)
                 .GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
-                .Where(f => f.GetCustomAttribute<SaveToConfigFileAttribute>() != null);
+                .Where(f => f.GetCustomAttribute<SaveToConfigAttribute>() != null);
             foreach (var field in attributedFields)
             {
                 if (config.Get(field.Name).Trim() == "")
@@ -79,7 +79,7 @@ namespace My_BoomSosed_NET
         {      
             var attributedFields = typeof(MainForm)
                 .GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
-                .Where(f => f.GetCustomAttribute<SaveToConfigFileAttribute>() != null);
+                .Where(f => f.GetCustomAttribute<SaveToConfigAttribute>() != null);
             foreach (var field in attributedFields)
             {
                 var control = form.Controls.Find(field.Name, true).FirstOrDefault();
