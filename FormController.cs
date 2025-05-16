@@ -139,7 +139,7 @@ namespace My_BoomSosed_NET
                 }
             }
         }
-        public async Task<string> StartCommandServerAsync()
+        public string /*async Task<string>*/ StartCommandServerAsync()
         {
             TCPCommandServer tcpServer;
 
