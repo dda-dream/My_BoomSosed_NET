@@ -34,17 +34,21 @@ namespace My_BoomSosed_NET
                 client.ReceiveTimeout = 60 * 1000;
                 using (StreamReader reader = new StreamReader(client.GetStream()))
                     text = reader.ReadToEnd();
-                
+
                 listener.Stop();
                 logger.Add($"StartAndWaitCommand: text: ({text})", true);
             }
-            catch (Exception ex)
+            catch (IOException ex)
             {
-                listener.Stop();
-                //logger.Add(ex.ToString(), true);
+                SocketException innerEx = (SocketException)ex.InnerException;
+                logger.Add($"TCPCommandServer:System.IO.IOException - ошибка:{innerEx.SocketErrorCode.ToString()}", true);
+            }
+            catch (SocketException ex)
+            {
                 logger.Add("TCPCommandServer:StartAndWaitCommand - ошибка.", true);
             }
             
+            listener.Stop();
             return text;
         }
     }

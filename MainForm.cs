@@ -4,6 +4,7 @@ using System;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 namespace My_BoomSosed_NET
 {
     public partial class MainForm : Form
@@ -27,6 +28,7 @@ namespace My_BoomSosed_NET
         public void _PlaySound()
         { 
             formController.LoggerAdd("play selected sound");
+            PlayMp3(".\\sounds\\mp3\\Boom.mp3");
         }
         #endregion
 
@@ -39,6 +41,7 @@ namespace My_BoomSosed_NET
             StartStopDelegate startStopDelegate = _StartStop;
             PlaySoundDelegate playSoundDelegate = _PlaySound;
             formController = new FormController(this, ctrlLog, startStopDelegate, playSoundDelegate);
+
             ctrl_Speed.Text = "1";
             ctrl_FillRatio.Text = "5";
 
@@ -156,18 +159,18 @@ namespace My_BoomSosed_NET
         }
         private void ctrl_FilesInLST_DoubleClick(object sender, EventArgs e)
         {
-            if (timer_boom.Enabled == false)
-            {
+            //if (timer_boom.Enabled == false)
+            //{
                 var selected = ctrl_FilesInLST.SelectedItem;
                 if (selected is String && selected != null)
                 {
                     PlayMp3(".\\sounds\\" + selected);
                 }
-            }
-            else
-            {
-                formController.LoggerAdd("ѕроигрывание файла невозможно, так как запущено проигрывание по плану.");
-            }
+            //}
+            //else
+            //{
+            //    formController.LoggerAdd("ѕроигрывание файла невозможно, так как запущено проигрывание по плану.");
+            //}
         }
         private void BoomSosed_MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
