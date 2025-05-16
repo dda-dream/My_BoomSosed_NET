@@ -14,7 +14,6 @@ namespace My_BoomSosed_NET
         Random random = new Random();
         System.Windows.Forms.Timer timer_boom;
         FormController formController;
-        TCPServer tcpServer;
         public MainForm()
         {
             InitializeComponent();
@@ -29,9 +28,6 @@ namespace My_BoomSosed_NET
             formController.InitFormConfig();
             CalcArray();
             UpdateDesign();
-
-            tcpServer = new TCPServer();
-            tcpServer.Start();
         }
         bool firstTimeTimer = true;
         bool timerEnabled = false;
@@ -387,6 +383,7 @@ namespace My_BoomSosed_NET
 
         private void BoomSosed_MainForm_Shown(object sender, EventArgs e)
         {
+            formController.StartCommandServer();
         }
     }
 }

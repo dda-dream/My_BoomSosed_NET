@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace My_BoomSosed_NET
 {
-    class FormController
+    public class FormController
     {
         MainForm form;
         Config config;
@@ -98,5 +98,40 @@ namespace My_BoomSosed_NET
             }
             config.Save();
         }
+        /// <summary>
+        /// Commands supported: 
+        ///     boom - play once choosen file(or random) from selected playlist
+        ///     start scheduler - start scheduler
+        ///     stop - stop scheduler
+        /// </summary>
+        /// <param name="command"></param>
+        public void ProcessCommand(string command)
+        { 
+
+        }
+
+        public async void StartCommandServer()
+        {
+            while (true)
+            {
+                string command = await Task<string>.Run(StartCommandServerAsync);
+                if (command != "")
+                {
+                    logger.Add("ProcessCommand: " + command, true);
+                    ProcessCommand(command);
+                }
+            }
+        }
+        public async Task<string> StartCommandServerAsync()
+        {
+            TCPCommandServer tcpServer;
+
+            logger.Add("Starting command server at port: 60006", true);
+            tcpServer = new TCPCommandServer(logger);
+            string command = tcpServer.StartAndWaitCommand();
+        
+            return command;
+        }
+
     }
 }
