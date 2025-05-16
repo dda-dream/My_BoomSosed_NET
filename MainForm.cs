@@ -2,6 +2,7 @@ using NAudio.SoundFont;
 using NAudio.Wave;
 using System;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 namespace My_BoomSosed_NET
 {
@@ -14,12 +15,30 @@ namespace My_BoomSosed_NET
         Random random = new Random();
         System.Windows.Forms.Timer timer_boom;
         FormController formController;
+
+        #region form Delegates
+        public delegate void StartStopDelegate(string command);
+        public void _StartStop(string command)
+        {
+            formController.LoggerAdd($"start/stop: {command}");
+        }
+
+        public delegate void PlaySoundDelegate();
+        public void _PlaySound()
+        { 
+            formController.LoggerAdd("play selected sound");
+        }
+        #endregion
+
         public MainForm()
         {
             InitializeComponent();
             arr = new int[MaxRowSizeVisualBoom, MaxColSizeVisualBoom];
             timer_boom = new System.Windows.Forms.Timer();
-            formController = new FormController(this, ctrlLog);
+
+            StartStopDelegate startStopDelegate = _StartStop;
+            PlaySoundDelegate playSoundDelegate = _PlaySound;
+            formController = new FormController(this, ctrlLog, startStopDelegate, playSoundDelegate);
             ctrl_Speed.Text = "1";
             ctrl_FillRatio.Text = "5";
 
@@ -55,7 +74,7 @@ namespace My_BoomSosed_NET
                     timer_boom.Tick += Timer_boom_Tick;
                     firstTimeTimer = false;
                 }
-                //Зафиксировать выбранный плейлист и файл
+                //Зафиксировать выбранный плейлист и файл, что бы во время обработки по шедулеру помнить это.
                 if (ctrl_LST.SelectedItem is String)
                     selectedLST = (String)ctrl_LST.SelectedItem;
                 if (ctrl_FilesInLST.SelectedItem is String)
