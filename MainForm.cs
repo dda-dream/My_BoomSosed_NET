@@ -68,8 +68,7 @@ namespace My_BoomSosed_NET
                 UpdateDesign();
                 curRowSizeVisualBoom = 0;
                 curColSizeVisualBoom = -1;
-                Int32 val = 0;
-                Int32.TryParse(ctrl_Speed.Text, null, out val);
+                Int32.TryParse(ctrl_Speed.Text, null,out Int32 val);
                 timer_boom.Interval = val * 1000;
                 timerEnabled = true;
                 if (firstTimeTimer)
@@ -193,8 +192,7 @@ namespace My_BoomSosed_NET
         {
             //--------------------//-------------------- 1
             //--------------------//-------------------- 2
-            Int32 val = 0;
-            Int32.TryParse(ctrl_Speed.Text, null, out val);
+            Int32.TryParse(ctrl_Speed.Text, null, out Int32 val);
             if (val > 60 * 60/*час*/ || val <= 0)
             {
                 ctrl_Speed.Text = "5";
@@ -236,8 +234,7 @@ namespace My_BoomSosed_NET
 
         public void CalcArray()
         {
-            Int32 val = 0;
-            Int32.TryParse(ctrl_FillRatio.Text, null, out val);
+            Int32.TryParse(ctrl_FillRatio.Text, null, out Int32 val);
             if (val > 99 || val < 1)
             {
                 ctrl_FillRatio.Text = "5";
