@@ -1,10 +1,10 @@
 ﻿namespace My_BoomSosed_NET
 {
+    enum ChannelType { Control, File, Registry };
     public class Logger
     {
         RichTextBox loggerControl;
         const string loggerFile = "log.txt";
-        enum ChannelType { Control, File, Registry };
         List<ChannelType> channels = new List<ChannelType>();
         public Logger(RichTextBox loggerControl)
         {
@@ -54,21 +54,6 @@
         public void Clear()
         {
             loggerControl.Text = "";
-        }
-
-        public IAsyncResult BeginInvoke(Delegate method, object?[]? args)
-        {
-            throw new NotImplementedException();
-        }
-
-        public object? EndInvoke(IAsyncResult result)
-        {
-            throw new NotImplementedException();
-        }
-
-        public object? Invoke(Delegate method, object?[]? args)
-        {
-            throw new NotImplementedException();
         }
     }
 }

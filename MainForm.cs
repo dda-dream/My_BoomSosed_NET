@@ -17,7 +17,7 @@ namespace My_BoomSosed_NET
         System.Windows.Forms.Timer timer_boom;
         FormController formController;
 
-        #region form Delegates
+        #region FORM Delegates
         public delegate void StartStopDelegate(string command);
         public void _StartStop(string command)
         {

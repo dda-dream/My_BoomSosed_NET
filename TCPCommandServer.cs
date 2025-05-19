@@ -26,10 +26,11 @@ namespace My_BoomSosed_NET
                 listener.Start();
 
                 using TcpClient client = listener.AcceptTcpClient();
-                logger.Add("StartAndWaitCommand: Timeout 60 sec. Client accepted: " + client.Client.RemoteEndPoint);
+                logger.Add("Client accepted: " + client.Client.RemoteEndPoint);
 
                 using StreamWriter welcomeWriter = new StreamWriter(client.GetStream());
                 welcomeWriter.WriteLine("Welcome! This is BoomSosed interface! 60 sec timeout.");
+                welcomeWriter.WriteLine("Commands supported:play_sound, scheduler_start, scheduler_stop");
                 welcomeWriter.Flush();
 
                 client.ReceiveTimeout = 60 * 1000;

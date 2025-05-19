@@ -126,7 +126,6 @@ namespace My_BoomSosed_NET
                 logger.Add("Command not supported.");
             }
         }
-
         public async void StartCommandServer()
         {
             while (true)
@@ -144,7 +143,6 @@ namespace My_BoomSosed_NET
             TCPCommandServer tcpServer;
 
             logger.Add("Starting command server at port: 60006");
-            logger.Add("Commands supported:play_sound, scheduler_start, scheduler_stop");
 
             tcpServer = new TCPCommandServer(logger);
             string command = tcpServer.StartAndWaitCommand();
