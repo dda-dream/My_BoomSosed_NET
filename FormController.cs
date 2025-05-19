@@ -134,7 +134,7 @@ namespace My_BoomSosed_NET
                 string command = await Task<string>.Run(StartCommandServerAsync);
                 if (command != "")
                 {
-                    logger.Add("ProcessCommand: " + command, true);
+                    logger.Add("ProcessCommand: " + command);
                     ProcessCommand(command);
                 }
             }
@@ -143,7 +143,7 @@ namespace My_BoomSosed_NET
         {
             TCPCommandServer tcpServer;
 
-            logger.Add("Starting command server at port: 60006", true);
+            logger.Add("Starting command server at port: 60006");
             logger.Add("Commands supported:play_sound, scheduler_start, scheduler_stop");
 
             tcpServer = new TCPCommandServer(logger);

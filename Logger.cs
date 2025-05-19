@@ -1,20 +1,17 @@
-﻿using System.ComponentModel;
-using System.Windows.Forms;
-
-namespace My_BoomSosed_NET
+﻿namespace My_BoomSosed_NET
 {
-    public class Logger : ISynchronizeInvoke
+    public class Logger
     {
         RichTextBox loggerControl;
         const string loggerFile = "log.txt";
-
-        public bool InvokeRequired => throw new NotImplementedException();
-
+        enum ChannelType { Control, File, Registry };
+        List<ChannelType> channels = new List<ChannelType>();
         public Logger(RichTextBox loggerControl)
         {
             this.loggerControl = loggerControl;
+            channels.Add(ChannelType.Control); 
+            channels.Add(ChannelType.File); 
         }
-
         public delegate void _Add(string message);
         public void __Add(string message)
         {
@@ -24,7 +21,7 @@ namespace My_BoomSosed_NET
             loggerControl.ScrollToCaret();
             loggerControl.Update();
         }
-        public void Add(string message, bool toFileOnly = false)
+        public void Add(string message)
         {
             try
             {

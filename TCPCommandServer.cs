@@ -16,39 +16,41 @@ namespace My_BoomSosed_NET
         {
             this.logger = logger;
             this.Port = Port;
-            listener = new TcpListener(IPAddress.Any, this.Port);
-            listener.Start();
         }
         public string StartAndWaitCommand()
         {
             string text="";
             try
             {
-                TcpClient client = listener.AcceptTcpClient();
-                logger.Add("StartAndWaitCommand: Timeout 60 sec. Client accepted: " + client.Client.RemoteEndPoint, true);
+                using TcpListener listener = new TcpListener(IPAddress.Any, this.Port);
+                listener.Start();
 
-                var welcomeWriter = new StreamWriter(client.GetStream());
+                using TcpClient client = listener.AcceptTcpClient();
+                logger.Add("StartAndWaitCommand: Timeout 60 sec. Client accepted: " + client.Client.RemoteEndPoint);
+
+                using StreamWriter welcomeWriter = new StreamWriter(client.GetStream());
                 welcomeWriter.WriteLine("Welcome! This is BoomSosed interface! 60 sec timeout.");
                 welcomeWriter.Flush();
 
                 client.ReceiveTimeout = 60 * 1000;
-                using (StreamReader reader = new StreamReader(client.GetStream()))
-                    text = reader.ReadToEnd();
+                using StreamReader reader = new StreamReader(client.GetStream());
 
-                listener.Stop();
-                logger.Add($"StartAndWaitCommand: text: ({text})", true);
+                text = reader.ReadToEnd();
+
+                logger.Add($"StartAndWaitCommand: text: ({text})");
             }
-            catch (IOException ex)
+            catch (IOException ex) when (ex.InnerException is SocketException socketEx)
             {
-                SocketException innerEx = (SocketException)ex.InnerException;
-                logger.Add($"TCPCommandServer:System.IO.IOException - ошибка:{innerEx.SocketErrorCode.ToString()}", true);
+                logger.Add($"TCPCommandServer:System.IO.IOException - ошибка:{socketEx.SocketErrorCode.ToString()}");
             }
             catch (SocketException ex)
             {
-                logger.Add("TCPCommandServer:StartAndWaitCommand - ошибка.", true);
+                logger.Add($"TCPCommandServer:StartAndWaitCommand - ошибка. \n{ex.ToString()}\n");
+            }
+            finally
+            {
             }
             
-            listener.Stop();
             return text;
         }
     }
