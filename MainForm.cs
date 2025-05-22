@@ -38,12 +38,12 @@ namespace My_BoomSosed_NET
         public MainForm()
         {
             InitializeComponent();
-            arr = new int[formController.MaxRowSizeVisualBoom, formController.MaxColSizeVisualBoom];
             timer_boom = new System.Windows.Forms.Timer();
 
             StartStopDelegate startStopDelegate = _StartStop;
             PlaySoundDelegate playSoundDelegate = _PlaySound;
             formController = new FormController(this, ctrlLog, startStopDelegate, playSoundDelegate);
+            arr = new int[formController.MaxRowSizeVisualBoom, formController.MaxColSizeVisualBoom];
 
             ctrl_Speed.Text = "1";
             ctrl_FillRatio.Text = "5";

@@ -47,13 +47,13 @@
             label5 = new Label();
             tabControl = new TabControl();
             tabPage1 = new TabPage();
+            ctrl_Random = new CheckBox();
             ctrl_schedule_info = new Label();
             tabPage2 = new TabPage();
             ctrl_mainSсheduler = new CheckBox();
             ctrl_AllTimeT = new DateTimePicker();
             label6 = new Label();
             ctrl_AllTimeF = new DateTimePicker();
-            ctrl_Random = new CheckBox();
             groupBoxVisualBoom.SuspendLayout();
             tabControl.SuspendLayout();
             tabPage1.SuspendLayout();
@@ -74,7 +74,7 @@
             // 
             btnStart.Location = new Point(329, 120);
             btnStart.Name = "btnStart";
-            btnStart.Size = new Size(98, 23);
+            btnStart.Size = new Size(77, 23);
             btnStart.TabIndex = 2;
             btnStart.Text = "Start/Stop";
             btnStart.UseVisualStyleBackColor = true;
@@ -148,7 +148,7 @@
             // 
             // btnRecalcParams
             // 
-            btnRecalcParams.Location = new Point(433, 120);
+            btnRecalcParams.Location = new Point(412, 120);
             btnRecalcParams.Name = "btnRecalcParams";
             btnRecalcParams.Size = new Size(99, 23);
             btnRecalcParams.TabIndex = 10;
@@ -253,10 +253,20 @@
             tabPage1.Text = "Основная";
             tabPage1.UseVisualStyleBackColor = true;
             // 
+            // ctrl_Random
+            // 
+            ctrl_Random.AutoSize = true;
+            ctrl_Random.Location = new Point(328, 91);
+            ctrl_Random.Name = "ctrl_Random";
+            ctrl_Random.Size = new Size(124, 19);
+            ctrl_Random.TabIndex = 18;
+            ctrl_Random.Text = "Случайное время";
+            ctrl_Random.UseVisualStyleBackColor = true;
+            // 
             // ctrl_schedule_info
             // 
             ctrl_schedule_info.AutoSize = true;
-            ctrl_schedule_info.Location = new Point(538, 124);
+            ctrl_schedule_info.Location = new Point(517, 124);
             ctrl_schedule_info.Name = "ctrl_schedule_info";
             ctrl_schedule_info.Size = new Size(12, 15);
             ctrl_schedule_info.TabIndex = 17;
@@ -312,16 +322,6 @@
             ctrl_AllTimeF.Size = new Size(68, 23);
             ctrl_AllTimeF.TabIndex = 0;
             ctrl_AllTimeF.Value = new DateTime(2025, 5, 14, 8, 0, 0, 0);
-            // 
-            // ctrl_Random
-            // 
-            ctrl_Random.AutoSize = true;
-            ctrl_Random.Location = new Point(328, 91);
-            ctrl_Random.Name = "ctrl_Random";
-            ctrl_Random.Size = new Size(124, 19);
-            ctrl_Random.TabIndex = 18;
-            ctrl_Random.Text = "Случайное время";
-            ctrl_Random.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
