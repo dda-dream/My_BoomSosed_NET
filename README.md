@@ -3,16 +3,14 @@
 # Publishing
 dotnet publish My_BoomSosed_NET.csproj -o bin\publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:EnableCompressionInSingleFile=true
 
-# ChangeLog
-08-05-2025 9:30 - release #1
 
-ссылка для загрузки с моего облака:
+Link to download from my cloud:
 https://cloud.mail.ru/public/xNLw/8GgVmpxVc
 
-выгрузить в git(git push):
+UPLOAD to git(git push):
 1. git add .
 2. git commit -m "new comment"
 3. git push origin main
 
 TODO:
-1. добавить прослушивание порта для подключения клиента андроид(или веб интерфейс) для запуска удаленно.
+1. 

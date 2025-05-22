@@ -53,6 +53,7 @@
             ctrl_AllTimeT = new DateTimePicker();
             label6 = new Label();
             ctrl_AllTimeF = new DateTimePicker();
+            ctrl_Random = new CheckBox();
             groupBoxVisualBoom.SuspendLayout();
             tabControl.SuspendLayout();
             tabPage1.SuspendLayout();
@@ -62,7 +63,6 @@
             // ctrl_LST
             // 
             ctrl_LST.FormattingEnabled = true;
-            ctrl_LST.ItemHeight = 15;
             ctrl_LST.Location = new Point(6, 21);
             ctrl_LST.Name = "ctrl_LST";
             ctrl_LST.ScrollAlwaysVisible = true;
@@ -148,7 +148,7 @@
             // 
             // btnRecalcParams
             // 
-            btnRecalcParams.Location = new Point(328, 91);
+            btnRecalcParams.Location = new Point(433, 120);
             btnRecalcParams.Name = "btnRecalcParams";
             btnRecalcParams.Size = new Size(99, 23);
             btnRecalcParams.TabIndex = 10;
@@ -159,7 +159,6 @@
             // ctrl_FilesInLST
             // 
             ctrl_FilesInLST.FormattingEnabled = true;
-            ctrl_FilesInLST.ItemHeight = 15;
             ctrl_FilesInLST.Location = new Point(6, 91);
             ctrl_FilesInLST.Name = "ctrl_FilesInLST";
             ctrl_FilesInLST.ScrollAlwaysVisible = true;
@@ -229,6 +228,7 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(ctrl_Random);
             tabPage1.Controls.Add(ctrl_schedule_info);
             tabPage1.Controls.Add(label3);
             tabPage1.Controls.Add(label5);
@@ -256,7 +256,7 @@
             // ctrl_schedule_info
             // 
             ctrl_schedule_info.AutoSize = true;
-            ctrl_schedule_info.Location = new Point(433, 124);
+            ctrl_schedule_info.Location = new Point(538, 124);
             ctrl_schedule_info.Name = "ctrl_schedule_info";
             ctrl_schedule_info.Size = new Size(12, 15);
             ctrl_schedule_info.TabIndex = 17;
@@ -313,13 +313,23 @@
             ctrl_AllTimeF.TabIndex = 0;
             ctrl_AllTimeF.Value = new DateTime(2025, 5, 14, 8, 0, 0, 0);
             // 
-            // BoomSosed_MainForm
+            // ctrl_Random
+            // 
+            ctrl_Random.AutoSize = true;
+            ctrl_Random.Location = new Point(328, 91);
+            ctrl_Random.Name = "ctrl_Random";
+            ctrl_Random.Size = new Size(124, 19);
+            ctrl_Random.TabIndex = 18;
+            ctrl_Random.Text = "Случайное время";
+            ctrl_Random.UseVisualStyleBackColor = true;
+            // 
+            // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(682, 470);
             Controls.Add(tabControl);
-            Name = "BoomSosed_MainForm";
+            Name = "MainForm";
             Text = "My BoomSosed .NET";
             FormClosing += BoomSosed_MainForm_FormClosing;
             Shown += BoomSosed_MainForm_Shown;
@@ -365,5 +375,7 @@
         [SaveToConfigAttribute]
         private CheckBox ctrl_mainSсheduler;
         private Label ctrl_schedule_info;
+        [SaveToConfigAttribute]
+        private CheckBox ctrl_Random;
     }
 }

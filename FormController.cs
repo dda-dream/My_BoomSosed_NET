@@ -1,9 +1,4 @@
-﻿using NAudio.MediaFoundation;
-using NAudio.Wave;
-using System;
-using System.Globalization;
-using System.Reflection;
-using System.Runtime.InteropServices.ObjectiveC;
+﻿using System.Reflection;
 
 namespace My_BoomSosed_NET
 {
@@ -28,16 +23,45 @@ namespace My_BoomSosed_NET
             var a1 = a0.GetFields();
             var a2 = a0.GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
 
-            var serializableFields = typeof(MainForm)
-                .GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
-                .Where(f => f.GetCustomAttribute<SaveToConfigAttribute>() != null);
+            var serializableFields = 
+                typeof(MainForm).GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
+                                .Where(f => f.GetCustomAttribute<SaveToConfigAttribute>() != null);
             foreach (var field in serializableFields)
             {
                 var attribute = field.GetCustomAttribute<SaveToConfigAttribute>();
-                string fieldName = attribute.Name ?? field.Name;
+                string fieldName = /*attribute.Name ??*/ field.Name;
                 logger.Add($"SaveToConfigFile:  {fieldName}");
             }
         }
+        public int[,] FillArrayWithRandomValues(int fillPercentage = 10, int rows = 10, int columns = 10)
+        {
+            int[,] array = new int[rows, columns];
+            Random random = new Random();
+
+            int onesCount = rows * columns * fillPercentage / 100;
+            var indices = new List<(int row, int col)>();
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < columns; j++)
+                {
+                    indices.Add((i, j));
+                }
+            }
+
+            for (int i = indices.Count - 1; i > 0; i--)
+            {
+                int j = random.Next(i + 1);
+                (indices[i], indices[j]) = (indices[j], indices[i]);
+            }
+
+            for (int i = 0; i < onesCount; i++)
+            {
+                var (row, col) = indices[i];
+                array[row, col] = 1;
+            }
+            return array;
+        }
+
         public void LoggerAdd(string s)
         {
             logger.Add(s);
@@ -116,7 +140,7 @@ namespace My_BoomSosed_NET
             {
                 playSelectedSound.Method.Invoke(form, null);
             }
-            else if (command.Trim().Contains("scheduler_start") || command.Trim().Contains("scheduler_stop"))
+            else if (command.Trim().Contains("start") || command.Trim().Contains("stop"))
             {
                 string[] _command = { command };
                 startStop.Method.Invoke(form, _command);
