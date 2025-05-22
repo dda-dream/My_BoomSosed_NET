@@ -9,6 +9,8 @@ namespace My_BoomSosed_NET
         Logger logger;
         Delegate startStop;
         Delegate playSelectedSound;
+        public int MaxColSizeVisualBoom = 10;
+        public int MaxRowSizeVisualBoom = 10;
 
         public FormController(Control form, RichTextBox logControl, Delegate startStop, Delegate playSelectedSound )
         {

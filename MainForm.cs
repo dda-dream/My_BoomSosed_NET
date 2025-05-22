@@ -11,9 +11,6 @@ namespace My_BoomSosed_NET
     {
         const string _VERSION_ = "Initial release: 08-05-2025 Latest release: 21-05-2025";
 
-        int MaxColSizeVisualBoom = 10;
-        int MaxRowSizeVisualBoom = 10;
-        Random random = new Random();
         System.Windows.Forms.Timer timer_boom;
         FormController formController;
 
@@ -41,7 +38,7 @@ namespace My_BoomSosed_NET
         public MainForm()
         {
             InitializeComponent();
-            arr = new int[MaxRowSizeVisualBoom, MaxColSizeVisualBoom];
+            arr = new int[formController.MaxRowSizeVisualBoom, formController.MaxColSizeVisualBoom];
             timer_boom = new System.Windows.Forms.Timer();
 
             StartStopDelegate startStopDelegate = _StartStop;
@@ -127,7 +124,7 @@ namespace My_BoomSosed_NET
                         ctrl_Speed.Text = "1";
                         speedCounter = 1;
                     }
-                    this.speedCounter = random.Next(1, speedCounter);
+                    this.speedCounter = Random.Shared.Next(1, speedCounter);
                 }
                 else
                 {
@@ -240,7 +237,7 @@ namespace My_BoomSosed_NET
                 val = 10;
             }
 
-            arr = formController.FillArrayWithRandomValues(val, MaxRowSizeVisualBoom, MaxColSizeVisualBoom);
+            arr = formController.FillArrayWithRandomValues(val, formController.MaxRowSizeVisualBoom, formController.MaxColSizeVisualBoom);
         }
         public void InitVisualBoomGrid()
         {
@@ -251,8 +248,8 @@ namespace My_BoomSosed_NET
             ctrlVisualBoom.RowCount = 0;
             ctrlVisualBoom.ColumnCount = 0;
 
-            ctrlVisualBoom.RowCount = MaxRowSizeVisualBoom;
-            ctrlVisualBoom.ColumnCount = MaxColSizeVisualBoom;
+            ctrlVisualBoom.RowCount = formController.MaxRowSizeVisualBoom;
+            ctrlVisualBoom.ColumnCount = formController.MaxColSizeVisualBoom;
             ctrlVisualBoom.Dock = DockStyle.Fill;
             ctrlVisualBoom.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
 
@@ -262,9 +259,9 @@ namespace My_BoomSosed_NET
                 ctrlVisualBoom.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f / 10));
             }
 
-            for (int row = 0; row < MaxRowSizeVisualBoom; row++)
+            for (int row = 0; row < formController.MaxRowSizeVisualBoom; row++)
             {
-                for (int col = 0; col < MaxColSizeVisualBoom; col++)
+                for (int col = 0; col < formController.MaxColSizeVisualBoom; col++)
                 {
                     Panel panel = new Panel
                     {
@@ -297,7 +294,7 @@ namespace My_BoomSosed_NET
                 else
                 {
                     var lines = File.ReadAllLines((string)selectedLST);
-                    int fileSelectedNum = random.Next(lines.Count());
+                    int fileSelectedNum = Random.Shared.Next(lines.Count());
                     PlayMp3(".\\sounds\\" + lines[fileSelectedNum]);
                 }
             }
@@ -333,14 +330,14 @@ namespace My_BoomSosed_NET
         int curColSizeVisualBoom;
         public void StartBoom()
         {
-            if (curColSizeVisualBoom < MaxColSizeVisualBoom)
+            if (curColSizeVisualBoom < formController.MaxColSizeVisualBoom)
                 curColSizeVisualBoom++;
-            if (curColSizeVisualBoom >= MaxColSizeVisualBoom)
+            if (curColSizeVisualBoom >= formController.MaxColSizeVisualBoom)
             {
                 curColSizeVisualBoom = 0;
                 curRowSizeVisualBoom++;
             }
-            if (curRowSizeVisualBoom >= MaxRowSizeVisualBoom)
+            if (curRowSizeVisualBoom >= formController.MaxRowSizeVisualBoom)
             {
                 curColSizeVisualBoom = -1;
                 curRowSizeVisualBoom = 0;
