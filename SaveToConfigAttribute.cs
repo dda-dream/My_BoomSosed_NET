@@ -6,6 +6,7 @@
         public string Name { get; }
         public SaveToConfigAttribute()
         {
+            Name = "";
         }
     }
 }

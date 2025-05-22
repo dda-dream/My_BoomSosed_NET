@@ -10,7 +10,6 @@ namespace My_BoomSosed_NET
     public class TCPCommandServer
     { 
         int Port { get; set; }
-        TcpListener listener;
         Logger logger;
         public TCPCommandServer(Logger logger, int Port = 60006)
         {
@@ -30,7 +29,7 @@ namespace My_BoomSosed_NET
 
                 using StreamWriter welcomeWriter = new StreamWriter(client.GetStream());
                 welcomeWriter.WriteLine("Welcome! This is BoomSosed interface! 60 sec timeout.");
-                welcomeWriter.WriteLine("Commands supported:play_sound, scheduler_start, scheduler_stop");
+                welcomeWriter.WriteLine("Commands supported:play_sound, start, stop");
                 welcomeWriter.Flush();
 
                 client.ReceiveTimeout = 60 * 1000;

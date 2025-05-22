@@ -9,7 +9,7 @@ namespace My_BoomSosed_NET
 {
     public partial class MainForm : Form
     {
-        const string _VERSION_ = "Initial: 08-05-2025 Last: 14-05-2025";
+        const string _VERSION_ = "Initial release: 08-05-2025 Latest release: 21-05-2025";
 
         int MaxColSizeVisualBoom = 10;
         int MaxRowSizeVisualBoom = 10;
@@ -22,6 +22,12 @@ namespace My_BoomSosed_NET
         public void _StartStop(string command)
         {
             formController.LoggerAdd($"start/stop: {command}");
+            if (command.Trim().Contains("start"))
+                btnStart_Click(this, null);
+
+            if( command.Trim().Contains("stop"))
+                btnStart_Click(this, null);
+            
         }
 
         public delegate void PlaySoundDelegate();
@@ -50,60 +56,91 @@ namespace My_BoomSosed_NET
             formController.InitFormConfig();
             CalcArray();
             UpdateDesign();
+
+            timer_boom.Interval = 1000;
+            timer_boom.Tick += Timer_boom_Tick;
+            timer_boom.Start();
         }
-        bool firstTimeTimer = true;
-        bool timerEnabled = false;
+        bool scheduleEnabled = false;
+        bool schedulePaused = false;
         string selectedLST = "";
         string selectedFile = "";
+
+        void StartScheduler()
+        { 
+            if (!ValidBeforeStartTimer())
+            {
+                formController.LoggerAdd("Scheduler is NOT started.");
+                return;
+            }
+
+            UpdateDesign();
+            curRowSizeVisualBoom = 0;
+            curColSizeVisualBoom = -1;
+            scheduleEnabled = true;
+            schedulePaused = false;
+            speedCounter=0;
+            //Зафиксировать выбранный плейлист и файл, что бы во время обработки по шедулеру помнить.
+            if (ctrl_LST.SelectedItem is String)
+                selectedLST = (String)ctrl_LST.SelectedItem;
+            if (ctrl_FilesInLST.SelectedItem is String)
+                selectedFile = (String)ctrl_FilesInLST.SelectedItem;
+            formController.LoggerAdd($"selected playlist: {selectedLST}");
+            if (!string.IsNullOrEmpty(selectedFile))
+                formController.LoggerAdd($"selected file: {selectedFile}");
+            else
+                formController.LoggerAdd($"selected file: RANDOM");
+
+            formController.LoggerAdd("Scheduler started.");
+            btnStart.Text = "Stop";
+        }
+        void StopScheduler()
+        { 
+            scheduleEnabled = false;
+            formController.LoggerAdd("Scheduler stopped.");
+            btnStart.Text = "Start";
+            ctrl_schedule_info.Text = "-";
+            ctrl_schedule_info.BackColor = Color.Black;
+        }
         private void btnStart_Click(object sender, EventArgs e)
         {
-            if (!timer_boom.Enabled)
+            if (!scheduleEnabled)
+                StartScheduler();
+            else
+                StopScheduler();
+        }
+
+        Int32 speedCounter=0;
+        private void Timer_boom_Tick(object? sender, EventArgs e)
+        {
+            this.Text = $"My BoomSosed .NET {DateTime.Now.ToShortDateString()} - {DateTime.Now.ToLongTimeString()} " +
+                        $"schEn={scheduleEnabled} schPa={schedulePaused} speedCnt={this.speedCounter}"                        
+                        ;
+
+            if (this.speedCounter <= 1)
             {
-                if (!ValidBeforeStartTimer())
+                Int32.TryParse(ctrl_Speed.Text, null, out Int32 speedCounter);
+                if (ctrl_Random.Checked)
                 {
-                    formController.LoggerAdd("Timer is NOT started.");
-                    return;
+                    if (speedCounter < 1)
+                    {
+                        ctrl_Speed.Text = "1";
+                        speedCounter = 1;
+                    }
+                    this.speedCounter = random.Next(1, speedCounter);
                 }
-
-                UpdateDesign();
-                curRowSizeVisualBoom = 0;
-                curColSizeVisualBoom = -1;
-                Int32.TryParse(ctrl_Speed.Text, null,out Int32 val);
-                timer_boom.Interval = val * 1000;
-                timerEnabled = true;
-                if (firstTimeTimer)
-                {
-                    timer_boom.Tick += Timer_boom_Tick;
-                    firstTimeTimer = false;
-                }
-                //Зафиксировать выбранный плейлист и файл, что бы во время обработки по шедулеру помнить это.
-                if (ctrl_LST.SelectedItem is String)
-                    selectedLST = (String)ctrl_LST.SelectedItem;
-                if (ctrl_FilesInLST.SelectedItem is String)
-                    selectedFile = (String)ctrl_FilesInLST.SelectedItem;
-                formController.LoggerAdd($"selected playlist: {selectedLST}");
-                if (!string.IsNullOrEmpty(selectedFile))
-                    formController.LoggerAdd($"selected file: {selectedFile}");
                 else
-                    formController.LoggerAdd($"selected file: RANDOM");
-
-                formController.LoggerAdd("Timer started.");
-                btnStart.Text = "Stop";
-                timer_boom.Start();
+                {
+                    this.speedCounter = speedCounter;
+                }
             }
             else
             {
-                timer_boom.Stop();
-                timerEnabled = false;
-                formController.LoggerAdd("Timer stopped.");
-                btnStart.Text = "Start";
-                ctrl_schedule_info.Text = "-";
-                ctrl_schedule_info.BackColor = Color.Black;
+                this.speedCounter--;
+                return;
             }
-        }
-        private void Timer_boom_Tick(object? sender, EventArgs e)
-        {
-            if (timerEnabled)
+
+            if (scheduleEnabled && !schedulePaused)
             {
                 var aa = ctrl_AllTimeF.Text;
                 if (ctrl_mainSсheduler.Checked)
@@ -120,11 +157,9 @@ namespace My_BoomSosed_NET
                         ctrl_schedule_info.Text = "ВКЛ по планировщику";
                     }
                 }
-                timerEnabled = false;
                 StartBoom();
             }
         }
-
         private void btnRecalcParams_Click(object sender, EventArgs e)
         {
             CalcArray();
@@ -158,18 +193,11 @@ namespace My_BoomSosed_NET
         }
         private void ctrl_FilesInLST_DoubleClick(object sender, EventArgs e)
         {
-            //if (timer_boom.Enabled == false)
-            //{
-                var selected = ctrl_FilesInLST.SelectedItem;
-                if (selected is String && selected != null)
-                {
-                    PlayMp3(".\\sounds\\" + selected);
-                }
-            //}
-            //else
-            //{
-            //    formController.LoggerAdd("Проигрывание файла невозможно, так как запущено проигрывание по плану.");
-            //}
+            var selected = ctrl_FilesInLST.SelectedItem;
+            if (selected is String && selected != null)
+            {
+                PlayMp3(".\\sounds\\" + selected);
+            }
         }
         private void BoomSosed_MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -196,52 +224,23 @@ namespace My_BoomSosed_NET
             if (val > 60 * 60/*час*/ || val <= 0)
             {
                 ctrl_Speed.Text = "5";
-                val = 5;
             }
             //--------------------//-------------------- 3
             InitVisualBoomGrid();
             //--------------------//-------------------- 4 
-        }
-        public int[,] FillArrayWithRandomValues(int fillPercentage = 10, int rows = 10, int columns = 10)
-        {
-            int[,] array = new int[rows, columns];
-            Random random = new Random();
-
-            int onesCount = rows * columns * fillPercentage / 100;
-            var indices = new System.Collections.Generic.List<(int row, int col)>();
-            for (int i = 0; i < rows; i++)
-            {
-                for (int j = 0; j < columns; j++)
-                {
-                    indices.Add((i, j));
-                }
-            }
-
-            for (int i = indices.Count - 1; i > 0; i--)
-            {
-                int j = random.Next(i + 1);
-                (indices[i], indices[j]) = (indices[j], indices[i]);
-            }
-
-            for (int i = 0; i < onesCount; i++)
-            {
-                var (row, col) = indices[i];
-                array[row, col] = 1;
-            }
-            return array;
         }
         int[,] arr;
 
         public void CalcArray()
         {
             Int32.TryParse(ctrl_FillRatio.Text, null, out Int32 val);
-            if (val > 99 || val < 1)
+            if (val > 100 || val < 1)
             {
                 ctrl_FillRatio.Text = "5";
                 val = 10;
             }
 
-            arr = FillArrayWithRandomValues(val, MaxRowSizeVisualBoom, MaxColSizeVisualBoom);
+            arr = formController.FillArrayWithRandomValues(val, MaxRowSizeVisualBoom, MaxColSizeVisualBoom);
         }
         public void InitVisualBoomGrid()
         {
@@ -318,21 +317,16 @@ namespace My_BoomSosed_NET
             {
                 if (outputDevice.PlaybackState != PlaybackState.Playing)
                 {
+                    schedulePaused = true;
                     outputDevice.Init(audioFile);
                     outputDevice.Play();
                     outputDevice.PlaybackStopped += OutputDevice_PlaybackStopped;
-                }
-                else
-                {
-                    if (timer_boom.Enabled)
-                        timerEnabled = true;
                 }
             }
         }
         private void OutputDevice_PlaybackStopped(object? sender, StoppedEventArgs e)
         {
-            if (timer_boom.Enabled)
-                timerEnabled = true;
+            schedulePaused = false;
         }
 
         int curRowSizeVisualBoom;
@@ -355,8 +349,7 @@ namespace My_BoomSosed_NET
                     CalcArray();
                 }
                 InitVisualBoomGrid();
-                if (timer_boom.Enabled)
-                    timerEnabled = true;
+
                 return;
             }
             var panel = (Panel?)ctrlVisualBoom.GetControlFromPosition(curColSizeVisualBoom, curRowSizeVisualBoom);
@@ -373,17 +366,7 @@ namespace My_BoomSosed_NET
                     {
                         PlayRandomSoundFromList();
                     }
-                    else
-                    {
-                        if (timer_boom.Enabled)
-                            timerEnabled = true;
-                    }
                 }
-            }
-            else
-            {
-                if (timer_boom.Enabled)
-                    timerEnabled = true;
             }
         }
         bool ValidBeforeStartTimer()
