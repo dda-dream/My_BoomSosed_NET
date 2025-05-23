@@ -22,6 +22,7 @@ namespace My_BoomSosed_NET
             try
             {
                 using TcpListener listener = new TcpListener(IPAddress.Any, this.Port);
+                
                 listener.Start();
 
                 using TcpClient client = listener.AcceptTcpClient();
@@ -45,7 +46,10 @@ namespace My_BoomSosed_NET
             }
             catch (SocketException ex)
             {
-                logger.Add($"TCPCommandServer:StartAndWaitCommand - ошибка. \n{ex.ToString()}\n");
+                if (ex.ErrorCode == 10048) // WSAEADDRINUSE
+    {               logger.Add("Port is busy!");
+    }           else
+                    logger.Add($"TCPCommandServer:StartAndWaitCommand - ошибка. \n{ex.ToString()}\n");
             }
             finally
             {

@@ -155,6 +155,7 @@ namespace My_BoomSosed_NET
         {
             while (true)
             {
+                await Task.Delay(1000);
                 string command = await Task<string>.Run(StartCommandServerAsync);
                 if (command != "")
                 {
