@@ -1,10 +1,4 @@
-using NAudio.SoundFont;
 using NAudio.Wave;
-using System;
-using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using static System.ComponentModel.Design.ObjectSelectorEditor;
 namespace My_BoomSosed_NET
 {
     public partial class MainForm : Form
@@ -13,6 +7,15 @@ namespace My_BoomSosed_NET
 
         System.Windows.Forms.Timer timer_boom;
         FormController formController;
+        int curRowSizeVisualBoom;
+        int curColSizeVisualBoom;
+        Int32 speedCounter=0;
+        float soundVolume;
+        bool scheduleEnabled = false;
+        bool schedulePaused = false;
+        string selectedLST = "";
+        string selectedFile = "";
+        int[,] arr;
 
         #region FORM Delegates
         public delegate void StartStopDelegate(string command);
@@ -26,7 +29,6 @@ namespace My_BoomSosed_NET
                 btnStart_Click(this, null);
             
         }
-
         public delegate void PlaySoundDelegate();
         public void _PlaySound()
         { 
@@ -58,10 +60,6 @@ namespace My_BoomSosed_NET
             timer_boom.Tick += Timer_boom_Tick;
             timer_boom.Start();
         }
-        bool scheduleEnabled = false;
-        bool schedulePaused = false;
-        string selectedLST = "";
-        string selectedFile = "";
 
         void StartScheduler()
         { 
@@ -115,8 +113,6 @@ namespace My_BoomSosed_NET
                 this.Text = $"My BoomSosed .NET {DateTime.Now.ToShortDateString()} - {DateTime.Now.ToLongTimeString()} ";
         }
 
-        Int32 speedCounter=0;
-        float soundVolume;
         private void Timer_boom_Tick(object? sender, EventArgs e)
         {
             FormCaptionInfo();
@@ -225,7 +221,6 @@ namespace My_BoomSosed_NET
             InitVisualBoomGrid();
             //--------------------//-------------------- 4 
         }
-        int[,] arr;
 
         public void CalcArray()
         {
@@ -327,8 +322,6 @@ namespace My_BoomSosed_NET
             schedulePaused = false;
         }
 
-        int curRowSizeVisualBoom;
-        int curColSizeVisualBoom;
         public void StartBoom()
         {
             if (curColSizeVisualBoom < formController.MaxColSizeVisualBoom)
