@@ -29,7 +29,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            ctrl_LST = new ListBox();
+            ctrl_SoundFolders = new ListBox();
             btnStart = new Button();
             ctrl_Speed = new TextBox();
             label_Speed = new Label();
@@ -39,7 +39,7 @@
             ctrl_FillRatio = new TextBox();
             ctrlLog = new RichTextBox();
             btnRecalcParams = new Button();
-            ctrl_FilesInLST = new ListBox();
+            ctrl_SoundFiles = new ListBox();
             label2 = new Label();
             ctrl_RecalcVisualBoom = new CheckBox();
             label3 = new Label();
@@ -61,15 +61,15 @@
             tabPage2.SuspendLayout();
             SuspendLayout();
             // 
-            // ctrl_LST
+            // ctrl_SoundFolders
             // 
-            ctrl_LST.FormattingEnabled = true;
-            ctrl_LST.Location = new Point(6, 21);
-            ctrl_LST.Name = "ctrl_LST";
-            ctrl_LST.ScrollAlwaysVisible = true;
-            ctrl_LST.Size = new Size(318, 49);
-            ctrl_LST.TabIndex = 1;
-            ctrl_LST.SelectedIndexChanged += ctrl_LST_SelectedIndexChanged;
+            ctrl_SoundFolders.FormattingEnabled = true;
+            ctrl_SoundFolders.Location = new Point(6, 21);
+            ctrl_SoundFolders.Name = "ctrl_SoundFolders";
+            ctrl_SoundFolders.ScrollAlwaysVisible = true;
+            ctrl_SoundFolders.Size = new Size(318, 49);
+            ctrl_SoundFolders.TabIndex = 1;
+            ctrl_SoundFolders.SelectedIndexChanged += ctrl_LST_SelectedIndexChanged;
             // 
             // btnStart
             // 
@@ -157,25 +157,25 @@
             btnRecalcParams.UseVisualStyleBackColor = true;
             btnRecalcParams.Click += btnRecalcParams_Click;
             // 
-            // ctrl_FilesInLST
+            // ctrl_SoundFiles
             // 
-            ctrl_FilesInLST.FormattingEnabled = true;
-            ctrl_FilesInLST.Location = new Point(6, 91);
-            ctrl_FilesInLST.Name = "ctrl_FilesInLST";
-            ctrl_FilesInLST.ScrollAlwaysVisible = true;
-            ctrl_FilesInLST.Size = new Size(318, 79);
-            ctrl_FilesInLST.TabIndex = 11;
-            ctrl_FilesInLST.SelectedIndexChanged += ctrl_FilesInLST_SelectedIndexChanged;
-            ctrl_FilesInLST.DoubleClick += ctrl_FilesInLST_DoubleClick;
+            ctrl_SoundFiles.FormattingEnabled = true;
+            ctrl_SoundFiles.Location = new Point(6, 91);
+            ctrl_SoundFiles.Name = "ctrl_SoundFiles";
+            ctrl_SoundFiles.ScrollAlwaysVisible = true;
+            ctrl_SoundFiles.Size = new Size(318, 79);
+            ctrl_SoundFiles.TabIndex = 11;
+            ctrl_SoundFiles.SelectedIndexChanged += ctrl_FilesInLST_SelectedIndexChanged;
+            ctrl_SoundFiles.DoubleClick += ctrl_FilesInLST_DoubleClick;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Location = new Point(6, 73);
             label2.Name = "label2";
-            label2.Size = new Size(301, 15);
+            label2.Size = new Size(271, 15);
             label2.TabIndex = 12;
-            label2.Text = "Файлы в LST. 1клик-выбор. 2клик для проигрывания.";
+            label2.Text = "Файлы. 1клик-выбор. 2клик для проигрывания.";
             // 
             // ctrl_RecalcVisualBoom
             // 
@@ -192,9 +192,9 @@
             label3.AutoSize = true;
             label3.Location = new Point(6, 3);
             label3.Name = "label3";
-            label3.Size = new Size(91, 15);
+            label3.Size = new Size(42, 15);
             label3.TabIndex = 14;
-            label3.Text = "Плейлисты LST";
+            label3.Text = "Папки";
             // 
             // label4
             // 
@@ -234,7 +234,7 @@
             tabPage1.Controls.Add(ctrl_schedule_info);
             tabPage1.Controls.Add(label3);
             tabPage1.Controls.Add(label5);
-            tabPage1.Controls.Add(ctrl_LST);
+            tabPage1.Controls.Add(ctrl_SoundFolders);
             tabPage1.Controls.Add(label4);
             tabPage1.Controls.Add(btnStart);
             tabPage1.Controls.Add(ctrl_Speed);
@@ -242,7 +242,7 @@
             tabPage1.Controls.Add(label_Speed);
             tabPage1.Controls.Add(label2);
             tabPage1.Controls.Add(groupBoxVisualBoom);
-            tabPage1.Controls.Add(ctrl_FilesInLST);
+            tabPage1.Controls.Add(ctrl_SoundFiles);
             tabPage1.Controls.Add(ctrl_FillRatio);
             tabPage1.Controls.Add(btnRecalcParams);
             tabPage1.Controls.Add(label1);
@@ -356,7 +356,8 @@
 
         #endregion
 
-        private ListBox ctrl_LST;
+        [SaveToConfigAttribute]
+        private ListBox ctrl_SoundFolders;
         private Button btnStart;
         [SaveToConfigAttribute]
         private  TextBox ctrl_Speed;
@@ -368,7 +369,8 @@
         private TextBox ctrl_FillRatio;
         private RichTextBox ctrlLog;
         private Button btnRecalcParams;
-        private ListBox ctrl_FilesInLST;
+        [SaveToConfigAttribute]
+        private ListBox ctrl_SoundFiles;
         private Label label2;
         [SaveToConfigAttribute]
         private CheckBox ctrl_RecalcVisualBoom;

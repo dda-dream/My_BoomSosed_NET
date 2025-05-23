@@ -9,7 +9,7 @@ namespace My_BoomSosed_NET
 {
     public partial class MainForm : Form
     {
-        const string _VERSION_ = "Initial release: 08-05-2025 Latest release: 21-05-2025";
+        const string _VERSION_ = "Initial release: 08-05-2025 Latest release: 23-05-2025";
 
         System.Windows.Forms.Timer timer_boom;
         FormController formController;
@@ -31,7 +31,7 @@ namespace My_BoomSosed_NET
         public void _PlaySound()
         { 
             formController.LoggerAdd("play selected sound");
-            PlayMp3(".\\sounds\\mp3\\Boom.mp3");
+            PlayMp3(".\\sounds\\Boom\\Boom.mp3");
         }
         #endregion
 
@@ -78,10 +78,10 @@ namespace My_BoomSosed_NET
             schedulePaused = false;
             speedCounter=0;
             //Зафиксировать выбранный плейлист и файл, что бы во время обработки по шедулеру помнить.
-            if (ctrl_LST.SelectedItem is String)
-                selectedLST = (String)ctrl_LST.SelectedItem;
-            if (ctrl_FilesInLST.SelectedItem is String)
-                selectedFile = (String)ctrl_FilesInLST.SelectedItem;
+            if (ctrl_SoundFolders.SelectedItem is String)
+                selectedLST = (String)ctrl_SoundFolders.SelectedItem;
+            if (ctrl_SoundFiles.SelectedItem is String)
+                selectedFile = (String)ctrl_SoundFiles.SelectedItem;
             formController.LoggerAdd($"selected playlist: {selectedLST}");
             if (!string.IsNullOrEmpty(selectedFile))
                 formController.LoggerAdd($"selected file: {selectedFile}");
@@ -166,21 +166,14 @@ namespace My_BoomSosed_NET
         private void ctrl_LST_SelectedIndexChanged(object sender, EventArgs e)
         {
             selectedFile = "";
-            if (ctrl_LST.Items.Count != 0)
+            var soundsFiles = Directory.EnumerateFiles(ctrl_SoundFolders.Text);
+
+            ctrl_SoundFiles.Items.Clear();
+            foreach (var file in soundsFiles)
             {
-                ctrl_FilesInLST.Items.Clear();
-                var selected = ctrl_LST.SelectedItem;
-                if (selected is String && selected != null)
-                {
-                    var lines = File.ReadAllLines((string)selected);
-                    foreach (var line in lines)
-                    {
-                        if (line.Trim() != "")
-                            ctrl_FilesInLST.Items.Add(line);
-                    }
-                    ctrl_FilesInLST.Sorted = true;
-                }
+                ctrl_SoundFiles.Items.Add(file);
             }
+            ctrl_SoundFiles.Sorted = true;
         }
         private void ctrl_FilesInLST_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -191,10 +184,10 @@ namespace My_BoomSosed_NET
         }
         private void ctrl_FilesInLST_DoubleClick(object sender, EventArgs e)
         {
-            var selected = ctrl_FilesInLST.SelectedItem;
+            var selected = ctrl_SoundFiles.SelectedItem;
             if (selected is String && selected != null)
             {
-                PlayMp3(".\\sounds\\" + selected);
+                PlayMp3( (string)selected);
             }
         }
         private void BoomSosed_MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -203,15 +196,11 @@ namespace My_BoomSosed_NET
         }
         void InitDesign()
         {
-            if (ctrl_LST.Items.Count == 0)
-            {
-                var soundsDir = Directory.EnumerateFiles(".\\sounds\\");
+            var soundsDir = Directory.EnumerateDirectories(".\\sounds\\");
 
-                foreach (var file in soundsDir)
-                {
-                    if (Path.GetExtension(file).ToLower() == ".lst")
-                        ctrl_LST.Items.Add(file);
-                }
+            foreach (var folder in soundsDir)
+            {
+                    ctrl_SoundFolders.Items.Add(folder);
             }
         }
         void UpdateDesign()
@@ -290,13 +279,12 @@ namespace My_BoomSosed_NET
             {
                 if (!string.IsNullOrEmpty(selectedFile))
                 {
-                    PlayMp3(".\\sounds\\" + selectedFile);
+                    PlayMp3(selectedFile);
                 }
                 else
                 {
-                    var lines = File.ReadAllLines((string)selectedLST);
-                    int fileSelectedNum = Random.Shared.Next(lines.Count());
-                    PlayMp3(".\\sounds\\" + lines[fileSelectedNum]);
+                    string randomFile = (string)ctrl_SoundFiles.Items[Random.Shared.Next(0, ctrl_SoundFiles.Items.Count)];
+                    PlayMp3(randomFile);
                 }
             }
         }
@@ -377,7 +365,7 @@ namespace My_BoomSosed_NET
         {
             bool retVal = true;
 
-            var selected = ctrl_LST.SelectedItem;
+            var selected = ctrl_SoundFolders.SelectedItem;
             if (selected == null)
             {
                 formController.LoggerAdd("Choose PlayList!");
