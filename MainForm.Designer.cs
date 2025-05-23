@@ -47,7 +47,8 @@
             label5 = new Label();
             tabControl = new TabControl();
             tabPage1 = new TabPage();
-            ctrl_Random = new CheckBox();
+            ctrl_RandomVolume = new CheckBox();
+            ctrl_RandomTime = new CheckBox();
             ctrl_schedule_info = new Label();
             tabPage2 = new TabPage();
             ctrl_mainSсheduler = new CheckBox();
@@ -72,7 +73,7 @@
             // 
             // btnStart
             // 
-            btnStart.Location = new Point(329, 120);
+            btnStart.Location = new Point(329, 148);
             btnStart.Name = "btnStart";
             btnStart.Size = new Size(77, 23);
             btnStart.TabIndex = 2;
@@ -82,7 +83,7 @@
             // 
             // ctrl_Speed
             // 
-            ctrl_Speed.Location = new Point(328, 61);
+            ctrl_Speed.Location = new Point(328, 41);
             ctrl_Speed.Name = "ctrl_Speed";
             ctrl_Speed.Size = new Size(82, 23);
             ctrl_Speed.TabIndex = 3;
@@ -92,7 +93,7 @@
             // label_Speed
             // 
             label_Speed.AutoSize = true;
-            label_Speed.Location = new Point(328, 43);
+            label_Speed.Location = new Point(328, 26);
             label_Speed.Name = "label_Speed";
             label_Speed.Size = new Size(78, 15);
             label_Speed.TabIndex = 4;
@@ -123,7 +124,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(416, 43);
+            label1.Location = new Point(416, 26);
             label1.Name = "label1";
             label1.Size = new Size(99, 15);
             label1.TabIndex = 8;
@@ -131,7 +132,7 @@
             // 
             // ctrl_FillRatio
             // 
-            ctrl_FillRatio.Location = new Point(416, 62);
+            ctrl_FillRatio.Location = new Point(416, 41);
             ctrl_FillRatio.Name = "ctrl_FillRatio";
             ctrl_FillRatio.Size = new Size(99, 23);
             ctrl_FillRatio.TabIndex = 7;
@@ -148,7 +149,7 @@
             // 
             // btnRecalcParams
             // 
-            btnRecalcParams.Location = new Point(412, 120);
+            btnRecalcParams.Location = new Point(412, 148);
             btnRecalcParams.Name = "btnRecalcParams";
             btnRecalcParams.Size = new Size(99, 23);
             btnRecalcParams.TabIndex = 10;
@@ -179,7 +180,7 @@
             // ctrl_RecalcVisualBoom
             // 
             ctrl_RecalcVisualBoom.AutoSize = true;
-            ctrl_RecalcVisualBoom.Location = new Point(330, 151);
+            ctrl_RecalcVisualBoom.Location = new Point(328, 83);
             ctrl_RecalcVisualBoom.Name = "ctrl_RecalcVisualBoom";
             ctrl_RecalcVisualBoom.Size = new Size(271, 19);
             ctrl_RecalcVisualBoom.TabIndex = 13;
@@ -228,7 +229,8 @@
             // 
             // tabPage1
             // 
-            tabPage1.Controls.Add(ctrl_Random);
+            tabPage1.Controls.Add(ctrl_RandomVolume);
+            tabPage1.Controls.Add(ctrl_RandomTime);
             tabPage1.Controls.Add(ctrl_schedule_info);
             tabPage1.Controls.Add(label3);
             tabPage1.Controls.Add(label5);
@@ -253,15 +255,25 @@
             tabPage1.Text = "Основная";
             tabPage1.UseVisualStyleBackColor = true;
             // 
-            // ctrl_Random
+            // ctrl_RandomVolume
             // 
-            ctrl_Random.AutoSize = true;
-            ctrl_Random.Location = new Point(328, 91);
-            ctrl_Random.Name = "ctrl_Random";
-            ctrl_Random.Size = new Size(124, 19);
-            ctrl_Random.TabIndex = 18;
-            ctrl_Random.Text = "Случайное время";
-            ctrl_Random.UseVisualStyleBackColor = true;
+            ctrl_RandomVolume.AutoSize = true;
+            ctrl_RandomVolume.Location = new Point(450, 66);
+            ctrl_RandomVolume.Name = "ctrl_RandomVolume";
+            ctrl_RandomVolume.Size = new Size(147, 19);
+            ctrl_RandomVolume.TabIndex = 19;
+            ctrl_RandomVolume.Text = "Случайная громкость";
+            ctrl_RandomVolume.UseVisualStyleBackColor = true;
+            // 
+            // ctrl_RandomTime
+            // 
+            ctrl_RandomTime.AutoSize = true;
+            ctrl_RandomTime.Location = new Point(328, 66);
+            ctrl_RandomTime.Name = "ctrl_RandomTime";
+            ctrl_RandomTime.Size = new Size(124, 19);
+            ctrl_RandomTime.TabIndex = 18;
+            ctrl_RandomTime.Text = "Случайное время";
+            ctrl_RandomTime.UseVisualStyleBackColor = true;
             // 
             // ctrl_schedule_info
             // 
@@ -376,6 +388,8 @@
         private CheckBox ctrl_mainSсheduler;
         private Label ctrl_schedule_info;
         [SaveToConfigAttribute]
-        private CheckBox ctrl_Random;
+        private CheckBox ctrl_RandomTime;
+        [SaveToConfigAttribute]
+        private CheckBox ctrl_RandomVolume;
     }
 }

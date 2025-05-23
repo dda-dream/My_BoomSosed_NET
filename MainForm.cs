@@ -108,6 +108,7 @@ namespace My_BoomSosed_NET
         }
 
         Int32 speedCounter=0;
+        float soundVolume;
         private void Timer_boom_Tick(object? sender, EventArgs e)
         {
             this.Text = $"My BoomSosed .NET {DateTime.Now.ToShortDateString()} - {DateTime.Now.ToLongTimeString()} " +
@@ -117,7 +118,7 @@ namespace My_BoomSosed_NET
             if (this.speedCounter <= 1)
             {
                 Int32.TryParse(ctrl_Speed.Text, null, out Int32 speedCounter);
-                if (ctrl_Random.Checked)
+                if (ctrl_RandomTime.Checked)
                 {
                     if (speedCounter < 1)
                     {
@@ -309,7 +310,12 @@ namespace My_BoomSosed_NET
                 return;
             }
 
-            formController.LoggerAdd($"Boom! {filePath}");
+            if (ctrl_RandomVolume.Checked)
+                soundVolume = (float)Random.Shared.NextDouble();
+            else
+                soundVolume = 1;
+
+            formController.LoggerAdd($"Boom! {filePath} soundVolume: {soundVolume}");
             using (var audioFile = new AudioFileReader(audioFilePath))
             {
                 if (outputDevice.PlaybackState != PlaybackState.Playing)
@@ -317,6 +323,7 @@ namespace My_BoomSosed_NET
                     schedulePaused = true;
                     outputDevice.Init(audioFile);
                     outputDevice.Play();
+                    outputDevice.Volume = soundVolume;
                     outputDevice.PlaybackStopped += OutputDevice_PlaybackStopped;
                 }
             }
