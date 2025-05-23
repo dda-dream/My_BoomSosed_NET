@@ -38,7 +38,6 @@ namespace My_BoomSosed_NET
         public int[,] FillArrayWithRandomValues(int fillPercentage = 10, int rows = 10, int columns = 10)
         {
             int[,] array = new int[rows, columns];
-            Random random = new Random();
 
             int onesCount = rows * columns * fillPercentage / 100;
             var indices = new List<(int row, int col)>();
@@ -52,7 +51,7 @@ namespace My_BoomSosed_NET
 
             for (int i = indices.Count - 1; i > 0; i--)
             {
-                int j = random.Next(i + 1);
+                int j = Random.Shared.Next(i + 1);
                 (indices[i], indices[j]) = (indices[j], indices[i]);
             }
 
@@ -132,8 +131,8 @@ namespace My_BoomSosed_NET
         /// <summary>
         /// Commands supported: 
         ///     play_sound - play once choosen file(or random) from selected playlist
-        ///     scheduler_start - start scheduler
-        ///     scheduler_stop - stop scheduler
+        ///     start - start scheduler
+        ///     stop - stop scheduler
         /// </summary>
         /// <param name="command"></param>
         public void ProcessCommand(string command)

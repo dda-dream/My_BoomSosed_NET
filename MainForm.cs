@@ -106,14 +106,23 @@ namespace My_BoomSosed_NET
             else
                 StopScheduler();
         }
+        void FormCaptionInfo()
+        { 
+            if (scheduleEnabled)
+                this.Text = $"My BoomSosed .NET {DateTime.Now.ToShortDateString()} - {DateTime.Now.ToLongTimeString()} " +
+                            $"schEn={scheduleEnabled} schPa={schedulePaused} speedCnt={this.speedCounter}";
+            else
+                this.Text = $"My BoomSosed .NET {DateTime.Now.ToShortDateString()} - {DateTime.Now.ToLongTimeString()} ";
+        }
 
         Int32 speedCounter=0;
         float soundVolume;
         private void Timer_boom_Tick(object? sender, EventArgs e)
         {
-            this.Text = $"My BoomSosed .NET {DateTime.Now.ToShortDateString()} - {DateTime.Now.ToLongTimeString()} " +
-                        $"schEn={scheduleEnabled} schPa={schedulePaused} speedCnt={this.speedCounter}"                        
-                        ;
+            FormCaptionInfo();
+
+            if (!scheduleEnabled)
+                return;
 
             if (this.speedCounter <= 1)
             {
@@ -200,7 +209,7 @@ namespace My_BoomSosed_NET
 
             foreach (var folder in soundsDir)
             {
-                    ctrl_SoundFolders.Items.Add(folder);
+                ctrl_SoundFolders.Items.Add(folder);
             }
         }
         void UpdateDesign()
@@ -298,12 +307,9 @@ namespace My_BoomSosed_NET
                 return;
             }
 
-            if (ctrl_RandomVolume.Checked)
-                soundVolume = (float)Random.Shared.NextDouble();
-            else
-                soundVolume = 1;
+            soundVolume = ctrl_RandomVolume.Checked ? (float)Random.Shared.NextDouble() : 1;
 
-            formController.LoggerAdd($"Boom! {filePath} soundVolume: {soundVolume}");
+            formController.LoggerAdd($"Boom! {filePath} soundVolume: {(int)soundVolume*100}");
             using (var audioFile = new AudioFileReader(audioFilePath))
             {
                 if (outputDevice.PlaybackState != PlaybackState.Playing)
@@ -350,10 +356,8 @@ namespace My_BoomSosed_NET
 
             if (panel != null && panel.Controls.Count > 0)
             {
-                var isThislabel = panel.Controls[0];
-                if (isThislabel is Label)
+                if (panel.Controls[0] is Label label)
                 {
-                    var label = (Label)isThislabel;
                     if (label != null && label.Text == "*!*")
                     {
                         PlayRandomSoundFromList();
