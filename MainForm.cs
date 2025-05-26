@@ -9,7 +9,7 @@ namespace My_BoomSosed_NET
         FormController formController;
         int curRowSizeVisualBoom;
         int curColSizeVisualBoom;
-        Int32 speedCounter=0;
+        Int32 speedCounter = 0;
         float soundVolume;
         bool scheduleEnabled = false;
         bool schedulePaused = false;
@@ -25,13 +25,13 @@ namespace My_BoomSosed_NET
             if (command.Trim().Contains("start"))
                 btnStart_Click(this, null);
 
-            if( command.Trim().Contains("stop"))
+            if (command.Trim().Contains("stop"))
                 btnStart_Click(this, null);
-            
+
         }
         public delegate void PlaySoundDelegate();
         public void _PlaySound()
-        { 
+        {
             formController.LoggerAdd("play selected sound");
             PlayMp3(".\\sounds\\Boom\\Boom.mp3");
         }
@@ -53,6 +53,7 @@ namespace My_BoomSosed_NET
             formController.LoggerAdd(_VERSION_);
             InitDesign();
             formController.InitFormConfig();
+            formController.LoggerAdd("Config loaded from config.cfg");
             CalcArray();
             UpdateDesign();
 
@@ -62,7 +63,7 @@ namespace My_BoomSosed_NET
         }
 
         void StartScheduler()
-        { 
+        {
             if (!ValidBeforeStartTimer())
             {
                 formController.LoggerAdd("Scheduler is NOT started.");
@@ -74,7 +75,7 @@ namespace My_BoomSosed_NET
             curColSizeVisualBoom = -1;
             scheduleEnabled = true;
             schedulePaused = false;
-            speedCounter=0;
+            speedCounter = 0;
             //Зафиксировать выбранный плейлист и файл, что бы во время обработки по шедулеру помнить.
             if (ctrl_SoundFolders.SelectedItem is String)
                 selectedLST = (String)ctrl_SoundFolders.SelectedItem;
@@ -90,7 +91,7 @@ namespace My_BoomSosed_NET
             btnStart.Text = "Stop";
         }
         void StopScheduler()
-        { 
+        {
             scheduleEnabled = false;
             formController.LoggerAdd("Scheduler stopped.");
             btnStart.Text = "Start";
@@ -105,7 +106,7 @@ namespace My_BoomSosed_NET
                 StopScheduler();
         }
         void FormCaptionInfo()
-        { 
+        {
             if (scheduleEnabled)
                 this.Text = $"My BoomSosed .NET {DateTime.Now.ToShortDateString()} - {DateTime.Now.ToLongTimeString()} " +
                             $"schEn={scheduleEnabled} schPa={schedulePaused} speedCnt={this.speedCounter}";
@@ -117,7 +118,7 @@ namespace My_BoomSosed_NET
         {
             FormCaptionInfo();
 
-            if (!scheduleEnabled)
+            if (!scheduleEnabled || schedulePaused)
                 return;
 
             if (this.speedCounter <= 1)
@@ -192,12 +193,11 @@ namespace My_BoomSosed_NET
             var selected = ctrl_SoundFiles.SelectedItem;
             if (selected is String && selected != null)
             {
-                PlayMp3( (string)selected);
+                PlayMp3((string)selected);
             }
         }
         private void BoomSosed_MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            formController.SafeToConfig();
         }
         void InitDesign()
         {
@@ -304,7 +304,7 @@ namespace My_BoomSosed_NET
 
             soundVolume = ctrl_RandomVolume.Checked ? (float)Random.Shared.NextDouble() : 1;
 
-            formController.LoggerAdd($"Boom! {filePath} soundVolume: {(int)soundVolume*100}");
+            formController.LoggerAdd($"Boom! {filePath} soundVolume: {(int)(soundVolume * 100)}");
             using (var audioFile = new AudioFileReader(audioFilePath))
             {
                 if (outputDevice.PlaybackState != PlaybackState.Playing)
@@ -375,6 +375,12 @@ namespace My_BoomSosed_NET
         private void BoomSosed_MainForm_Shown(object sender, EventArgs e)
         {
             formController.StartCommandServer();
+        }
+
+        private void ctrl_SaveConfig_Click(object sender, EventArgs e)
+        {
+            formController.SafeToConfig();
+            formController.LoggerAdd("Config saved to config.cfg");
         }
     }
 }

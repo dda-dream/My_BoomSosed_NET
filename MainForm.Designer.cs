@@ -55,6 +55,7 @@
             ctrl_AllTimeT = new DateTimePicker();
             label6 = new Label();
             ctrl_AllTimeF = new DateTimePicker();
+            ctrl_SaveConfig = new Button();
             groupBoxVisualBoom.SuspendLayout();
             tabControl.SuspendLayout();
             tabPage1.SuspendLayout();
@@ -229,6 +230,7 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(ctrl_SaveConfig);
             tabPage1.Controls.Add(ctrl_RandomVolume);
             tabPage1.Controls.Add(ctrl_RandomTime);
             tabPage1.Controls.Add(ctrl_schedule_info);
@@ -335,12 +337,23 @@
             ctrl_AllTimeF.TabIndex = 0;
             ctrl_AllTimeF.Value = new DateTime(2025, 5, 14, 8, 0, 0, 0);
             // 
+            // ctrl_SaveConfig
+            // 
+            ctrl_SaveConfig.Location = new Point(537, 147);
+            ctrl_SaveConfig.Name = "ctrl_SaveConfig";
+            ctrl_SaveConfig.Size = new Size(108, 23);
+            ctrl_SaveConfig.TabIndex = 20;
+            ctrl_SaveConfig.Text = "Сохр.настройки";
+            ctrl_SaveConfig.UseVisualStyleBackColor = true;
+            ctrl_SaveConfig.Click += ctrl_SaveConfig_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(682, 470);
             Controls.Add(tabControl);
+            MaximizeBox = false;
             Name = "MainForm";
             Text = "My BoomSosed .NET";
             FormClosing += BoomSosed_MainForm_FormClosing;
@@ -380,7 +393,6 @@
         private TabControl tabControl;
         private TabPage tabPage1;
         private TabPage tabPage2;
-        [SaveToConfigAttribute]
         private Label label6;
         [SaveToConfigAttribute]
         private DateTimePicker ctrl_AllTimeF;
@@ -393,5 +405,6 @@
         private CheckBox ctrl_RandomTime;
         [SaveToConfigAttribute]
         private CheckBox ctrl_RandomVolume;
+        private Button ctrl_SaveConfig;
     }
 }
