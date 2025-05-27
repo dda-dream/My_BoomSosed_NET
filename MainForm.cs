@@ -175,6 +175,7 @@ namespace My_BoomSosed_NET
             var soundsFiles = Directory.EnumerateFiles(".\\sounds\\" + ctrl_SoundFolders.Text);
 
             ctrl_SoundFiles.Items.Clear();
+            ctrl_SoundFiles.ClearSelected();
             foreach (var file in soundsFiles)
             {
                 ctrl_SoundFiles.Items.Add(Path.GetFileName(file));

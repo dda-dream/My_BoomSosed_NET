@@ -57,7 +57,6 @@ namespace My_BoomSosed_NET
             int i = 0;
             foreach (var conf in config)
             {
-                logger.Add($"{conf.Key} = ***-***{conf.Value}***-***");
                 lines[i] = $"{conf.Key} = ***-***{conf.Value}***-***";
                 i++;
             }           
