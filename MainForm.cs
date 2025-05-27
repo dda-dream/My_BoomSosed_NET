@@ -32,7 +32,7 @@ namespace My_BoomSosed_NET
         public delegate void PlaySoundDelegate();
         public void _PlaySound()
         {
-            formController.LoggerAdd("play selected sound");
+            formController.LoggerAdd("play selectedFile sound");
             PlayMp3(".\\sounds\\Boom\\Boom.mp3");
         }
         #endregion
@@ -81,11 +81,11 @@ namespace My_BoomSosed_NET
                 selectedLST = (String)ctrl_SoundFolders.SelectedItem;
             if (ctrl_SoundFiles.SelectedItem is String)
                 selectedFile = (String)ctrl_SoundFiles.SelectedItem;
-            formController.LoggerAdd($"selected playlist: {selectedLST}");
+            formController.LoggerAdd($"selectedFile playlist: {selectedLST}");
             if (!string.IsNullOrEmpty(selectedFile))
-                formController.LoggerAdd($"selected file: {selectedFile}");
+                formController.LoggerAdd($"selectedFile file: {selectedFile}");
             else
-                formController.LoggerAdd($"selected file: RANDOM");
+                formController.LoggerAdd($"selectedFile file: RANDOM");
 
             formController.LoggerAdd("Scheduler started.");
             btnStart.Text = "Stop";
@@ -172,12 +172,13 @@ namespace My_BoomSosed_NET
         private void ctrl_LST_SelectedIndexChanged(object sender, EventArgs e)
         {
             selectedFile = "";
-            var soundsFiles = Directory.EnumerateFiles(ctrl_SoundFolders.Text);
+            var soundsFiles = Directory.EnumerateFiles(".\\sounds\\" + ctrl_SoundFolders.Text);
 
             ctrl_SoundFiles.Items.Clear();
+            ctrl_SoundFiles.ClearSelected();
             foreach (var file in soundsFiles)
             {
-                ctrl_SoundFiles.Items.Add(file);
+                ctrl_SoundFiles.Items.Add(Path.GetFileName(file));
             }
             ctrl_SoundFiles.Sorted = true;
         }
@@ -190,10 +191,11 @@ namespace My_BoomSosed_NET
         }
         private void ctrl_FilesInLST_DoubleClick(object sender, EventArgs e)
         {
-            var selected = ctrl_SoundFiles.SelectedItem;
-            if (selected is String && selected != null)
+            string selectedFld = (string)ctrl_SoundFolders.SelectedItem;
+            string selectedFile = (string)ctrl_SoundFiles.SelectedItem;
+            if ( selectedFile != null && selectedFld != null)
             {
-                PlayMp3((string)selected);
+                PlayMp3(".\\sounds\\" + (string)selectedFld +"\\"+ (string)selectedFile);
             }
         }
         private void BoomSosed_MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -205,7 +207,7 @@ namespace My_BoomSosed_NET
 
             foreach (var folder in soundsDir)
             {
-                ctrl_SoundFolders.Items.Add(folder);
+                ctrl_SoundFolders.Items.Add( folder.Replace(".\\sounds\\", "") );
             }
         }
         void UpdateDesign()
@@ -283,12 +285,22 @@ namespace My_BoomSosed_NET
             {
                 if (!string.IsNullOrEmpty(selectedFile))
                 {
-                    PlayMp3(selectedFile);
+                    string selectedFld = (string)ctrl_SoundFolders.SelectedItem;
+                    string selectedFile = (string)ctrl_SoundFiles.SelectedItem;
+                    if (selectedFile != null && selectedFld != null)
+                    {
+                        PlayMp3(".\\sounds\\" + (string)selectedFld + "\\" + (string)selectedFile);
+                    }
                 }
                 else
                 {
                     string randomFile = (string)ctrl_SoundFiles.Items[Random.Shared.Next(0, ctrl_SoundFiles.Items.Count)];
-                    PlayMp3(randomFile);
+                    string selectedFld = (string)ctrl_SoundFolders.SelectedItem;
+                    string selectedFile = (string)ctrl_SoundFiles.SelectedItem;
+                    if (selectedFile != null && selectedFld != null)
+                    {
+                        PlayMp3(".\\sounds\\" + (string)selectedFld + "\\" + (string)randomFile);
+                    }
                 }
             }
         }
