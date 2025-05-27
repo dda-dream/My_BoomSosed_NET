@@ -23,7 +23,7 @@ namespace My_BoomSosed_NET
                 foreach (var line in lines)
                 {
                     string[] _ = line.Trim().Split("=");
-                    config.Add( _[0].Trim(), _[1].Trim() );
+                    config.Add( _[0].Trim(), _[1].Trim().Replace("******","") );
                 }
             }
             else 
@@ -57,7 +57,7 @@ namespace My_BoomSosed_NET
             int i = 0;
             foreach (var conf in config)
             {
-                lines[i] = $"{conf.Key} = {conf.Value}";
+                lines[i] = $"{conf.Key} = ******{conf.Value}******";
                 i++;
             }           
             
