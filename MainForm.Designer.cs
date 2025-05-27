@@ -47,6 +47,7 @@
             label5 = new Label();
             tabControl = new TabControl();
             tabPage1 = new TabPage();
+            ctrl_SaveConfig = new Button();
             ctrl_RandomVolume = new CheckBox();
             ctrl_RandomTime = new CheckBox();
             ctrl_schedule_info = new Label();
@@ -55,7 +56,6 @@
             ctrl_AllTimeT = new DateTimePicker();
             label6 = new Label();
             ctrl_AllTimeF = new DateTimePicker();
-            ctrl_SaveConfig = new Button();
             groupBoxVisualBoom.SuspendLayout();
             tabControl.SuspendLayout();
             tabPage1.SuspendLayout();
@@ -68,7 +68,7 @@
             ctrl_SoundFolders.Location = new Point(6, 21);
             ctrl_SoundFolders.Name = "ctrl_SoundFolders";
             ctrl_SoundFolders.ScrollAlwaysVisible = true;
-            ctrl_SoundFolders.Size = new Size(318, 49);
+            ctrl_SoundFolders.Size = new Size(145, 184);
             ctrl_SoundFolders.TabIndex = 1;
             ctrl_SoundFolders.SelectedIndexChanged += ctrl_LST_SelectedIndexChanged;
             // 
@@ -104,7 +104,7 @@
             // 
             ctrlVisualBoom.ColumnCount = 1;
             ctrlVisualBoom.ColumnStyles.Add(new ColumnStyle());
-            ctrlVisualBoom.Location = new Point(31, 32);
+            ctrlVisualBoom.Location = new Point(31, 167);
             ctrlVisualBoom.Name = "ctrlVisualBoom";
             ctrlVisualBoom.RowCount = 1;
             ctrlVisualBoom.RowStyles.Add(new RowStyle());
@@ -115,7 +115,7 @@
             // groupBoxVisualBoom
             // 
             groupBoxVisualBoom.Controls.Add(ctrlVisualBoom);
-            groupBoxVisualBoom.Location = new Point(6, 176);
+            groupBoxVisualBoom.Location = new Point(6, 311);
             groupBoxVisualBoom.Name = "groupBoxVisualBoom";
             groupBoxVisualBoom.Size = new Size(239, 239);
             groupBoxVisualBoom.TabIndex = 6;
@@ -142,7 +142,7 @@
             // 
             // ctrlLog
             // 
-            ctrlLog.Location = new Point(251, 176);
+            ctrlLog.Location = new Point(251, 311);
             ctrlLog.Name = "ctrlLog";
             ctrlLog.Size = new Size(395, 239);
             ctrlLog.TabIndex = 9;
@@ -161,10 +161,10 @@
             // ctrl_SoundFiles
             // 
             ctrl_SoundFiles.FormattingEnabled = true;
-            ctrl_SoundFiles.Location = new Point(6, 91);
+            ctrl_SoundFiles.Location = new Point(157, 21);
             ctrl_SoundFiles.Name = "ctrl_SoundFiles";
             ctrl_SoundFiles.ScrollAlwaysVisible = true;
-            ctrl_SoundFiles.Size = new Size(318, 79);
+            ctrl_SoundFiles.Size = new Size(167, 184);
             ctrl_SoundFiles.TabIndex = 11;
             ctrl_SoundFiles.SelectedIndexChanged += ctrl_FilesInLST_SelectedIndexChanged;
             ctrl_SoundFiles.DoubleClick += ctrl_FilesInLST_DoubleClick;
@@ -172,7 +172,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(6, 73);
+            label2.Location = new Point(54, 3);
             label2.Name = "label2";
             label2.Size = new Size(271, 15);
             label2.TabIndex = 12;
@@ -225,7 +225,7 @@
             tabControl.Location = new Point(12, 12);
             tabControl.Name = "tabControl";
             tabControl.SelectedIndex = 0;
-            tabControl.Size = new Size(659, 446);
+            tabControl.Size = new Size(659, 581);
             tabControl.TabIndex = 17;
             // 
             // tabPage1
@@ -252,10 +252,20 @@
             tabPage1.Location = new Point(4, 24);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(651, 418);
+            tabPage1.Size = new Size(651, 553);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Основная";
             tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // ctrl_SaveConfig
+            // 
+            ctrl_SaveConfig.Location = new Point(537, 147);
+            ctrl_SaveConfig.Name = "ctrl_SaveConfig";
+            ctrl_SaveConfig.Size = new Size(108, 23);
+            ctrl_SaveConfig.TabIndex = 20;
+            ctrl_SaveConfig.Text = "Сохр.настройки";
+            ctrl_SaveConfig.UseVisualStyleBackColor = true;
+            ctrl_SaveConfig.Click += ctrl_SaveConfig_Click;
             // 
             // ctrl_RandomVolume
             // 
@@ -295,7 +305,7 @@
             tabPage2.Location = new Point(4, 24);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(651, 418);
+            tabPage2.Size = new Size(651, 553);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Планировщик";
             tabPage2.UseVisualStyleBackColor = true;
@@ -337,21 +347,11 @@
             ctrl_AllTimeF.TabIndex = 0;
             ctrl_AllTimeF.Value = new DateTime(2025, 5, 14, 8, 0, 0, 0);
             // 
-            // ctrl_SaveConfig
-            // 
-            ctrl_SaveConfig.Location = new Point(537, 147);
-            ctrl_SaveConfig.Name = "ctrl_SaveConfig";
-            ctrl_SaveConfig.Size = new Size(108, 23);
-            ctrl_SaveConfig.TabIndex = 20;
-            ctrl_SaveConfig.Text = "Сохр.настройки";
-            ctrl_SaveConfig.UseVisualStyleBackColor = true;
-            ctrl_SaveConfig.Click += ctrl_SaveConfig_Click;
-            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(682, 470);
+            ClientSize = new Size(682, 605);
             Controls.Add(tabControl);
             MaximizeBox = false;
             Name = "MainForm";
