@@ -321,7 +321,6 @@ namespace My_BoomSosed_NET
         {
             schedulePaused = false;
         }
-
         public void StartBoom()
         {
             if (curColSizeVisualBoom < formController.MaxColSizeVisualBoom)
