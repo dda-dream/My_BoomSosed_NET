@@ -296,8 +296,7 @@ namespace My_BoomSosed_NET
                 {
                     string randomFile = (string)ctrl_SoundFiles.Items[Random.Shared.Next(0, ctrl_SoundFiles.Items.Count)];
                     string selectedFld = (string)ctrl_SoundFolders.SelectedItem;
-                    string selectedFile = (string)ctrl_SoundFiles.SelectedItem;
-                    if (selectedFile != null && selectedFld != null)
+                    if (randomFile != null && selectedFld != null)
                     {
                         PlayMp3(".\\sounds\\" + (string)selectedFld + "\\" + (string)randomFile);
                     }
