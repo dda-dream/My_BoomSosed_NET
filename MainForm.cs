@@ -1,4 +1,4 @@
-using NAudio.Wave;
+п»їusing NAudio.Wave;
 namespace My_BoomSosed_NET
 {
     public partial class MainForm : Form
@@ -76,7 +76,7 @@ namespace My_BoomSosed_NET
             scheduleEnabled = true;
             schedulePaused = false;
             speedCounter = 0;
-            //Зафиксировать выбранный плейлист и файл, что бы во время обработки по шедулеру помнить.
+            //Р—Р°С„РёРєСЃРёСЂРѕРІР°С‚СЊ РІС‹Р±СЂР°РЅРЅС‹Р№ РїР»РµР№Р»РёСЃС‚ Рё С„Р°Р№Р», С‡С‚Рѕ Р±С‹ РІРѕ РІСЂРµРјСЏ РѕР±СЂР°Р±РѕС‚РєРё РїРѕ С€РµРґСѓР»РµСЂСѓ РїРѕРјРЅРёС‚СЊ.
             if (ctrl_SoundFolders.SelectedItem is String)
                 selectedLST = (String)ctrl_SoundFolders.SelectedItem;
             if (ctrl_SoundFiles.SelectedItem is String)
@@ -147,18 +147,18 @@ namespace My_BoomSosed_NET
             if (scheduleEnabled && !schedulePaused)
             {
                 var aa = ctrl_AllTimeF.Text;
-                if (ctrl_mainSсheduler.Checked)
+                if (ctrl_mainSСЃheduler.Checked)
                 {
                     if (DateTime.Now.TimeOfDay < ctrl_AllTimeF.Value.TimeOfDay || DateTime.Now.TimeOfDay > ctrl_AllTimeT.Value.TimeOfDay)
                     {
                         ctrl_schedule_info.ForeColor = Color.Red;
-                        ctrl_schedule_info.Text = "ВЫКЛ по планировщику";
+                        ctrl_schedule_info.Text = "Р’Р«РљР› РїРѕ РїР»Р°РЅРёСЂРѕРІС‰РёРєСѓ";
                         return;
                     }
                     else
                     {
                         ctrl_schedule_info.ForeColor = Color.Green;
-                        ctrl_schedule_info.Text = "ВКЛ по планировщику";
+                        ctrl_schedule_info.Text = "Р’РљР› РїРѕ РїР»Р°РЅРёСЂРѕРІС‰РёРєСѓ";
                     }
                 }
                 StartBoom();
@@ -187,7 +187,7 @@ namespace My_BoomSosed_NET
         }
         private void label5_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Перевод на карту Сбер:");
+            MessageBox.Show("РџРµСЂРµРІРѕРґ РЅР° РєР°СЂС‚Сѓ РЎР±РµСЂ:");
         }
         private void ctrl_FilesInLST_DoubleClick(object sender, EventArgs e)
         {
@@ -215,7 +215,7 @@ namespace My_BoomSosed_NET
             //--------------------//-------------------- 1
             //--------------------//-------------------- 2
             Int32.TryParse(ctrl_Speed.Text, null, out Int32 val);
-            if (val > 60 * 60/*час*/ || val <= 0)
+            if (val > 60 * 60/*С‡Р°СЃ*/ || val <= 0)
             {
                 ctrl_Speed.Text = "5";
             }
