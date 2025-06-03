@@ -78,11 +78,7 @@ namespace My_BoomSosed_NET
             scheduleEnabled = true;
             schedulePaused = false;
             speedCounter = 0;
-<<<<<<< HEAD
             //Зафиксировать выбранный плейлист и файл, что бы во время обработки по шедулеру помнить.
-=======
-            //������������� ��������� �������� � ����, ��� �� �� ����� ��������� �� �������� �������.
->>>>>>> 96cf949302687175c90effc97db1a41d1e2f7957
             if (ctrl_SoundFolders.SelectedItem is String)
                 selectedLST = (String)ctrl_SoundFolders.SelectedItem;
             if (ctrl_SoundFiles.SelectedItem is String)
@@ -153,30 +149,18 @@ namespace My_BoomSosed_NET
             if (scheduleEnabled && !schedulePaused)
             {
                 var aa = ctrl_AllTimeF.Text;
-<<<<<<< HEAD
                 if (ctrl_mainSсheduler.Checked)
-=======
-                if (ctrl_mainS�heduler.Checked)
->>>>>>> 96cf949302687175c90effc97db1a41d1e2f7957
                 {
                     if (DateTime.Now.TimeOfDay < ctrl_AllTimeF.Value.TimeOfDay || DateTime.Now.TimeOfDay > ctrl_AllTimeT.Value.TimeOfDay)
                     {
                         ctrl_schedule_info.ForeColor = Color.Red;
-<<<<<<< HEAD
                         ctrl_schedule_info.Text = "ВЫКЛ по планировщику";
-=======
-                        ctrl_schedule_info.Text = "���� �� ������������";
->>>>>>> 96cf949302687175c90effc97db1a41d1e2f7957
                         return;
                     }
                     else
                     {
                         ctrl_schedule_info.ForeColor = Color.Green;
-<<<<<<< HEAD
                         ctrl_schedule_info.Text = "ВКЛ по планировщику";
-=======
-                        ctrl_schedule_info.Text = "��� �� ������������";
->>>>>>> 96cf949302687175c90effc97db1a41d1e2f7957
                     }
                 }
                 StartBoom();
@@ -205,11 +189,7 @@ namespace My_BoomSosed_NET
         }
         private void label5_Click(object sender, EventArgs e)
         {
-<<<<<<< HEAD
             MessageBox.Show("Перевод на карту Сбер:");
-=======
-            MessageBox.Show("������� �� ����� ����:");
->>>>>>> 96cf949302687175c90effc97db1a41d1e2f7957
         }
         private void ctrl_FilesInLST_DoubleClick(object sender, EventArgs e)
         {
@@ -237,11 +217,7 @@ namespace My_BoomSosed_NET
             //--------------------//-------------------- 1
             //--------------------//-------------------- 2
             Int32.TryParse(ctrl_Speed.Text, null, out Int32 val);
-<<<<<<< HEAD
             if (val > 60 * 60/*час*/ || val <= 0)
-=======
-            if (val > 60 * 60/*���*/ || val <= 0)
->>>>>>> 96cf949302687175c90effc97db1a41d1e2f7957
             {
                 ctrl_Speed.Text = "5";
             }
