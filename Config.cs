@@ -28,7 +28,7 @@ namespace My_BoomSosed_NET
             }
             else 
             {
-                logger.Add($"Config {file} not found.");
+                logger.Add($"Config {file} not found..");
             }
         }
         public void Add(string key, string val)
