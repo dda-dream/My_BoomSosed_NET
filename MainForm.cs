@@ -109,7 +109,7 @@ namespace My_BoomSosed_NET
         }
         void FormCaptionInfo()
         {
-            if (scheduleEnabled)
+            if (scheduleEnabled || schedulePaused)
                 this.Text = $"My BoomSosed .NET {DateTime.Now.ToShortDateString()} - {DateTime.Now.ToLongTimeString()} " +
                             $"schEn={scheduleEnabled} schPa={schedulePaused} speedCnt={this.speedCounter}";
             else
@@ -333,6 +333,7 @@ namespace My_BoomSosed_NET
         private void OutputDevice_PlaybackStopped(object? sender, StoppedEventArgs e)
         {
             schedulePaused = false;
+            formController.LoggerAdd($"Playback Stopped.");
         }
         public void StartBoom()
         {
