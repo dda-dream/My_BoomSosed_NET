@@ -308,6 +308,9 @@ namespace My_BoomSosed_NET
         WaveOutEvent outputDevice = new WaveOutEvent();
         public void PlayMp3(string filePath)
         {
+            if (schedulePaused == true)
+                return;
+
             var audioFilePath = Path.GetDirectoryName(Application.ExecutablePath) + filePath;
             if (!File.Exists(audioFilePath))
             {
@@ -319,7 +322,7 @@ namespace My_BoomSosed_NET
             
             using var audioFile = new AudioFileReader(audioFilePath);
             
-            formController.LoggerAdd($"Boom! {filePath} soundVolume: {(int)(soundVolume * 100)} length sec: {audioFile.TotalTime.TotalSeconds}"); 
+            formController.LoggerAdd($"Boom! {filePath} vol: {(int)(soundVolume * 100)} sec: {(int)audioFile.TotalTime.TotalSeconds}");
             if (outputDevice.PlaybackState != PlaybackState.Playing)
             {
                 schedulePaused = true;
@@ -327,10 +330,15 @@ namespace My_BoomSosed_NET
                 outputDevice.Play();
                 outputDevice.Volume = soundVolume;
                 outputDevice.PlaybackStopped += OutputDevice_PlaybackStopped;
+            } 
+            else
+            {
+                schedulePaused = true;
             }
         }
         private void OutputDevice_PlaybackStopped(object? sender, StoppedEventArgs e)
         {
+            outputDevice.PlaybackStopped -= OutputDevice_PlaybackStopped;
             schedulePaused = false;
             formController.LoggerAdd($"Playback Stopped.");
         }
