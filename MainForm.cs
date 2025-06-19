@@ -316,18 +316,17 @@ namespace My_BoomSosed_NET
             }
 
             soundVolume = ctrl_RandomVolume.Checked ? (float)Random.Shared.NextDouble() : 1;
-
-            formController.LoggerAdd($"Boom! {filePath} soundVolume: {(int)(soundVolume * 100)}");
-            using (var audioFile = new AudioFileReader(audioFilePath))
+            
+            using var audioFile = new AudioFileReader(audioFilePath);
+            
+            formController.LoggerAdd($"Boom! {filePath} soundVolume: {(int)(soundVolume * 100)} length sec: {audioFile.TotalTime.TotalSeconds}"); 
+            if (outputDevice.PlaybackState != PlaybackState.Playing)
             {
-                if (outputDevice.PlaybackState != PlaybackState.Playing)
-                {
-                    schedulePaused = true;
-                    outputDevice.Init(audioFile);
-                    outputDevice.Play();
-                    outputDevice.Volume = soundVolume;
-                    outputDevice.PlaybackStopped += OutputDevice_PlaybackStopped;
-                }
+                schedulePaused = true;
+                outputDevice.Init(audioFile);
+                outputDevice.Play();
+                outputDevice.Volume = soundVolume;
+                outputDevice.PlaybackStopped += OutputDevice_PlaybackStopped;
             }
         }
         private void OutputDevice_PlaybackStopped(object? sender, StoppedEventArgs e)
