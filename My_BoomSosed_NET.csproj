@@ -1000,9 +1000,6 @@
     <None Update="sounds\Falling\483677__spacejoe__falling-object-8.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="sounds\Falling\648258__ayadrevis__things-falling-on-the-floor.ogg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="sounds\Falling\falling.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
