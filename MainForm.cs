@@ -1,23 +1,24 @@
 ﻿using NAudio.Wave;
+using System.Media;
 namespace My_BoomSosed_NET
 {
 
     
     public partial class MainForm : Form
     {
-        const string _VERSION_ = "Initial release: 08-05-2025 Latest release: 23-05-2025";
+        const string _VERSION_ = "Initial release: 08-05-2025 Latest release: 07-09-2025";
 
         System.Windows.Forms.Timer timer_boom;
         FormController formController;
         int curRowSizeVisualBoom;
         int curColSizeVisualBoom;
         Int32 speedCounter = 0;
-        float soundVolume;
         bool scheduleEnabled = false;
         bool schedulePaused = false;
         string selectedLST = "";
         string selectedFile = "";
         int[,] arr;
+        SoundPlayer soundPlayer;
 
         #region FORM Delegates
         public delegate void StartStopDelegate(string command);
@@ -35,7 +36,7 @@ namespace My_BoomSosed_NET
         public void _PlaySound()
         {
             formController.LoggerAdd("play selectedFile sound");
-            PlayMp3(".\\sounds\\Boom\\Boom.mp3");
+            soundPlayer.PlayMp3(".\\sounds\\Boom\\Boom.mp3");
         }
         #endregion
 
@@ -48,6 +49,8 @@ namespace My_BoomSosed_NET
             PlaySoundDelegate playSoundDelegate = _PlaySound;
             formController = new FormController(this, ctrlLog, startStopDelegate, playSoundDelegate);
             arr = new int[formController.MaxRowSizeVisualBoom, formController.MaxColSizeVisualBoom];
+
+            soundPlayer = new SoundPlayer(formController, ctrl_RandomVolume);
 
             ctrl_Speed.Text = "1";
             ctrl_FillRatio.Text = "5";
@@ -76,7 +79,6 @@ namespace My_BoomSosed_NET
             curRowSizeVisualBoom = 0;
             curColSizeVisualBoom = -1;
             scheduleEnabled = true;
-            schedulePaused = false;
             speedCounter = 0;
             //Зафиксировать выбранный плейлист и файл, что бы во время обработки по шедулеру помнить.
             if (ctrl_SoundFolders.SelectedItem is String)
@@ -109,9 +111,9 @@ namespace My_BoomSosed_NET
         }
         void FormCaptionInfo()
         {
-            if (scheduleEnabled || schedulePaused)
+            if (scheduleEnabled || soundPlayer.soundPlaying)
                 this.Text = $"My BoomSosed .NET {DateTime.Now.ToShortDateString()} - {DateTime.Now.ToLongTimeString()} " +
-                            $"schEn={scheduleEnabled} schPa={schedulePaused} speedCnt={this.speedCounter}";
+                            $"schEn={scheduleEnabled} playing={soundPlayer.soundPlaying} speedCnt={this.speedCounter}";
             else
                 this.Text = $"My BoomSosed .NET {DateTime.Now.ToShortDateString()} - {DateTime.Now.ToLongTimeString()} ";
         }
@@ -120,7 +122,7 @@ namespace My_BoomSosed_NET
         {
             FormCaptionInfo();
 
-            if (!scheduleEnabled || schedulePaused)
+            if (!scheduleEnabled || soundPlayer.soundPlaying)
                 return;
 
             if (this.speedCounter <= 1)
@@ -146,7 +148,7 @@ namespace My_BoomSosed_NET
                 return;
             }
 
-            if (scheduleEnabled && !schedulePaused)
+            if (scheduleEnabled && !soundPlayer.soundPlaying)
             {
                 var aa = ctrl_AllTimeF.Text;
                 if (ctrl_mainSсheduler.Checked)
@@ -197,7 +199,7 @@ namespace My_BoomSosed_NET
             string selectedFile = (string)ctrl_SoundFiles.SelectedItem;
             if ( selectedFile != null && selectedFld != null)
             {
-                PlayMp3(".\\sounds\\" + (string)selectedFld +"\\"+ (string)selectedFile);
+                soundPlayer.PlayMp3(".\\sounds\\" + (string)selectedFld +"\\"+ (string)selectedFile);
             }
         }
         private void BoomSosed_MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -291,7 +293,7 @@ namespace My_BoomSosed_NET
                     string selectedFile = (string)ctrl_SoundFiles.SelectedItem;
                     if (selectedFile != null && selectedFld != null)
                     {
-                        PlayMp3(".\\sounds\\" + (string)selectedFld + "\\" + (string)selectedFile);
+                        soundPlayer.PlayMp3(".\\sounds\\" + (string)selectedFld + "\\" + (string)selectedFile);
                     }
                 }
                 else
@@ -300,47 +302,10 @@ namespace My_BoomSosed_NET
                     string selectedFld = (string)ctrl_SoundFolders.SelectedItem;
                     if (randomFile != null && selectedFld != null)
                     {
-                        PlayMp3(".\\sounds\\" + (string)selectedFld + "\\" + (string)randomFile);
+                        soundPlayer.PlayMp3(".\\sounds\\" + (string)selectedFld + "\\" + (string)randomFile);
                     }
                 }
             }
-        }
-        WaveOutEvent outputDevice = new WaveOutEvent();
-        public void PlayMp3(string filePath)
-        {
-            if (schedulePaused == true)
-                return;
-
-            var audioFilePath = Path.GetDirectoryName(Application.ExecutablePath) + filePath;
-            if (!File.Exists(audioFilePath))
-            {
-                formController.LoggerAdd($"PlayMp3: File not exist {filePath}");
-                return;
-            }
-
-            soundVolume = ctrl_RandomVolume.Checked ? (float)Random.Shared.NextDouble() : 1;
-            
-            using var audioFile = new AudioFileReader(audioFilePath);
-            
-            formController.LoggerAdd($"Boom! {filePath} vol: {(int)(soundVolume * 100)} sec: {(int)audioFile.TotalTime.TotalSeconds}");
-            if (outputDevice.PlaybackState != PlaybackState.Playing)
-            {
-                schedulePaused = true;
-                outputDevice.Init(audioFile);
-                outputDevice.Play();
-                outputDevice.Volume = soundVolume;
-                outputDevice.PlaybackStopped += OutputDevice_PlaybackStopped;
-            } 
-            else
-            {
-                schedulePaused = true;
-            }
-        }
-        private void OutputDevice_PlaybackStopped(object? sender, StoppedEventArgs e)
-        {
-            outputDevice.PlaybackStopped -= OutputDevice_PlaybackStopped;
-            schedulePaused = false;
-            formController.LoggerAdd($"Playback Stopped.");
         }
         public void StartBoom()
         {
