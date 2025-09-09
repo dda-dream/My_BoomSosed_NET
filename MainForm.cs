@@ -6,15 +6,14 @@ namespace My_BoomSosed_NET
     
     public partial class MainForm : Form
     {
-        const string _VERSION_ = "Initial release: 08-05-2025 Latest release: 07-09-2025";
+        const string _VERSION_ = "Initial release: 08-05-2025 Latest release: 09-09-2025";
 
         System.Windows.Forms.Timer timer_boom;
-        FormController formController;
         Int32 speedCounter = 0;
         bool scheduleEnabled = false;
-        bool schedulePaused = false;
         string selectedLST = "";
         string selectedFile = "";
+        FormController formController;
         SoundPlayer soundPlayer;
         VisualBoom visualBoom;
 
@@ -49,8 +48,6 @@ namespace My_BoomSosed_NET
             soundPlayer = new SoundPlayer(formController, ctrl_RandomVolume);
             visualBoom = new VisualBoom(ctrlVisualBoom, formController, groupBoxVisualBoom, ctrl_FillRatio, ctrl_RecalcVisualBoom, soundPlayer);
             
-
-
             ctrl_Speed.Text = "1";
             ctrl_FillRatio.Text = "5";
 

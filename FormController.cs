@@ -84,6 +84,7 @@ namespace My_BoomSosed_NET
             var attributedFields = typeof(MainForm)
                 .GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
                 .Where(f => f.GetCustomAttribute<SaveToConfigAttribute>() != null);
+
             foreach (var field in attributedFields)
             {
                 if (config.Get(field.Name).Trim() == "")
@@ -175,6 +176,5 @@ namespace My_BoomSosed_NET
         
             return command;
         }
-
     }
 }
