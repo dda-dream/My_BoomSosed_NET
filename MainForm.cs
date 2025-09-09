@@ -10,15 +10,13 @@ namespace My_BoomSosed_NET
 
         System.Windows.Forms.Timer timer_boom;
         FormController formController;
-        int curRowSizeVisualBoom;
-        int curColSizeVisualBoom;
         Int32 speedCounter = 0;
         bool scheduleEnabled = false;
         bool schedulePaused = false;
         string selectedLST = "";
         string selectedFile = "";
-        int[,] arr;
         SoundPlayer soundPlayer;
+        VisualBoom visualBoom;
 
         #region FORM Delegates
         public delegate void StartStopDelegate(string command);
@@ -36,7 +34,7 @@ namespace My_BoomSosed_NET
         public void _PlaySound()
         {
             formController.LoggerAdd("play selectedFile sound");
-            soundPlayer.PlayMp3(".\\sounds\\Boom\\Boom.mp3");
+            soundPlayer.PlaySound(".\\sounds\\Boom\\Boom.mp3");
         }
         #endregion
 
@@ -48,9 +46,10 @@ namespace My_BoomSosed_NET
             StartStopDelegate startStopDelegate = _StartStop;
             PlaySoundDelegate playSoundDelegate = _PlaySound;
             formController = new FormController(this, ctrlLog, startStopDelegate, playSoundDelegate);
-            arr = new int[formController.MaxRowSizeVisualBoom, formController.MaxColSizeVisualBoom];
-
             soundPlayer = new SoundPlayer(formController, ctrl_RandomVolume);
+            visualBoom = new VisualBoom(ctrlVisualBoom, formController, groupBoxVisualBoom, ctrl_FillRatio, ctrl_RecalcVisualBoom, soundPlayer);
+            
+
 
             ctrl_Speed.Text = "1";
             ctrl_FillRatio.Text = "5";
@@ -59,7 +58,7 @@ namespace My_BoomSosed_NET
             InitDesign();
             formController.InitFormConfig();
             formController.LoggerAdd("Config loaded from config.cfg");
-            CalcArray();
+            visualBoom.CalcArray();
             UpdateDesign();
 
             timer_boom.Interval = 1000;
@@ -76,8 +75,8 @@ namespace My_BoomSosed_NET
             }
 
             UpdateDesign();
-            curRowSizeVisualBoom = 0;
-            curColSizeVisualBoom = -1;
+            visualBoom.ResetCurPos();
+
             scheduleEnabled = true;
             speedCounter = 0;
             //Зафиксировать выбранный плейлист и файл, что бы во время обработки по шедулеру помнить.
@@ -165,12 +164,12 @@ namespace My_BoomSosed_NET
                         ctrl_schedule_info.Text = "ВКЛ по планировщику";
                     }
                 }
-                StartBoom();
+                visualBoom.StartBoom(selectedLST, selectedFile, ctrl_SoundFolders, ctrl_SoundFiles);
             }
         }
         private void btnRecalcParams_Click(object sender, EventArgs e)
         {
-            CalcArray();
+            visualBoom.CalcArray();
             UpdateDesign();
         }
         private void ctrl_LST_SelectedIndexChanged(object sender, EventArgs e)
@@ -199,7 +198,7 @@ namespace My_BoomSosed_NET
             string selectedFile = (string)ctrl_SoundFiles.SelectedItem;
             if ( selectedFile != null && selectedFld != null)
             {
-                soundPlayer.PlayMp3(".\\sounds\\" + (string)selectedFld +"\\"+ (string)selectedFile);
+                soundPlayer.PlaySound(".\\sounds\\" + (string)selectedFld +"\\"+ (string)selectedFile);
             }
         }
         private void BoomSosed_MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -224,125 +223,10 @@ namespace My_BoomSosed_NET
                 ctrl_Speed.Text = "5";
             }
             //--------------------//-------------------- 3
-            InitVisualBoomGrid();
+            visualBoom.InitVisualBoomGrid();
             //--------------------//-------------------- 4 
         }
 
-        public void CalcArray()
-        {
-            Int32.TryParse(ctrl_FillRatio.Text, null, out Int32 val);
-            if (val > 100 || val < 1)
-            {
-                ctrl_FillRatio.Text = "5";
-                val = 10;
-            }
-
-            arr = formController.FillArrayWithRandomValues(val, formController.MaxRowSizeVisualBoom, formController.MaxColSizeVisualBoom);
-        }
-        public void InitVisualBoomGrid()
-        {
-            ctrlVisualBoom.Visible = false;
-            ctrlVisualBoom.ColumnStyles.Clear();
-            ctrlVisualBoom.RowStyles.Clear();
-            ctrlVisualBoom.Controls.Clear();
-            ctrlVisualBoom.RowCount = 0;
-            ctrlVisualBoom.ColumnCount = 0;
-
-            ctrlVisualBoom.RowCount = formController.MaxRowSizeVisualBoom;
-            ctrlVisualBoom.ColumnCount = formController.MaxColSizeVisualBoom;
-            ctrlVisualBoom.Dock = DockStyle.Fill;
-            ctrlVisualBoom.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
-
-            for (int i = 0; i < 10; i++)
-            {
-                ctrlVisualBoom.RowStyles.Add(new RowStyle(SizeType.Percent, 100f / 10));
-                ctrlVisualBoom.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f / 10));
-            }
-
-            for (int row = 0; row < formController.MaxRowSizeVisualBoom; row++)
-            {
-                for (int col = 0; col < formController.MaxColSizeVisualBoom; col++)
-                {
-                    Panel panel = new Panel
-                    {
-                        Dock = DockStyle.Fill,
-                        BackColor = Color.White
-                    };
-                    if (arr[row, col] == 1)
-                    {
-                        panel.BackColor = Color.Green;
-                        Label label = new Label
-                        {
-                            Text = "*!*",
-                        };
-                        panel.Controls.Add(label);
-                    }
-                    ctrlVisualBoom.Controls.Add(panel, col, row);
-                }
-            }
-            groupBoxVisualBoom.Controls.Add(ctrlVisualBoom);
-            ctrlVisualBoom.Visible = true;
-        }
-        public void PlayRandomSoundFromList()
-        {
-            if (!string.IsNullOrEmpty(selectedLST))
-            {
-                if (!string.IsNullOrEmpty(selectedFile))
-                {
-                    string selectedFld = (string)ctrl_SoundFolders.SelectedItem;
-                    string selectedFile = (string)ctrl_SoundFiles.SelectedItem;
-                    if (selectedFile != null && selectedFld != null)
-                    {
-                        soundPlayer.PlayMp3(".\\sounds\\" + (string)selectedFld + "\\" + (string)selectedFile);
-                    }
-                }
-                else
-                {
-                    string randomFile = (string)ctrl_SoundFiles.Items[Random.Shared.Next(0, ctrl_SoundFiles.Items.Count)];
-                    string selectedFld = (string)ctrl_SoundFolders.SelectedItem;
-                    if (randomFile != null && selectedFld != null)
-                    {
-                        soundPlayer.PlayMp3(".\\sounds\\" + (string)selectedFld + "\\" + (string)randomFile);
-                    }
-                }
-            }
-        }
-        public void StartBoom()
-        {
-            if (curColSizeVisualBoom < formController.MaxColSizeVisualBoom)
-                curColSizeVisualBoom++;
-            if (curColSizeVisualBoom >= formController.MaxColSizeVisualBoom)
-            {
-                curColSizeVisualBoom = 0;
-                curRowSizeVisualBoom++;
-            }
-            if (curRowSizeVisualBoom >= formController.MaxRowSizeVisualBoom)
-            {
-                curColSizeVisualBoom = -1;
-                curRowSizeVisualBoom = 0;
-                if (ctrl_RecalcVisualBoom.Checked)
-                {
-                    CalcArray();
-                }
-                InitVisualBoomGrid();
-
-                return;
-            }
-            var panel = (Panel?)ctrlVisualBoom.GetControlFromPosition(curColSizeVisualBoom, curRowSizeVisualBoom);
-            if (panel is Panel)
-                panel.BackColor = Color.Yellow;
-
-            if (panel != null && panel.Controls.Count > 0)
-            {
-                if (panel.Controls[0] is Label label)
-                {
-                    if (label != null && label.Text == "*!*")
-                    {
-                        PlayRandomSoundFromList();
-                    }
-                }
-            }
-        }
         bool ValidBeforeStartTimer()
         {
             bool retVal = true;

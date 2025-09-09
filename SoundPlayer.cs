@@ -22,7 +22,7 @@ namespace My_BoomSosed_NET
             this.ctrl_RandomVolume = ctrl_RandomVolume;
             outputDevice = new WaveOutEvent();
         }
-        public void PlayMp3(string filePath)
+        public void PlaySound(string filePath)
         {
             var audioFilePath = Path.GetDirectoryName(Application.ExecutablePath) + filePath;
             if (!File.Exists(audioFilePath))
