@@ -16,6 +16,11 @@ namespace My_BoomSosed_NET
         public VisualBoom(TableLayoutPanel ctrlVisualBoom, FormController formController, GroupBox groupBoxVisualBoom, 
                           TextBox ctrl_FillRatio, CheckBox ctrl_RecalcVisualBoom, SoundPlayer soundPlayer)
         {
+            if (formController == null)
+                throw new ArgumentNullException("FormController is null");
+            if (soundPlayer == null) 
+                throw new ArgumentNullException("SoundPlayer is null");
+
             this.ctrlVisualBoom = ctrlVisualBoom;
             this.formController = formController;
             arr = new int[formController.MaxRowSizeVisualBoom, formController.MaxColSizeVisualBoom];

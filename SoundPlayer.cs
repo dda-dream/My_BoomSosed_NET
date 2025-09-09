@@ -18,6 +18,9 @@ namespace My_BoomSosed_NET
 
         public SoundPlayer(FormController formController, CheckBox ctrl_RandomVolume)
         {
+            if (formController == null)
+                throw new ArgumentNullException("FormController is null");
+
             this.formController = formController;
             this.ctrl_RandomVolume = ctrl_RandomVolume;
             outputDevice = new WaveOutEvent();
