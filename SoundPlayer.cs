@@ -1,7 +1,9 @@
 ﻿using NAudio.Wave;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -38,7 +40,8 @@ namespace My_BoomSosed_NET
             
             audioFile = new AudioFileReader(audioFilePath);
             
-            formController.LoggerAdd($"Boom! {filePath} vol: {(int)(soundVolume * 100)} sec: {(int)audioFile.TotalTime.TotalSeconds}");
+            double rounded = Math.Round(this.GetSoundLength(audioFilePath), 1);
+            formController.LoggerAdd($"Boom! {filePath} vol: {(int)(soundVolume * 100)} sec: {rounded.ToString("0.0", CultureInfo.InvariantCulture)}");
             if (outputDevice.PlaybackState != PlaybackState.Playing)
             {
                 soundPlaying = true;

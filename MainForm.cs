@@ -7,7 +7,7 @@ namespace My_BoomSosed_NET
     
     public partial class MainForm : Form
     {
-        const string _VERSION_ = "Initial release: 08-05-2025 Latest release: 09-09-2025";
+        const string _VERSION_ = "Initial release: 08-05-2025 Latest release: 10-09-2025";
 
         System.Windows.Forms.Timer timer_boom;
         Int32 speedCounter = 0;
@@ -82,6 +82,8 @@ namespace My_BoomSosed_NET
                 selectedLST = (String)ctrl_SoundFolders.SelectedItem;
             if (ctrl_SoundFiles.SelectedItem is String)
                 selectedFile = (String)ctrl_SoundFiles.SelectedItem;
+            selectedFile = selectedFile.Split(" | ")[0];
+
             formController.LoggerAdd($"selectedFile playlist: {selectedLST}");
             if (!string.IsNullOrEmpty(selectedFile))
                 formController.LoggerAdd($"selectedFile file: {selectedFile}");
@@ -180,7 +182,8 @@ namespace My_BoomSosed_NET
             foreach (var file in soundsFiles)
             {
                 double rounded = Math.Round(soundPlayer.GetSoundLength(file), 1);
-                ctrl_SoundFiles.Items.Add($"{Path.GetFileName(file)} {rounded.ToString("0.0", CultureInfo.InvariantCulture)}");
+                ctrl_SoundFiles.Items.Add($"{Path.GetFileName(file)} | {rounded.ToString("0.0", CultureInfo.InvariantCulture)}");
+                //ctrl_SoundFiles.Items.Add($"{Path.GetFileName(file)}");
             }
             ctrl_SoundFiles.Sorted = true;
         }
@@ -195,6 +198,8 @@ namespace My_BoomSosed_NET
         {
             string selectedFld = (string)ctrl_SoundFolders.SelectedItem;
             string selectedFile = (string)ctrl_SoundFiles.SelectedItem;
+            selectedFile = selectedFile.Split(" | ")[0];
+
             if ( selectedFile != null && selectedFld != null)
             {
                 soundPlayer.PlaySound(".\\sounds\\" + (string)selectedFld +"\\"+ (string)selectedFile);

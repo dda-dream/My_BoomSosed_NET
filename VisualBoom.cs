@@ -137,6 +137,7 @@ namespace My_BoomSosed_NET
                 {
                     string selectedFld = (string)ctrl_SoundFolders.SelectedItem;
                     string selectedFileLocal = (string)ctrl_SoundFiles.SelectedItem;
+                    selectedFileLocal = selectedFileLocal.Split(" | ")[0];
                     if (selectedFileLocal != null && selectedFld != null)
                     {
                         soundPlayer.PlaySound(".\\sounds\\" + (string)selectedFld + "\\" + (string)selectedFileLocal);
@@ -145,6 +146,8 @@ namespace My_BoomSosed_NET
                 else
                 {
                     string randomFile = (string)ctrl_SoundFiles.Items[Random.Shared.Next(0, ctrl_SoundFiles.Items.Count)];
+                    randomFile = randomFile.Split(" | ")[0];
+
                     string selectedFld = (string)ctrl_SoundFolders.SelectedItem;
                     if (randomFile != null && selectedFld != null)
                     {
