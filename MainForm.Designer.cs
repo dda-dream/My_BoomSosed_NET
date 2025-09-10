@@ -56,6 +56,8 @@
             ctrl_AllTimeT = new DateTimePicker();
             label6 = new Label();
             ctrl_AllTimeF = new DateTimePicker();
+            ctrl_SecondsToStop = new TextBox();
+            label7 = new Label();
             groupBoxVisualBoom.SuspendLayout();
             tabControl.SuspendLayout();
             tabPage1.SuspendLayout();
@@ -232,6 +234,8 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(label7);
+            tabPage1.Controls.Add(ctrl_SecondsToStop);
             tabPage1.Controls.Add(ctrl_SaveConfig);
             tabPage1.Controls.Add(ctrl_RandomVolume);
             tabPage1.Controls.Add(ctrl_RandomTime);
@@ -349,6 +353,24 @@
             ctrl_AllTimeF.TabIndex = 0;
             ctrl_AllTimeF.Value = new DateTime(2025, 5, 14, 8, 0, 0, 0);
             // 
+            // ctrl_SecondsToStop
+            // 
+            ctrl_SecondsToStop.Location = new Point(378, 124);
+            ctrl_SecondsToStop.Name = "ctrl_SecondsToStop";
+            ctrl_SecondsToStop.Size = new Size(82, 23);
+            ctrl_SecondsToStop.TabIndex = 21;
+            ctrl_SecondsToStop.Text = "-";
+            ctrl_SecondsToStop.TextAlign = HorizontalAlignment.Center;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(378, 105);
+            label7.Name = "label7";
+            label7.Size = new Size(102, 15);
+            label7.TabIndex = 22;
+            label7.Text = "таймер выкл, сек";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -408,5 +430,7 @@
         [SaveToConfigAttribute]
         private CheckBox ctrl_RandomVolume;
         private Button ctrl_SaveConfig;
+        private Label label7;
+        private TextBox ctrl_SecondsToStop;
     }
 }

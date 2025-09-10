@@ -17,6 +17,7 @@ namespace My_BoomSosed_NET
         FormController formController;
         SoundPlayer soundPlayer;
         VisualBoom visualBoom;
+        int secondsToStop;
 
         #region FORM Delegates
         public delegate void StartStopDelegate(string command);
@@ -84,6 +85,9 @@ namespace My_BoomSosed_NET
                 selectedFile = (String)ctrl_SoundFiles.SelectedItem;
             selectedFile = selectedFile.Split(" | ")[0];
 
+            Int32.TryParse(ctrl_SecondsToStop.Text, out secondsToStop);
+                
+
             formController.LoggerAdd($"selectedFile playlist: {selectedLST}");
             if (!string.IsNullOrEmpty(selectedFile))
                 formController.LoggerAdd($"selectedFile file: {selectedFile}");
@@ -126,7 +130,7 @@ namespace My_BoomSosed_NET
 
             if (this.speedCounter <= 1)
             {
-                Int32.TryParse(ctrl_Speed.Text, null, out Int32 speedCounter);
+                Int32.TryParse(ctrl_SecondsToStop.Text, null, out Int32 secondsToStop);
                 if (ctrl_RandomTime.Checked)
                 {
                     if (speedCounter < 1)
@@ -164,6 +168,17 @@ namespace My_BoomSosed_NET
                         ctrl_schedule_info.Text = "ВКЛ по планировщику";
                     }
                 }
+
+                if (Int32.TryParse(ctrl_SecondsToStop.Text, null, out Int32 checkSecondsToStop))
+                {
+                    secondsToStop--;
+                    if (secondsToStop <= 0)
+                    {
+                        formController.LoggerAdd("Таймер истек. Остановка шедулера.");
+                        StopScheduler();
+                    }
+                }
+
                 visualBoom.StartBoom(selectedLST, selectedFile, ctrl_SoundFolders, ctrl_SoundFiles);
             }
         }
