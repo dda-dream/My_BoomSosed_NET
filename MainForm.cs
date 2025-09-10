@@ -52,7 +52,7 @@ namespace My_BoomSosed_NET
             ctrl_FillRatio.Text = "5";
 
             formController.LoggerAdd(_VERSION_);
-            InitDesign();
+            ReadSoundFolders();
             formController.InitFormConfig();
             formController.LoggerAdd("Config loaded from config.cfg");
             visualBoom.CalcArray();
@@ -201,7 +201,7 @@ namespace My_BoomSosed_NET
         private void BoomSosed_MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
         }
-        void InitDesign()
+        void ReadSoundFolders()
         {
             var soundsDir = Directory.EnumerateDirectories(".\\sounds\\");
 
