@@ -134,13 +134,12 @@ namespace My_BoomSosed_NET
 
             if (this.speedCounter <= 1)
             {
-                Int32.TryParse(ctrl_SecondsToStop.Text, null, out Int32 secondsToStop);
                 if (ctrl_RandomTime.Checked)
                 {
-                    if (speedCounter < 1)
+                    if (speedCounter <= 1)
                     {
-                        ctrl_Speed.Text = "1";
-                        speedCounter = 1;
+                        Int32.TryParse(ctrl_Speed.Text, null, out Int32 speedCounter);
+                        this.speedCounter = speedCounter;
                     }
                     this.speedCounter = Random.Shared.Next(1, speedCounter);
                 }

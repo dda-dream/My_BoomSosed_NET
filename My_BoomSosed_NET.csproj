@@ -85,6 +85,15 @@
     <None Update="sounds\Knock\knock_on_door.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="sounds\Rolling\25582__daveincamas__20061111bocceball2.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="sounds\Rolling\429104__inspectorj__marble-rolling-on-wood-a.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="sounds\Rolling\655042__juanstrydom2002__golfballs-rolling-on-wooden-surface.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="sounds\_\Ball\01 Ball.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
