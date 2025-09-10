@@ -55,6 +55,11 @@ namespace My_BoomSosed_NET
             formController.LoggerAdd($"Playback Stopped.");
             audioFile.Dispose();
         }
+        public double GetSoundLength(string audioFilePath)
+        {
+            AudioFileReader audioFile = new AudioFileReader(audioFilePath);
 
+            return audioFile.TotalTime.TotalSeconds;
+        }
     }
 }

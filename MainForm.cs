@@ -1,4 +1,5 @@
 ﻿using NAudio.Wave;
+using System.Globalization;
 using System.Media;
 namespace My_BoomSosed_NET
 {
@@ -178,7 +179,8 @@ namespace My_BoomSosed_NET
             ctrl_SoundFiles.ClearSelected();
             foreach (var file in soundsFiles)
             {
-                ctrl_SoundFiles.Items.Add(Path.GetFileName(file));
+                double rounded = Math.Round(soundPlayer.GetSoundLength(file), 1);
+                ctrl_SoundFiles.Items.Add($"{Path.GetFileName(file)} {rounded.ToString("0.0", CultureInfo.InvariantCulture)}");
             }
             ctrl_SoundFiles.Sorted = true;
         }
