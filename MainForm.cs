@@ -63,6 +63,10 @@ namespace My_BoomSosed_NET
             timer_boom.Interval = 1000;
             timer_boom.Tick += Timer_boom_Tick;
             timer_boom.Start();
+            
+            ToolTip toolTip0 = new ToolTip();
+            toolTip0.SetToolTip(ctrl_SecondsToStop, "таймер выкл, сек");
+            
         }
 
         void StartScheduler()
