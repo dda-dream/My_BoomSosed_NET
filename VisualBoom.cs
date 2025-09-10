@@ -13,6 +13,8 @@ namespace My_BoomSosed_NET
         int[,] arr;
         int curRowSizeVisualBoom;
         int curColSizeVisualBoom;
+        const int maxColSizeVisualBoom = 10;
+        const int maxRowSizeVisualBoom = 10;
         public VisualBoom(TableLayoutPanel ctrlVisualBoom, FormController formController, GroupBox groupBoxVisualBoom, 
                           TextBox ctrl_FillRatio, CheckBox ctrl_RecalcVisualBoom, SoundPlayer soundPlayer)
         {
@@ -23,7 +25,7 @@ namespace My_BoomSosed_NET
 
             this.ctrlVisualBoom = ctrlVisualBoom;
             this.formController = formController;
-            arr = new int[formController.MaxRowSizeVisualBoom, formController.MaxColSizeVisualBoom];
+            arr = new int[maxRowSizeVisualBoom, maxColSizeVisualBoom];
             this.groupBoxVisualBoom = groupBoxVisualBoom;
             this.ctrl_FillRatio = ctrl_FillRatio;
             this.ctrl_RecalcVisualBoom = ctrl_RecalcVisualBoom;
@@ -44,7 +46,7 @@ namespace My_BoomSosed_NET
                 val = 10;
             }
 
-            arr = formController.FillArrayWithRandomValues(val, formController.MaxRowSizeVisualBoom, formController.MaxColSizeVisualBoom);
+            arr = formController.FillArrayWithRandomValues(val, maxRowSizeVisualBoom, maxColSizeVisualBoom);
         }
         public void InitVisualBoomGrid()
         {
@@ -55,8 +57,8 @@ namespace My_BoomSosed_NET
             ctrlVisualBoom.RowCount = 0;
             ctrlVisualBoom.ColumnCount = 0;
 
-            ctrlVisualBoom.RowCount = formController.MaxRowSizeVisualBoom;
-            ctrlVisualBoom.ColumnCount = formController.MaxColSizeVisualBoom;
+            ctrlVisualBoom.RowCount = maxRowSizeVisualBoom;
+            ctrlVisualBoom.ColumnCount = maxColSizeVisualBoom;
             ctrlVisualBoom.Dock = DockStyle.Fill;
             ctrlVisualBoom.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
 
@@ -66,9 +68,9 @@ namespace My_BoomSosed_NET
                 ctrlVisualBoom.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f / 10));
             }
 
-            for (int row = 0; row < formController.MaxRowSizeVisualBoom; row++)
+            for (int row = 0; row < maxRowSizeVisualBoom; row++)
             {
-                for (int col = 0; col < formController.MaxColSizeVisualBoom; col++)
+                for (int col = 0; col < maxColSizeVisualBoom; col++)
                 {
                     Panel panel = new Panel
                     {
@@ -93,14 +95,14 @@ namespace My_BoomSosed_NET
     
         public void StartBoom(string selectedLST, string selectedFile, ListBox ctrl_SoundFolders, ListBox ctrl_SoundFiles)
         {
-            if (curColSizeVisualBoom < formController.MaxColSizeVisualBoom)
+            if (curColSizeVisualBoom < maxColSizeVisualBoom)
                 curColSizeVisualBoom++;
-            if (curColSizeVisualBoom >= formController.MaxColSizeVisualBoom)
+            if (curColSizeVisualBoom >= maxColSizeVisualBoom)
             {
                 curColSizeVisualBoom = 0;
                 curRowSizeVisualBoom++;
             }
-            if (curRowSizeVisualBoom >= formController.MaxRowSizeVisualBoom)
+            if (curRowSizeVisualBoom >= maxRowSizeVisualBoom)
             {
                 curColSizeVisualBoom = -1;
                 curRowSizeVisualBoom = 0;
