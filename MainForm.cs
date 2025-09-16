@@ -1,10 +1,10 @@
 ﻿using NAudio.Wave;
 using System.Globalization;
 using System.Media;
-namespace My_BoomSosed_NET
-{
+//https://freesound.org/
 
-    
+namespace My_BoomSosed_NET
+{           
     public partial class MainForm : Form
     {
         const string _VERSION_ = "Initial release: 08-05-2025 Latest release: 10-09-2025";
@@ -175,7 +175,7 @@ namespace My_BoomSosed_NET
                 if (Int32.TryParse(ctrl_SecondsToStop.Text, null, out Int32 checkSecondsToStop))
                 {
                     secondsToStop--;
-                    if (secondsToStop <= 0)
+                    if (secondsToStop < 0)
                     {
                         formController.LoggerAdd("Таймер истек. Остановка шедулера.");
                         StopScheduler();
