@@ -303,7 +303,7 @@
             // ctrl_schedule_info
             // 
             ctrl_schedule_info.AutoSize = true;
-            ctrl_schedule_info.Location = new Point(567, 124);
+            ctrl_schedule_info.Location = new Point(500, 116);
             ctrl_schedule_info.Name = "ctrl_schedule_info";
             ctrl_schedule_info.Size = new Size(12, 15);
             ctrl_schedule_info.TabIndex = 17;

@@ -7,7 +7,7 @@ namespace My_BoomSosed_NET
 {           
     public partial class MainForm : Form
     {
-        const string _VERSION_ = "Initial release: 08-05-2025 Latest release: 10-09-2025";
+        const string _VERSION_ = "Initial release: 08-05-2025 Latest release: 15-09-2025";
 
         System.Windows.Forms.Timer timer_boom;
         Int32 speedCounter = 0;
