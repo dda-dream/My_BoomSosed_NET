@@ -47,7 +47,7 @@ namespace My_BoomSosed_NET
             StartStopDelegate startStopDelegate = _StartStop;
             PlaySoundDelegate playSoundDelegate = _PlaySound;
             formController = new FormController(this, ctrlLog, startStopDelegate, playSoundDelegate);
-            soundPlayer = new SoundPlayer(formController, ctrl_RandomVolume);
+            soundPlayer = new SoundPlayer(formController, ctrl_RandomVolume, ctrl_VolumeAmplifier);
             visualBoom = new VisualBoom(ctrlVisualBoom, formController, groupBoxVisualBoom, ctrl_FillRatio, ctrl_RecalcVisualBoom, soundPlayer);
             
             ctrl_Speed.Text = "1";

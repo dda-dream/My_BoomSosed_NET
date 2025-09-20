@@ -1,4 +1,5 @@
 ﻿using NAudio.Wave;
+using NAudio.Wave.SampleProviders;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -12,13 +13,15 @@ namespace My_BoomSosed_NET
     class SoundPlayer
     {
         FormController formController;
-        public float soundVolume { get; set; }
+        float soundVolume;
+        float volumeAmplifier = 1;
         public bool soundPlaying { get; set; }
         CheckBox ctrl_RandomVolume;
         WaveOutEvent outputDevice;
         AudioFileReader audioFile;
+        TextBox ctrl_volumeAmplifier;
 
-        public SoundPlayer(FormController formController, CheckBox ctrl_RandomVolume)
+        public SoundPlayer(FormController formController, CheckBox ctrl_RandomVolume, TextBox ctrl_volumeAmplifier)
         {
             if (formController == null)
                 throw new ArgumentNullException("FormController is null");
@@ -26,6 +29,7 @@ namespace My_BoomSosed_NET
             this.formController = formController;
             this.ctrl_RandomVolume = ctrl_RandomVolume;
             outputDevice = new WaveOutEvent();
+            this.ctrl_volumeAmplifier = ctrl_volumeAmplifier;
         }
         public void PlaySound(string filePath)
         {
@@ -39,13 +43,21 @@ namespace My_BoomSosed_NET
             soundVolume = ctrl_RandomVolume.Checked ? (float)Random.Shared.NextDouble() : 1;
             
             audioFile = new AudioFileReader(audioFilePath);
+
+            var volumeProvider = new VolumeSampleProvider(audioFile);
+            if (float.TryParse(ctrl_volumeAmplifier.Text, out volumeAmplifier))
+                volumeAmplifier = volumeAmplifier / 100;
+            else
+                volumeAmplifier = 1;
+
+            volumeProvider.Volume = volumeAmplifier;
             
             double rounded = Math.Round(this.GetSoundLength(audioFilePath), 1);
-            formController.LoggerAdd($"Boom! {filePath} vol: {(int)(soundVolume * 100)} sec: {rounded.ToString("0.0", CultureInfo.InvariantCulture)}");
+            formController.LoggerAdd($"Boom! {filePath} vol: {(int)(soundVolume * 100)} volAmpl: {(int)(volumeAmplifier * 100)} sec: {rounded.ToString("0.0", CultureInfo.InvariantCulture)}");
             if (outputDevice.PlaybackState != PlaybackState.Playing)
             {
                 soundPlaying = true;
-                outputDevice.Init(audioFile);
+                outputDevice.Init(volumeProvider);
                 outputDevice.Play();
                 outputDevice.Volume = soundVolume;
                 outputDevice.PlaybackStopped += OutputDevice_PlaybackStopped;

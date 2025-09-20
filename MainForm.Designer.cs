@@ -47,6 +47,9 @@
             label5 = new Label();
             tabControl = new TabControl();
             tabPage1 = new TabPage();
+            label8 = new Label();
+            ctrl_VolumeAmplifier = new TextBox();
+            label7 = new Label();
             ctrl_SecondsToStop = new TextBox();
             ctrl_SaveConfig = new Button();
             ctrl_RandomVolume = new CheckBox();
@@ -70,13 +73,13 @@
             ctrl_SoundFolders.Location = new Point(6, 21);
             ctrl_SoundFolders.Name = "ctrl_SoundFolders";
             ctrl_SoundFolders.ScrollAlwaysVisible = true;
-            ctrl_SoundFolders.Size = new Size(145, 184);
+            ctrl_SoundFolders.Size = new Size(145, 274);
             ctrl_SoundFolders.TabIndex = 1;
             ctrl_SoundFolders.SelectedIndexChanged += ctrl_LST_SelectedIndexChanged;
             // 
             // btnStart
             // 
-            btnStart.Location = new Point(379, 148);
+            btnStart.Location = new Point(379, 231);
             btnStart.Name = "btnStart";
             btnStart.Size = new Size(77, 23);
             btnStart.TabIndex = 2;
@@ -86,9 +89,9 @@
             // 
             // ctrl_Speed
             // 
-            ctrl_Speed.Location = new Point(378, 41);
+            ctrl_Speed.Location = new Point(546, 33);
             ctrl_Speed.Name = "ctrl_Speed";
-            ctrl_Speed.Size = new Size(82, 23);
+            ctrl_Speed.Size = new Size(99, 23);
             ctrl_Speed.TabIndex = 3;
             ctrl_Speed.Text = "-";
             ctrl_Speed.TextAlign = HorizontalAlignment.Center;
@@ -96,11 +99,11 @@
             // label_Speed
             // 
             label_Speed.AutoSize = true;
-            label_Speed.Location = new Point(378, 26);
+            label_Speed.Location = new Point(378, 36);
             label_Speed.Name = "label_Speed";
-            label_Speed.Size = new Size(78, 15);
+            label_Speed.Size = new Size(114, 15);
             label_Speed.TabIndex = 4;
-            label_Speed.Text = "сек. на 1 шаг";
+            label_Speed.Text = "сек. на 1 шаг плана";
             // 
             // ctrlVisualBoom
             // 
@@ -127,15 +130,15 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(466, 26);
+            label1.Location = new Point(378, 60);
             label1.Name = "label1";
-            label1.Size = new Size(99, 15);
+            label1.Size = new Size(135, 15);
             label1.TabIndex = 8;
-            label1.Text = "коэфф заполн %";
+            label1.Text = "коэфф заполн плана %";
             // 
             // ctrl_FillRatio
             // 
-            ctrl_FillRatio.Location = new Point(466, 41);
+            ctrl_FillRatio.Location = new Point(546, 57);
             ctrl_FillRatio.Name = "ctrl_FillRatio";
             ctrl_FillRatio.Size = new Size(99, 23);
             ctrl_FillRatio.TabIndex = 7;
@@ -152,7 +155,7 @@
             // 
             // btnRecalcParams
             // 
-            btnRecalcParams.Location = new Point(462, 148);
+            btnRecalcParams.Location = new Point(462, 231);
             btnRecalcParams.Name = "btnRecalcParams";
             btnRecalcParams.Size = new Size(99, 23);
             btnRecalcParams.TabIndex = 10;
@@ -167,7 +170,7 @@
             ctrl_SoundFiles.Location = new Point(157, 21);
             ctrl_SoundFiles.Name = "ctrl_SoundFiles";
             ctrl_SoundFiles.ScrollAlwaysVisible = true;
-            ctrl_SoundFiles.Size = new Size(215, 184);
+            ctrl_SoundFiles.Size = new Size(215, 274);
             ctrl_SoundFiles.TabIndex = 11;
             ctrl_SoundFiles.SelectedIndexChanged += ctrl_FilesInLST_SelectedIndexChanged;
             ctrl_SoundFiles.DoubleClick += ctrl_FilesInLST_DoubleClick;
@@ -184,11 +187,11 @@
             // ctrl_RecalcVisualBoom
             // 
             ctrl_RecalcVisualBoom.AutoSize = true;
-            ctrl_RecalcVisualBoom.Location = new Point(378, 83);
+            ctrl_RecalcVisualBoom.Location = new Point(378, 127);
             ctrl_RecalcVisualBoom.Name = "ctrl_RecalcVisualBoom";
-            ctrl_RecalcVisualBoom.Size = new Size(271, 19);
+            ctrl_RecalcVisualBoom.Size = new Size(229, 19);
             ctrl_RecalcVisualBoom.TabIndex = 13;
-            ctrl_RecalcVisualBoom.Text = "Перестроение BOOM плана, после прохода.";
+            ctrl_RecalcVisualBoom.Text = "Перестроение плана после прохода.";
             ctrl_RecalcVisualBoom.UseVisualStyleBackColor = true;
             // 
             // label3
@@ -233,6 +236,9 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(label8);
+            tabPage1.Controls.Add(ctrl_VolumeAmplifier);
+            tabPage1.Controls.Add(label7);
             tabPage1.Controls.Add(ctrl_SecondsToStop);
             tabPage1.Controls.Add(ctrl_SaveConfig);
             tabPage1.Controls.Add(ctrl_RandomVolume);
@@ -261,18 +267,44 @@
             tabPage1.Text = "Основная";
             tabPage1.UseVisualStyleBackColor = true;
             // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(379, 180);
+            label8.Name = "label8";
+            label8.Size = new Size(102, 15);
+            label8.TabIndex = 24;
+            label8.Text = "таймер выкл, сек\r\n";
+            // 
+            // ctrl_VolumeAmplifier
+            // 
+            ctrl_VolumeAmplifier.Location = new Point(546, 81);
+            ctrl_VolumeAmplifier.Name = "ctrl_VolumeAmplifier";
+            ctrl_VolumeAmplifier.Size = new Size(99, 23);
+            ctrl_VolumeAmplifier.TabIndex = 22;
+            ctrl_VolumeAmplifier.Text = "-";
+            ctrl_VolumeAmplifier.TextAlign = HorizontalAlignment.Center;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(378, 84);
+            label7.Name = "label7";
+            label7.Size = new Size(130, 15);
+            label7.TabIndex = 23;
+            label7.Text = "доп. усиление звука %";
+            // 
             // ctrl_SecondsToStop
             // 
-            ctrl_SecondsToStop.Location = new Point(378, 108);
+            ctrl_SecondsToStop.Location = new Point(546, 177);
             ctrl_SecondsToStop.Name = "ctrl_SecondsToStop";
-            ctrl_SecondsToStop.Size = new Size(108, 23);
+            ctrl_SecondsToStop.Size = new Size(99, 23);
             ctrl_SecondsToStop.TabIndex = 21;
-            ctrl_SecondsToStop.Text = "таймер выкл, сек";
             ctrl_SecondsToStop.TextAlign = HorizontalAlignment.Center;
             // 
             // ctrl_SaveConfig
             // 
-            ctrl_SaveConfig.Location = new Point(378, 182);
+            ctrl_SaveConfig.Location = new Point(378, 265);
             ctrl_SaveConfig.Name = "ctrl_SaveConfig";
             ctrl_SaveConfig.Size = new Size(108, 23);
             ctrl_SaveConfig.TabIndex = 20;
@@ -283,7 +315,7 @@
             // ctrl_RandomVolume
             // 
             ctrl_RandomVolume.AutoSize = true;
-            ctrl_RandomVolume.Location = new Point(500, 66);
+            ctrl_RandomVolume.Location = new Point(378, 152);
             ctrl_RandomVolume.Name = "ctrl_RandomVolume";
             ctrl_RandomVolume.Size = new Size(147, 19);
             ctrl_RandomVolume.TabIndex = 19;
@@ -293,17 +325,17 @@
             // ctrl_RandomTime
             // 
             ctrl_RandomTime.AutoSize = true;
-            ctrl_RandomTime.Location = new Point(378, 66);
+            ctrl_RandomTime.Location = new Point(378, 102);
             ctrl_RandomTime.Name = "ctrl_RandomTime";
-            ctrl_RandomTime.Size = new Size(124, 19);
+            ctrl_RandomTime.Size = new Size(191, 19);
             ctrl_RandomTime.TabIndex = 18;
-            ctrl_RandomTime.Text = "Случайное время";
+            ctrl_RandomTime.Text = "Случайное время шага плана";
             ctrl_RandomTime.UseVisualStyleBackColor = true;
             // 
             // ctrl_schedule_info
             // 
             ctrl_schedule_info.AutoSize = true;
-            ctrl_schedule_info.Location = new Point(500, 116);
+            ctrl_schedule_info.Location = new Point(381, 213);
             ctrl_schedule_info.Name = "ctrl_schedule_info";
             ctrl_schedule_info.Size = new Size(12, 15);
             ctrl_schedule_info.TabIndex = 17;
@@ -420,5 +452,8 @@
         private CheckBox ctrl_RandomVolume;
         private Button ctrl_SaveConfig;
         private TextBox ctrl_SecondsToStop;
+        private TextBox ctrl_VolumeAmplifier;
+        private Label label7;
+        private Label label8;
     }
 }
