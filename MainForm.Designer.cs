@@ -452,6 +452,7 @@
         private CheckBox ctrl_RandomVolume;
         private Button ctrl_SaveConfig;
         private TextBox ctrl_SecondsToStop;
+        [SaveToConfigAttribute]
         private TextBox ctrl_VolumeAmplifier;
         private Label label7;
         private Label label8;
