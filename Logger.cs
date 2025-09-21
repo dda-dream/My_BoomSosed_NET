@@ -12,7 +12,6 @@
             channels.Add(ChannelType.Control); 
             channels.Add(ChannelType.File); 
         }
-        public delegate void _Add(string message);
         public void __Add(string message)
         {
             loggerControl.Text += message;
@@ -29,13 +28,10 @@
                 message = message + (endContainNL ? "" : "\n");
                 message = $"{DateTime.Now.ToLongTimeString()} : {message}";
                 File.AppendAllText(loggerFile, message);
-                //if (toFileOnly)
-                //    return;
 
                 if (loggerControl.InvokeRequired)
                 {
-                    _Add _Add = __Add;
-                    loggerControl.Invoke(_Add, message);
+                    loggerControl.Invoke((string m) => { __Add(m); }, message);
                 }
                 else
                 {

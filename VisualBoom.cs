@@ -46,7 +46,7 @@ namespace My_BoomSosed_NET
                 val = 10;
             }
 
-            arr = formController.FillArrayWithRandomValues(val, maxRowSizeVisualBoom, maxColSizeVisualBoom);
+            arr = FillArrayWithRandomValues(val, maxRowSizeVisualBoom, maxColSizeVisualBoom);
         }
         public void InitVisualBoomGrid()
         {
@@ -92,7 +92,7 @@ namespace My_BoomSosed_NET
             groupBoxVisualBoom.Controls.Add(ctrlVisualBoom);
             ctrlVisualBoom.Visible = true;
         }
-    
+
         public void StartBoom(string selectedLST, string selectedFile, ListBox ctrl_SoundFolders, ListBox ctrl_SoundFiles)
         {
             if (curColSizeVisualBoom < maxColSizeVisualBoom)
@@ -155,6 +155,33 @@ namespace My_BoomSosed_NET
                     }
                 }
             }
+        }
+        public int[,] FillArrayWithRandomValues(int fillPercentage = 10, int rows = 10, int columns = 10)
+        {
+            int[,] array = new int[rows, columns];
+
+            int onesCount = rows * columns * fillPercentage / 100;
+            var indices = new List<(int row, int col)>();
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < columns; j++)
+                {
+                    indices.Add((i, j));
+                }
+            }
+
+            for (int i = indices.Count - 1; i > 0; i--)
+            {
+                int j = Random.Shared.Next(i + 1);
+                (indices[i], indices[j]) = (indices[j], indices[i]);
+            }
+
+            for (int i = 0; i < onesCount; i++)
+            {
+                var (row, col) = indices[i];
+                array[row, col] = 1;
+            }
+            return array;
         }
     
     }

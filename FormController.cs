@@ -20,12 +20,13 @@ namespace My_BoomSosed_NET
 
             var a0 = typeof(MainForm);
 
-            var a1 = a0.GetFields();
-            var a2 = a0.GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
+            //var a1 = a0.GetFields();
+            //var a2 = a0.GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
 
             var serializableFields = 
                 typeof(MainForm).GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
                                 .Where(f => f.GetCustomAttribute<SaveToConfigAttribute>() != null);
+
             foreach (var field in serializableFields)
             {
                 var attribute = field.GetCustomAttribute<SaveToConfigAttribute>();
@@ -33,34 +34,6 @@ namespace My_BoomSosed_NET
                 logger.Add($"SaveToConfigFile:  {fieldName}");
             }
         }
-        public int[,] FillArrayWithRandomValues(int fillPercentage = 10, int rows = 10, int columns = 10)
-        {
-            int[,] array = new int[rows, columns];
-
-            int onesCount = rows * columns * fillPercentage / 100;
-            var indices = new List<(int row, int col)>();
-            for (int i = 0; i < rows; i++)
-            {
-                for (int j = 0; j < columns; j++)
-                {
-                    indices.Add((i, j));
-                }
-            }
-
-            for (int i = indices.Count - 1; i > 0; i--)
-            {
-                int j = Random.Shared.Next(i + 1);
-                (indices[i], indices[j]) = (indices[j], indices[i]);
-            }
-
-            for (int i = 0; i < onesCount; i++)
-            {
-                var (row, col) = indices[i];
-                array[row, col] = 1;
-            }
-            return array;
-        }
-
         public void LoggerAdd(string s)
         {
             logger.Add(s);
