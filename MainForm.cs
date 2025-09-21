@@ -132,6 +132,18 @@ namespace My_BoomSosed_NET
             if (!scheduleEnabled || soundPlayer.soundPlaying)
                 return;
 
+            if (Int32.TryParse(ctrl_SecondsToStop.Text, null, out Int32 checkSecondsToStop))
+            {
+                secondsToStop--;
+                if (secondsToStop < 0)
+                {
+                    formController.LoggerAdd("Таймер истек. Остановка шедулера.");
+                    StopScheduler();
+                }
+            }
+
+
+
             if (this.speedCounter <= 1)
             {
                 if (ctrl_RandomTime.Checked)
@@ -169,16 +181,6 @@ namespace My_BoomSosed_NET
                     {
                         ctrl_schedule_info.ForeColor = Color.Green;
                         ctrl_schedule_info.Text = "ВКЛ по планировщику";
-                    }
-                }
-
-                if (Int32.TryParse(ctrl_SecondsToStop.Text, null, out Int32 checkSecondsToStop))
-                {
-                    secondsToStop--;
-                    if (secondsToStop < 0)
-                    {
-                        formController.LoggerAdd("Таймер истек. Остановка шедулера.");
-                        StopScheduler();
                     }
                 }
 
