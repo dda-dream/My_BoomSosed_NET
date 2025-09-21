@@ -18,7 +18,7 @@ jobs:
     runs-on: windows-latest  
     
     env:
-      Solution_Name: My_BoomSosed_NET.sln                         
+      Project_Name: My_BoomSosed_NET.csproj                         
 
     steps:
     - name: Checkout
