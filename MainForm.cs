@@ -7,7 +7,7 @@ namespace My_BoomSosed_NET
 {           
     public partial class MainForm : Form
     {
-        const string _VERSION_ = "Initial release: 08-05-2025 Latest release: 15-09-2025";
+        const string _VERSION_ = "Initial release: 08-05-2025 Latest release: 08-10-2025";
 
         System.Windows.Forms.Timer timer_boom;
         Int32 speedCounter = 0;
@@ -48,10 +48,12 @@ namespace My_BoomSosed_NET
             PlaySoundDelegate playSoundDelegate = _PlaySound;
             formController = new FormController(this, ctrlLog, startStopDelegate, playSoundDelegate);
             soundPlayer = new SoundPlayer(formController, ctrl_RandomVolume, ctrl_VolumeAmplifier);
-            visualBoom = new VisualBoom(ctrlVisualBoom, formController, groupBoxVisualBoom, ctrl_FillRatio, ctrl_RecalcVisualBoom, soundPlayer);
+            visualBoom = new VisualBoom(ctrlVisualBoom, formController, groupBoxVisualBoom, ctrl_FillRatio, 
+                                        ctrl_RecalcVisualBoom, soundPlayer, ctrl_RepeatQty, ctrl_RepeatRandom);
             
             ctrl_Speed.Text = "1";
             ctrl_FillRatio.Text = "5";
+            ctrl_RepeatQty.Text = "1";
 
             formController.LoggerAdd(_VERSION_);
             ReadSoundFolders();

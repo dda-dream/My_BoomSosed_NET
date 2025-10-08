@@ -5,8 +5,6 @@ VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "My_BoomSosed_NET", "My_BoomSosed_NET.csproj", "{6501CEC9-10F5-434E-83FC-B98EA18589F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "My_BoomSosed_Blazor", "..\My_BoomSosed_Blazor\My_BoomSosed_Blazor.csproj", "{CC7D211C-464B-42B3-B778-9EE18784066A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,26 +39,6 @@ Global
 		{6501CEC9-10F5-434E-83FC-B98EA18589F9}.Release|x64.Build.0 = Release|Any CPU
 		{6501CEC9-10F5-434E-83FC-B98EA18589F9}.Release|x86.ActiveCfg = Release|Any CPU
 		{6501CEC9-10F5-434E-83FC-B98EA18589F9}.Release|x86.Build.0 = Release|Any CPU
-		{CC7D211C-464B-42B3-B778-9EE18784066A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CC7D211C-464B-42B3-B778-9EE18784066A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CC7D211C-464B-42B3-B778-9EE18784066A}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{CC7D211C-464B-42B3-B778-9EE18784066A}.Debug|ARM.Build.0 = Debug|Any CPU
-		{CC7D211C-464B-42B3-B778-9EE18784066A}.Debug|ARM64.ActiveCfg = Debug|Any CPU
-		{CC7D211C-464B-42B3-B778-9EE18784066A}.Debug|ARM64.Build.0 = Debug|Any CPU
-		{CC7D211C-464B-42B3-B778-9EE18784066A}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{CC7D211C-464B-42B3-B778-9EE18784066A}.Debug|x64.Build.0 = Debug|Any CPU
-		{CC7D211C-464B-42B3-B778-9EE18784066A}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{CC7D211C-464B-42B3-B778-9EE18784066A}.Debug|x86.Build.0 = Debug|Any CPU
-		{CC7D211C-464B-42B3-B778-9EE18784066A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CC7D211C-464B-42B3-B778-9EE18784066A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CC7D211C-464B-42B3-B778-9EE18784066A}.Release|ARM.ActiveCfg = Release|Any CPU
-		{CC7D211C-464B-42B3-B778-9EE18784066A}.Release|ARM.Build.0 = Release|Any CPU
-		{CC7D211C-464B-42B3-B778-9EE18784066A}.Release|ARM64.ActiveCfg = Release|Any CPU
-		{CC7D211C-464B-42B3-B778-9EE18784066A}.Release|ARM64.Build.0 = Release|Any CPU
-		{CC7D211C-464B-42B3-B778-9EE18784066A}.Release|x64.ActiveCfg = Release|Any CPU
-		{CC7D211C-464B-42B3-B778-9EE18784066A}.Release|x64.Build.0 = Release|Any CPU
-		{CC7D211C-464B-42B3-B778-9EE18784066A}.Release|x86.ActiveCfg = Release|Any CPU
-		{CC7D211C-464B-42B3-B778-9EE18784066A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

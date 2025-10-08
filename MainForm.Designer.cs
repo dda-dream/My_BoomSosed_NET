@@ -47,6 +47,9 @@
             label5 = new Label();
             tabControl = new TabControl();
             tabPage1 = new TabPage();
+            ctrl_RepeatRandom = new CheckBox();
+            ctrl_RepeatQty = new TextBox();
+            label9 = new Label();
             label8 = new Label();
             ctrl_VolumeAmplifier = new TextBox();
             label7 = new Label();
@@ -130,7 +133,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(378, 60);
+            label1.Location = new Point(378, 58);
             label1.Name = "label1";
             label1.Size = new Size(135, 15);
             label1.TabIndex = 8;
@@ -138,7 +141,7 @@
             // 
             // ctrl_FillRatio
             // 
-            ctrl_FillRatio.Location = new Point(546, 57);
+            ctrl_FillRatio.Location = new Point(546, 55);
             ctrl_FillRatio.Name = "ctrl_FillRatio";
             ctrl_FillRatio.Size = new Size(99, 23);
             ctrl_FillRatio.TabIndex = 7;
@@ -187,7 +190,7 @@
             // ctrl_RecalcVisualBoom
             // 
             ctrl_RecalcVisualBoom.AutoSize = true;
-            ctrl_RecalcVisualBoom.Location = new Point(378, 127);
+            ctrl_RecalcVisualBoom.Location = new Point(378, 158);
             ctrl_RecalcVisualBoom.Name = "ctrl_RecalcVisualBoom";
             ctrl_RecalcVisualBoom.Size = new Size(229, 19);
             ctrl_RecalcVisualBoom.TabIndex = 13;
@@ -236,6 +239,9 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(ctrl_RepeatRandom);
+            tabPage1.Controls.Add(ctrl_RepeatQty);
+            tabPage1.Controls.Add(label9);
             tabPage1.Controls.Add(label8);
             tabPage1.Controls.Add(ctrl_VolumeAmplifier);
             tabPage1.Controls.Add(label7);
@@ -267,10 +273,38 @@
             tabPage1.Text = "Основная";
             tabPage1.UseVisualStyleBackColor = true;
             // 
+            // ctrl_RepeatRandom
+            // 
+            ctrl_RepeatRandom.AutoSize = true;
+            ctrl_RepeatRandom.Location = new Point(378, 188);
+            ctrl_RepeatRandom.Name = "ctrl_RepeatRandom";
+            ctrl_RepeatRandom.Size = new Size(256, 19);
+            ctrl_RepeatRandom.TabIndex = 27;
+            ctrl_RepeatRandom.Text = "Случайное кол. повт. до макс кол. повт. 1";
+            ctrl_RepeatRandom.UseVisualStyleBackColor = true;
+            // 
+            // ctrl_RepeatQty
+            // 
+            ctrl_RepeatQty.Location = new Point(546, 98);
+            ctrl_RepeatQty.Name = "ctrl_RepeatQty";
+            ctrl_RepeatQty.Size = new Size(99, 23);
+            ctrl_RepeatQty.TabIndex = 25;
+            ctrl_RepeatQty.Text = "-";
+            ctrl_RepeatQty.TextAlign = HorizontalAlignment.Center;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(378, 101);
+            label9.Name = "label9";
+            label9.Size = new Size(126, 15);
+            label9.TabIndex = 26;
+            label9.Text = "кол. повторов 1 звука";
+            // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(379, 180);
+            label8.Location = new Point(379, 123);
             label8.Name = "label8";
             label8.Size = new Size(102, 15);
             label8.TabIndex = 24;
@@ -278,7 +312,7 @@
             // 
             // ctrl_VolumeAmplifier
             // 
-            ctrl_VolumeAmplifier.Location = new Point(546, 81);
+            ctrl_VolumeAmplifier.Location = new Point(546, 76);
             ctrl_VolumeAmplifier.Name = "ctrl_VolumeAmplifier";
             ctrl_VolumeAmplifier.Size = new Size(99, 23);
             ctrl_VolumeAmplifier.TabIndex = 22;
@@ -288,7 +322,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(378, 84);
+            label7.Location = new Point(378, 79);
             label7.Name = "label7";
             label7.Size = new Size(130, 15);
             label7.TabIndex = 23;
@@ -296,7 +330,7 @@
             // 
             // ctrl_SecondsToStop
             // 
-            ctrl_SecondsToStop.Location = new Point(546, 177);
+            ctrl_SecondsToStop.Location = new Point(546, 120);
             ctrl_SecondsToStop.Name = "ctrl_SecondsToStop";
             ctrl_SecondsToStop.Size = new Size(99, 23);
             ctrl_SecondsToStop.TabIndex = 21;
@@ -315,7 +349,7 @@
             // ctrl_RandomVolume
             // 
             ctrl_RandomVolume.AutoSize = true;
-            ctrl_RandomVolume.Location = new Point(378, 152);
+            ctrl_RandomVolume.Location = new Point(378, 173);
             ctrl_RandomVolume.Name = "ctrl_RandomVolume";
             ctrl_RandomVolume.Size = new Size(147, 19);
             ctrl_RandomVolume.TabIndex = 19;
@@ -325,7 +359,7 @@
             // ctrl_RandomTime
             // 
             ctrl_RandomTime.AutoSize = true;
-            ctrl_RandomTime.Location = new Point(378, 102);
+            ctrl_RandomTime.Location = new Point(378, 141);
             ctrl_RandomTime.Name = "ctrl_RandomTime";
             ctrl_RandomTime.Size = new Size(191, 19);
             ctrl_RandomTime.TabIndex = 18;
@@ -456,5 +490,10 @@
         private TextBox ctrl_VolumeAmplifier;
         private Label label7;
         private Label label8;
+        [SaveToConfigAttribute]
+        private TextBox ctrl_RepeatQty;
+        private Label label9;
+        [SaveToConfigAttribute]
+        private CheckBox ctrl_RepeatRandom;
     }
 }

@@ -8,15 +8,18 @@ namespace My_BoomSosed_NET
         FormController formController;
         GroupBox groupBoxVisualBoom;
         TextBox ctrl_FillRatio;
+        TextBox ctrl_RepeatQty;
         CheckBox ctrl_RecalcVisualBoom;
         SoundPlayer soundPlayer;
+        CheckBox ctrl_RepeatRandom;
         int[,] arr;
         int curRowSizeVisualBoom;
         int curColSizeVisualBoom;
         const int maxColSizeVisualBoom = 10;
         const int maxRowSizeVisualBoom = 10;
         public VisualBoom(TableLayoutPanel ctrlVisualBoom, FormController formController, GroupBox groupBoxVisualBoom, 
-                          TextBox ctrl_FillRatio, CheckBox ctrl_RecalcVisualBoom, SoundPlayer soundPlayer)
+                          TextBox ctrl_FillRatio, CheckBox ctrl_RecalcVisualBoom, SoundPlayer soundPlayer,
+                          TextBox ctrl_RepeatQty, CheckBox ctrl_RepeatRandom)
         {
             if (formController == null)
                 throw new ArgumentNullException("FormController is null");
@@ -30,6 +33,8 @@ namespace My_BoomSosed_NET
             this.ctrl_FillRatio = ctrl_FillRatio;
             this.ctrl_RecalcVisualBoom = ctrl_RecalcVisualBoom;
             this.soundPlayer = soundPlayer;
+            this.ctrl_RepeatQty = ctrl_RepeatQty;
+            this.ctrl_RepeatRandom = ctrl_RepeatRandom;
         }
         public void ResetCurPos()
         {
@@ -131,6 +136,18 @@ namespace My_BoomSosed_NET
         }
         public void PlayRandomSoundFromList(string selectedLST, string selectedFile, ListBox ctrl_SoundFolders, ListBox ctrl_SoundFiles)
         {
+            int repeatQty;
+            if(int.TryParse(ctrl_RepeatQty.Text, out repeatQty))
+            {
+                if(ctrl_RepeatRandom.Checked)
+                {
+                    repeatQty = Random.Shared.Next(1, repeatQty);
+                }
+            }
+            else
+            {
+                repeatQty = 1;
+            }
             if (!string.IsNullOrEmpty(selectedLST))
             {
                 if (!string.IsNullOrEmpty(selectedFile))
@@ -140,7 +157,7 @@ namespace My_BoomSosed_NET
                     selectedFileLocal = selectedFileLocal.Split(" | ")[0];
                     if (selectedFileLocal != null && selectedFld != null)
                     {
-                        soundPlayer.PlaySound(".\\sounds\\" + (string)selectedFld + "\\" + (string)selectedFileLocal);
+                        soundPlayer.PlaySound(".\\sounds\\" + (string)selectedFld + "\\" + (string)selectedFileLocal, repeatQty);
                     }
                 }
                 else
@@ -151,7 +168,7 @@ namespace My_BoomSosed_NET
                     string selectedFld = (string)ctrl_SoundFolders.SelectedItem;
                     if (randomFile != null && selectedFld != null)
                     {
-                        soundPlayer.PlaySound(".\\sounds\\" + (string)selectedFld + "\\" + (string)randomFile);
+                        soundPlayer.PlaySound(".\\sounds\\" + (string)selectedFld + "\\" + (string)randomFile, repeatQty);
                     }
                 }
             }
