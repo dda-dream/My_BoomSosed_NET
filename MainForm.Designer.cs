@@ -82,7 +82,7 @@
             // 
             // btnStart
             // 
-            btnStart.Location = new Point(379, 231);
+            btnStart.Location = new Point(563, 231);
             btnStart.Name = "btnStart";
             btnStart.Size = new Size(77, 23);
             btnStart.TabIndex = 2;
@@ -92,7 +92,7 @@
             // 
             // ctrl_Speed
             // 
-            ctrl_Speed.Location = new Point(546, 33);
+            ctrl_Speed.Location = new Point(730, 33);
             ctrl_Speed.Name = "ctrl_Speed";
             ctrl_Speed.Size = new Size(99, 23);
             ctrl_Speed.TabIndex = 3;
@@ -102,7 +102,7 @@
             // label_Speed
             // 
             label_Speed.AutoSize = true;
-            label_Speed.Location = new Point(378, 36);
+            label_Speed.Location = new Point(562, 36);
             label_Speed.Name = "label_Speed";
             label_Speed.Size = new Size(114, 15);
             label_Speed.TabIndex = 4;
@@ -133,7 +133,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(378, 58);
+            label1.Location = new Point(562, 58);
             label1.Name = "label1";
             label1.Size = new Size(135, 15);
             label1.TabIndex = 8;
@@ -141,7 +141,7 @@
             // 
             // ctrl_FillRatio
             // 
-            ctrl_FillRatio.Location = new Point(546, 55);
+            ctrl_FillRatio.Location = new Point(730, 55);
             ctrl_FillRatio.Name = "ctrl_FillRatio";
             ctrl_FillRatio.Size = new Size(99, 23);
             ctrl_FillRatio.TabIndex = 7;
@@ -158,7 +158,7 @@
             // 
             // btnRecalcParams
             // 
-            btnRecalcParams.Location = new Point(462, 231);
+            btnRecalcParams.Location = new Point(646, 231);
             btnRecalcParams.Name = "btnRecalcParams";
             btnRecalcParams.Size = new Size(99, 23);
             btnRecalcParams.TabIndex = 10;
@@ -173,7 +173,7 @@
             ctrl_SoundFiles.Location = new Point(157, 21);
             ctrl_SoundFiles.Name = "ctrl_SoundFiles";
             ctrl_SoundFiles.ScrollAlwaysVisible = true;
-            ctrl_SoundFiles.Size = new Size(215, 274);
+            ctrl_SoundFiles.Size = new Size(399, 274);
             ctrl_SoundFiles.TabIndex = 11;
             ctrl_SoundFiles.SelectedIndexChanged += ctrl_FilesInLST_SelectedIndexChanged;
             ctrl_SoundFiles.DoubleClick += ctrl_FilesInLST_DoubleClick;
@@ -190,7 +190,7 @@
             // ctrl_RecalcVisualBoom
             // 
             ctrl_RecalcVisualBoom.AutoSize = true;
-            ctrl_RecalcVisualBoom.Location = new Point(378, 158);
+            ctrl_RecalcVisualBoom.Location = new Point(562, 158);
             ctrl_RecalcVisualBoom.Name = "ctrl_RecalcVisualBoom";
             ctrl_RecalcVisualBoom.Size = new Size(229, 19);
             ctrl_RecalcVisualBoom.TabIndex = 13;
@@ -210,7 +210,7 @@
             // 
             label4.AutoSize = true;
             label4.ForeColor = SystemColors.Highlight;
-            label4.Location = new Point(381, 1);
+            label4.Location = new Point(565, 1);
             label4.Name = "label4";
             label4.Size = new Size(243, 15);
             label4.TabIndex = 15;
@@ -220,7 +220,7 @@
             // 
             label5.AutoSize = true;
             label5.ForeColor = SystemColors.Highlight;
-            label5.Location = new Point(381, 15);
+            label5.Location = new Point(565, 15);
             label5.Name = "label5";
             label5.Size = new Size(131, 15);
             label5.TabIndex = 16;
@@ -276,7 +276,7 @@
             // ctrl_RepeatRandom
             // 
             ctrl_RepeatRandom.AutoSize = true;
-            ctrl_RepeatRandom.Location = new Point(378, 188);
+            ctrl_RepeatRandom.Location = new Point(562, 188);
             ctrl_RepeatRandom.Name = "ctrl_RepeatRandom";
             ctrl_RepeatRandom.Size = new Size(256, 19);
             ctrl_RepeatRandom.TabIndex = 27;
@@ -285,7 +285,7 @@
             // 
             // ctrl_RepeatQty
             // 
-            ctrl_RepeatQty.Location = new Point(546, 98);
+            ctrl_RepeatQty.Location = new Point(730, 98);
             ctrl_RepeatQty.Name = "ctrl_RepeatQty";
             ctrl_RepeatQty.Size = new Size(99, 23);
             ctrl_RepeatQty.TabIndex = 25;
@@ -295,7 +295,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(378, 101);
+            label9.Location = new Point(562, 101);
             label9.Name = "label9";
             label9.Size = new Size(126, 15);
             label9.TabIndex = 26;
@@ -304,7 +304,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(379, 123);
+            label8.Location = new Point(563, 123);
             label8.Name = "label8";
             label8.Size = new Size(102, 15);
             label8.TabIndex = 24;
@@ -312,7 +312,7 @@
             // 
             // ctrl_VolumeAmplifier
             // 
-            ctrl_VolumeAmplifier.Location = new Point(546, 76);
+            ctrl_VolumeAmplifier.Location = new Point(730, 76);
             ctrl_VolumeAmplifier.Name = "ctrl_VolumeAmplifier";
             ctrl_VolumeAmplifier.Size = new Size(99, 23);
             ctrl_VolumeAmplifier.TabIndex = 22;
@@ -322,7 +322,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(378, 79);
+            label7.Location = new Point(562, 79);
             label7.Name = "label7";
             label7.Size = new Size(130, 15);
             label7.TabIndex = 23;
@@ -330,7 +330,7 @@
             // 
             // ctrl_SecondsToStop
             // 
-            ctrl_SecondsToStop.Location = new Point(546, 120);
+            ctrl_SecondsToStop.Location = new Point(730, 120);
             ctrl_SecondsToStop.Name = "ctrl_SecondsToStop";
             ctrl_SecondsToStop.Size = new Size(99, 23);
             ctrl_SecondsToStop.TabIndex = 21;
@@ -338,7 +338,7 @@
             // 
             // ctrl_SaveConfig
             // 
-            ctrl_SaveConfig.Location = new Point(378, 265);
+            ctrl_SaveConfig.Location = new Point(562, 265);
             ctrl_SaveConfig.Name = "ctrl_SaveConfig";
             ctrl_SaveConfig.Size = new Size(108, 23);
             ctrl_SaveConfig.TabIndex = 20;
@@ -349,7 +349,7 @@
             // ctrl_RandomVolume
             // 
             ctrl_RandomVolume.AutoSize = true;
-            ctrl_RandomVolume.Location = new Point(378, 173);
+            ctrl_RandomVolume.Location = new Point(562, 173);
             ctrl_RandomVolume.Name = "ctrl_RandomVolume";
             ctrl_RandomVolume.Size = new Size(147, 19);
             ctrl_RandomVolume.TabIndex = 19;
@@ -359,7 +359,7 @@
             // ctrl_RandomTime
             // 
             ctrl_RandomTime.AutoSize = true;
-            ctrl_RandomTime.Location = new Point(378, 141);
+            ctrl_RandomTime.Location = new Point(562, 141);
             ctrl_RandomTime.Name = "ctrl_RandomTime";
             ctrl_RandomTime.Size = new Size(191, 19);
             ctrl_RandomTime.TabIndex = 18;
@@ -369,7 +369,7 @@
             // ctrl_schedule_info
             // 
             ctrl_schedule_info.AutoSize = true;
-            ctrl_schedule_info.Location = new Point(381, 213);
+            ctrl_schedule_info.Location = new Point(565, 213);
             ctrl_schedule_info.Name = "ctrl_schedule_info";
             ctrl_schedule_info.Size = new Size(12, 15);
             ctrl_schedule_info.TabIndex = 17;
@@ -384,7 +384,7 @@
             tabPage2.Location = new Point(4, 24);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(651, 553);
+            tabPage2.Size = new Size(835, 553);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Планировщик";
             tabPage2.UseVisualStyleBackColor = true;
