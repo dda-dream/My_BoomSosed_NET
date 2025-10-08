@@ -152,7 +152,7 @@
             // 
             ctrlLog.Location = new Point(251, 311);
             ctrlLog.Name = "ctrlLog";
-            ctrlLog.Size = new Size(395, 239);
+            ctrlLog.Size = new Size(578, 239);
             ctrlLog.TabIndex = 9;
             ctrlLog.Text = "";
             // 
@@ -234,7 +234,7 @@
             tabControl.Location = new Point(12, 12);
             tabControl.Name = "tabControl";
             tabControl.SelectedIndex = 0;
-            tabControl.Size = new Size(659, 581);
+            tabControl.Size = new Size(843, 581);
             tabControl.TabIndex = 17;
             // 
             // tabPage1
@@ -268,7 +268,7 @@
             tabPage1.Location = new Point(4, 24);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(651, 553);
+            tabPage1.Size = new Size(835, 553);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Основная";
             tabPage1.UseVisualStyleBackColor = true;
@@ -430,7 +430,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(682, 605);
+            ClientSize = new Size(867, 605);
             Controls.Add(tabControl);
             MaximizeBox = false;
             Name = "MainForm";

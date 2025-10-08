@@ -146,7 +146,7 @@ namespace My_BoomSosed_NET
 
 
 
-            if (this.speedCounter <= 1)
+            if (this.speedCounter < 1)
             {
                 if (ctrl_RandomTime.Checked)
                 {
@@ -159,6 +159,7 @@ namespace My_BoomSosed_NET
                 }
                 else
                 {
+                    Int32.TryParse(ctrl_Speed.Text, null, out Int32 speedCounter);
                     this.speedCounter = speedCounter;
                 }
             }

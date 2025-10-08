@@ -33,6 +33,7 @@ namespace My_BoomSosed_NET
             outputDevice = new WaveOutEvent();
             this.ctrl_volumeAmplifier = ctrl_volumeAmplifier;
         }
+
         public void PlaySound(string filePath, int repeatCount = 1)
         {
             var audioFilePath = Path.GetDirectoryName(Application.ExecutablePath) + filePath;
@@ -55,20 +56,20 @@ namespace My_BoomSosed_NET
             volumeProvider.Volume = volumeAmplifier;
 
             double rounded = Math.Round(this.GetSoundLength(audioFilePath), 1);
-            formController.LoggerAdd($"Boom! {filePath} vol:{(int)(soundVolume * 100)} volAmpl:{(int)(volumeAmplifier * 100)} sec:{rounded:0.0} repeat:{repeatCount}");
+            formController.LoggerAdd($"Boom! {filePath} vol: {(int)(soundVolume * 100)} volAmpl: {(int)(volumeAmplifier * 100)} sec: {rounded:0.0}");
 
-            if (outputDevice.PlaybackState != PlaybackState.Playing)
+            if (currentRepeat == 0)
             {
                 currentRepeat = 1;
                 totalRepeats = repeatCount;
                 currentFilePath = filePath;
-
-                soundPlaying = true;
-                outputDevice.Init(volumeProvider);
-                outputDevice.Play();
-                outputDevice.Volume = soundVolume;
-                outputDevice.PlaybackStopped += OutputDevice_PlaybackStopped;
             }
+
+            soundPlaying = true;
+            outputDevice.Init(volumeProvider);
+            outputDevice.Play();
+            outputDevice.Volume = soundVolume;
+            outputDevice.PlaybackStopped += OutputDevice_PlaybackStopped;
         }
 
         public void OutputDevice_PlaybackStopped(object? sender, StoppedEventArgs e)
@@ -79,14 +80,18 @@ namespace My_BoomSosed_NET
             if (currentRepeat < totalRepeats)
             {
                 currentRepeat++;
-                formController.LoggerAdd($"Repeat {currentRepeat}/{totalRepeats}");
-                PlaySound(currentFilePath, totalRepeats); // повторяем
+                //formController.LoggerAdd($"Repeat {currentRepeat}/{totalRepeats}");
+                PlaySound(currentFilePath, totalRepeats);
                 return;
             }
 
             soundPlaying = false;
             formController.LoggerAdd("Playback Stopped.");
+            currentRepeat = 0;
+            totalRepeats = 0;
+            currentFilePath = null;
         }
+
         public double GetSoundLength(string audioFilePath)
         {
             AudioFileReader audioFile = new AudioFileReader(audioFilePath);
