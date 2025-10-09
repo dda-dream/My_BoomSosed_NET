@@ -77,7 +77,7 @@ namespace My_BoomSosed_NET
             outputDevice.PlaybackStopped -= OutputDevice_PlaybackStopped;
             audioFile.Dispose();
 
-            if (currentRepeat < totalRepeats)
+            if (currentRepeat <= totalRepeats)
             {
                 currentRepeat++;
                 //formController.LoggerAdd($"Repeat {currentRepeat}/{totalRepeats}");
