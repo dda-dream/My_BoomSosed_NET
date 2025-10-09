@@ -137,6 +137,7 @@ namespace My_BoomSosed_NET
         public void PlayRandomSoundFromList(string selectedLST, string selectedFile, ListBox ctrl_SoundFolders, ListBox ctrl_SoundFiles)
         {
             int repeatQty;
+
             if(int.TryParse(ctrl_RepeatQty.Text, out repeatQty))
             {
                 if(ctrl_RepeatRandom.Checked)
@@ -148,6 +149,7 @@ namespace My_BoomSosed_NET
             {
                 repeatQty = 1;
             }
+
             if (!string.IsNullOrEmpty(selectedLST))
             {
                 if (!string.IsNullOrEmpty(selectedFile))
