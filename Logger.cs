@@ -26,7 +26,7 @@
             {
                 bool endContainNL = message.Substring(message.Length - 1, 1).Contains("\n");
                 message = message + (endContainNL ? "" : "\n");
-                message = $"{DateTime.Now.ToLongTimeString()} : {message}";
+                message = $"{DateTime.Now.ToShortDateString()} {DateTime.Now.ToLongTimeString()} : {message}";
                 File.AppendAllText(loggerFile, message);
 
                 if (loggerControl.InvokeRequired)
