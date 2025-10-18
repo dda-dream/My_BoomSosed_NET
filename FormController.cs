@@ -34,6 +34,10 @@ namespace My_BoomSosed_NET
                 logger.Add($"SaveToConfigFile:  {fieldName}");
             }
         }
+        public void ClearLog()
+        {
+            logger.Clear();
+        }
         public void LoggerAdd(string s)
         {
             logger.Add(s);

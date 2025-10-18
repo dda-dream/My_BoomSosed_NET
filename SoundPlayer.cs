@@ -13,7 +13,6 @@ namespace My_BoomSosed_NET
     class SoundPlayer
     {
         FormController formController;
-        float soundVolume;
         float volumeAmplifier = 1;
         public bool soundPlaying { get; set; }
         CheckBox ctrl_RandomVolume;
@@ -43,7 +42,7 @@ namespace My_BoomSosed_NET
                 return;
             }
 
-            soundVolume = ctrl_RandomVolume.Checked ? (float)Random.Shared.NextDouble() : 1;
+            float soundVolume = ctrl_RandomVolume.Checked ? (float)Random.Shared.NextDouble() : 1;
 
             audioFile = new AudioFileReader(audioFilePath);
             var volumeProvider = new VolumeSampleProvider(audioFile);

@@ -79,6 +79,7 @@ namespace My_BoomSosed_NET
                 return;
             }
 
+            formController.ClearLog();
             UpdateDesign();
             visualBoom.ResetCurPos();
 
