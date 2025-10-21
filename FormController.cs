@@ -10,18 +10,14 @@ namespace My_BoomSosed_NET
         Delegate startStop;
         Delegate playSelectedSound;
 
-        public FormController(Control form, RichTextBox logControl, Delegate startStop, Delegate playSelectedSound )
+        public FormController( Control form, RichTextBox logControl, Delegate startStop, Delegate playSelectedSound )
         {
-            this.form = (MainForm)form;
             logger = new Logger(logControl);
             config = new Config(logger);
+
+            this.form = (MainForm)form;
             this.startStop = startStop;
             this.playSelectedSound = playSelectedSound;
-
-            var a0 = typeof(MainForm);
-
-            //var a1 = a0.GetFields();
-            //var a2 = a0.GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
 
             var serializableFields = 
                 typeof(MainForm).GetFields(BindingFlags.NonPublic | BindingFlags.Instance)

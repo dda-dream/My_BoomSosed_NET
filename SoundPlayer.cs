@@ -17,11 +17,13 @@ namespace My_BoomSosed_NET
         public bool soundPlaying { get; set; }
         CheckBox ctrl_RandomVolume;
         WaveOutEvent outputDevice;
-        AudioFileReader audioFile;
+        AudioFileReader? audioFile;
         TextBox ctrl_volumeAmplifier;
         private int currentRepeat = 0;
         private int totalRepeats = 0;
         private string? currentFilePath;
+
+
         public SoundPlayer(FormController formController, CheckBox ctrl_RandomVolume, TextBox ctrl_volumeAmplifier)
         {
             if (formController == null)
@@ -74,7 +76,7 @@ namespace My_BoomSosed_NET
         public void OutputDevice_PlaybackStopped(object? sender, StoppedEventArgs e)
         {
             outputDevice.PlaybackStopped -= OutputDevice_PlaybackStopped;
-            audioFile.Dispose();
+            audioFile?.Dispose();
 
             if (currentRepeat < totalRepeats)
             {

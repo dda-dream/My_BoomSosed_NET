@@ -1,4 +1,7 @@
-﻿namespace My_BoomSosed_NET
+﻿using System.Reflection;
+using System.Runtime.CompilerServices;
+
+namespace My_BoomSosed_NET
 {
     enum ChannelType { Control, File, Registry };
     public class Logger
@@ -29,17 +32,21 @@
                 message = $"{DateTime.Now.ToShortDateString()} {DateTime.Now.ToLongTimeString()} : {message}";
                 File.AppendAllText(loggerFile, message);
 
-                if (loggerControl.InvokeRequired)
-                {
-                    loggerControl.Invoke((string m) => { __Add(m); }, message);
-                }
-                else
-                {
-                    loggerControl.Text += message;
+                var _add = new Action<string>((string type) => {
+                    loggerControl.Text += message+" "+type;
                     loggerControl.SelectionStart = loggerControl.Text.Length;
                     loggerControl.SelectionLength = 0;
                     loggerControl.ScrollToCaret();
                     loggerControl.Update();
+                });
+
+                if (loggerControl.InvokeRequired)
+                {
+                    loggerControl.Invoke(_add, "(invoked)");
+                }
+                else
+                {
+                    _add("");
                 }
             }
             catch (Exception ex)

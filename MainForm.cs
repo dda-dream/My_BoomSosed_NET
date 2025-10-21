@@ -50,7 +50,8 @@ namespace My_BoomSosed_NET
             soundPlayer = new SoundPlayer(formController, ctrl_RandomVolume, ctrl_VolumeAmplifier);
             visualBoom = new VisualBoom(ctrlVisualBoom, formController, groupBoxVisualBoom, ctrl_FillRatio, 
                                         ctrl_RecalcVisualBoom, soundPlayer, ctrl_RepeatQty, ctrl_RepeatRandom);
-            
+
+
             ctrl_Speed.Text = "1";
             ctrl_FillRatio.Text = "5";
             ctrl_RepeatQty.Text = "1";
