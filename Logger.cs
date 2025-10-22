@@ -6,9 +6,9 @@ namespace My_BoomSosed_NET
     enum ChannelType { Control, File, Registry };
     public class Logger
     {
-        RichTextBox loggerControl;
+        readonly RichTextBox loggerControl;
         const string loggerFile = "log.txt";
-        List<ChannelType> channels = new List<ChannelType>();
+        readonly List<ChannelType> channels = new List<ChannelType>();
 
 
         public Logger(RichTextBox loggerControl)

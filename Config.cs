@@ -4,9 +4,9 @@ namespace My_BoomSosed_NET
 {
     class Config
     {
-        string file = "config.cfg";
-        Logger logger;
-        Dictionary<string, string> config;
+        readonly string file = "config.cfg";
+        readonly Logger logger;
+        readonly Dictionary<string, string> config;
         public Config(Logger logger )
         {
             this.logger = logger;

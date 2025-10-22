@@ -10,7 +10,10 @@ namespace My_BoomSosed_NET
     public class TCPCommandServer
     { 
         int Port { get; set; }
-        Logger logger;
+        readonly Logger logger;
+
+
+
         public TCPCommandServer(Logger logger, int Port = 60006)
         {
             this.logger = logger;
@@ -21,20 +24,20 @@ namespace My_BoomSosed_NET
             string text="";
             try
             {
-                using TcpListener listener = new TcpListener(IPAddress.Any, this.Port);
+                using var listener = new TcpListener(IPAddress.Any, this.Port);
                 
                 listener.Start();
 
                 using TcpClient client = listener.AcceptTcpClient();
                 logger.Add("Client accepted: " + client.Client.RemoteEndPoint);
 
-                using StreamWriter welcomeWriter = new StreamWriter(client.GetStream());
+                using var welcomeWriter = new StreamWriter(client.GetStream());
                 welcomeWriter.WriteLine("Welcome! This is BoomSosed interface! 60 sec timeout.");
                 welcomeWriter.WriteLine("Commands supported:play_sound, start, stop");
                 welcomeWriter.Flush();
 
                 client.ReceiveTimeout = 60 * 1000;
-                using StreamReader reader = new StreamReader(client.GetStream());
+                using var reader = new StreamReader(client.GetStream());
                 text = reader.ReadToEnd();
 
                 
@@ -46,6 +49,7 @@ namespace My_BoomSosed_NET
             catch (IOException ex) when (ex.InnerException is SocketException socketEx)
             {
                 logger.Add($"TCPCommandServer:System.IO.IOException - ошибка:{socketEx.SocketErrorCode.ToString()}");
+
             }
             catch (SocketException ex)
             {

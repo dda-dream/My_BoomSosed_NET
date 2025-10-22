@@ -12,13 +12,13 @@ namespace My_BoomSosed_NET
 {
     class SoundPlayer
     {
-        FormController formController;
+        readonly FormController formController;
         float volumeAmplifier = 1;
         public bool soundPlaying { get; set; }
-        CheckBox ctrl_RandomVolume;
-        WaveOutEvent outputDevice;
+        readonly CheckBox ctrl_RandomVolume;
+        readonly WaveOutEvent outputDevice;
         AudioFileReader? audioFile;
-        TextBox ctrl_volumeAmplifier;
+        readonly TextBox ctrl_volumeAmplifier;
         private int currentRepeat = 0;
         private int totalRepeats = 0;
         private string? currentFilePath;

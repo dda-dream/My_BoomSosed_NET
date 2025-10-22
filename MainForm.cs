@@ -9,14 +9,14 @@ namespace My_BoomSosed_NET
     {
         const string _VERSION_ = "Initial release: 08-05-2025 Latest release: 08-10-2025";
 
-        System.Windows.Forms.Timer timer_boom;
+        readonly System.Windows.Forms.Timer timer_boom;
         Int32 speedCounter = 0;
         bool scheduleEnabled = false;
         string selectedLST = "";
         string selectedFile = "";
-        FormController formController;
-        SoundPlayer soundPlayer;
-        VisualBoom visualBoom;
+        readonly FormController formController;
+        readonly SoundPlayer soundPlayer;
+        readonly VisualBoom visualBoom;
         int secondsToStop;
 
         #region FORM Delegates
@@ -137,8 +137,7 @@ namespace My_BoomSosed_NET
 
             if (!scheduleEnabled || soundPlayer.soundPlaying)
                 return;
-
-            if (Int32.TryParse(ctrl_SecondsToStop.Text, null, out Int32 checkSecondsToStop))
+            if (Int32.TryParse(ctrl_SecondsToStop.Text, null, out _))
             {
                 secondsToStop--;
                 if (secondsToStop < 0)
@@ -175,7 +174,6 @@ namespace My_BoomSosed_NET
 
             if (scheduleEnabled && !soundPlayer.soundPlaying)
             {
-                var aa = ctrl_AllTimeF.Text;
                 if (ctrl_mainSсheduler.Checked)
                 {
                     if (DateTime.Now.TimeOfDay < ctrl_AllTimeF.Value.TimeOfDay || DateTime.Now.TimeOfDay > ctrl_AllTimeT.Value.TimeOfDay)

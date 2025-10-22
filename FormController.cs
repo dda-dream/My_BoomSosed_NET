@@ -4,13 +4,13 @@ namespace My_BoomSosed_NET
 {
     public class FormController
     {
-        MainForm form;
-        Config config;
+        readonly MainForm form;
+        readonly Config config;
         public Logger Logger { get; }
-        Delegate startStop;
-        Delegate playSelectedSound;
-        ListBox ctrl_SoundFolders;
-        TextBox ctrl_Speed;
+        readonly Delegate startStop;
+        readonly Delegate playSelectedSound;
+        readonly ListBox ctrl_SoundFolders;
+        readonly TextBox ctrl_Speed;
 
         public FormController( Control form, RichTextBox logControl, Delegate startStop, Delegate playSelectedSound,
             ListBox ctrl_SoundFolders, TextBox ctrl_Speed)
