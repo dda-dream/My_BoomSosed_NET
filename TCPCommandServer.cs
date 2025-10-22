@@ -35,8 +35,11 @@ namespace My_BoomSosed_NET
 
                 client.ReceiveTimeout = 60 * 1000;
                 using StreamReader reader = new StreamReader(client.GetStream());
-
                 text = reader.ReadToEnd();
+
+                
+
+
 
                 logger.Add($"StartAndWaitCommand: text: ({text})");
             }

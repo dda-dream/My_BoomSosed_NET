@@ -6,18 +6,23 @@ namespace My_BoomSosed_NET
     {
         MainForm form;
         Config config;
-        Logger logger;
+        public Logger Logger { get; }
         Delegate startStop;
         Delegate playSelectedSound;
+        ListBox ctrl_SoundFolders;
+        TextBox ctrl_Speed;
 
-        public FormController( Control form, RichTextBox logControl, Delegate startStop, Delegate playSelectedSound )
+        public FormController( Control form, RichTextBox logControl, Delegate startStop, Delegate playSelectedSound,
+            ListBox ctrl_SoundFolders, TextBox ctrl_Speed)
         {
-            logger = new Logger(logControl);
-            config = new Config(logger);
+            Logger = new Logger(logControl);
+            config = new Config(Logger);
 
             this.form = (MainForm)form;
             this.startStop = startStop;
             this.playSelectedSound = playSelectedSound;
+            this.ctrl_SoundFolders = ctrl_SoundFolders;
+            this.ctrl_Speed = ctrl_Speed;
 
             var serializableFields = 
                 typeof(MainForm).GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
@@ -27,17 +32,44 @@ namespace My_BoomSosed_NET
             {
                 var attribute = field.GetCustomAttribute<SaveToConfigAttribute>();
                 string fieldName = /*attribute.Name ??*/ field.Name;
-                logger.Add($"SaveToConfigFile:  {fieldName}");
+                Logger.Add($"SaveToConfigFile:  {fieldName}");
             }
         }
-        public void ClearLog()
+
+
+        public bool ValidBeforeStartTimer()
         {
-            logger.Clear();
+            bool retVal = true;
+
+            var selected = ctrl_SoundFolders.SelectedItem;
+            if (selected == null)
+            {
+                Logger.Add("Choose PlayList!");
+                MessageBox.Show("Choose PlayList!");
+                retVal = false;
+            }
+            return retVal;
         }
-        public void LoggerAdd(string s)
+
+
+        public void ReadSoundFolders()
         {
-            logger.Add(s);
+            var soundsDir = Directory.EnumerateDirectories(".\\sounds\\");
+
+            foreach (var folder in soundsDir)
+            {
+                ctrl_SoundFolders.Items.Add(folder.Replace(".\\sounds\\", ""));
+            }
         }
+        public void UpdateDesign()
+        {
+            Int32.TryParse(ctrl_Speed.Text, null, out Int32 val);
+            if (val > 60 * 60/*час*/ || val <= 0)
+            {
+                ctrl_Speed.Text = "5";
+            }
+        }
+
         public static List<Control> GetAllControls(Control parent)
         {
             List<Control> controlList = new List<Control>();
@@ -63,6 +95,9 @@ namespace My_BoomSosed_NET
 
                 var control = form.Controls.Find(field.Name, true).FirstOrDefault();
 
+                if (control == null)
+                    continue;
+
                 if (control is CheckBox checkBox)
                 {
                     checkBox.Checked = config.Get(field.Name).ToString().ToLower() == "true";
@@ -85,6 +120,9 @@ namespace My_BoomSosed_NET
             foreach (var field in attributedFields)
             {
                 var control = form.Controls.Find(field.Name, true).FirstOrDefault();
+                if (control == null)
+                    continue;
+
                 if (control is CheckBox checkBox)
                 {
                     config.Add(field.Name, checkBox.Checked.ToString().ToLower());
@@ -120,7 +158,7 @@ namespace My_BoomSosed_NET
             }
             else
             {
-                logger.Add("Command not supported.");
+                Logger.Add("Command not supported.");
             }
         }
         public async void StartCommandServer()
@@ -131,18 +169,18 @@ namespace My_BoomSosed_NET
                 string command = await Task<string>.Run(StartCommandServerAsync);
                 if (command != "")
                 {
-                    logger.Add("ProcessCommand: " + command);
+                    Logger.Add("ProcessCommand: " + command);
                     ProcessCommand(command);
                 }
             }
         }
-        public string /*async Task<string>*/ StartCommandServerAsync()
+        public string StartCommandServerAsync()
         {
             TCPCommandServer tcpServer;
 
-            logger.Add("Starting command server at port: 60006");
+            Logger.Add("Starting command server at port: 60006");
 
-            tcpServer = new TCPCommandServer(logger);
+            tcpServer = new TCPCommandServer(Logger);
             string command = tcpServer.StartAndWaitCommand();
         
             return command;

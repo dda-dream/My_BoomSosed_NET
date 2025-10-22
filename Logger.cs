@@ -9,20 +9,23 @@ namespace My_BoomSosed_NET
         RichTextBox loggerControl;
         const string loggerFile = "log.txt";
         List<ChannelType> channels = new List<ChannelType>();
+
+
         public Logger(RichTextBox loggerControl)
         {
             this.loggerControl = loggerControl;
+
             channels.Add(ChannelType.Control); 
             channels.Add(ChannelType.File); 
         }
-        public void __Add(string message)
-        {
-            loggerControl.Text += message;
-            loggerControl.SelectionStart = loggerControl.Text.Length;
-            loggerControl.SelectionLength = 0;
-            loggerControl.ScrollToCaret();
-            loggerControl.Update();
-        }
+        //public void __Add(string message)
+        //{
+        //    loggerControl.Text += message;
+        //    loggerControl.SelectionStart = loggerControl.Text.Length;
+        //    loggerControl.SelectionLength = 0;
+        //    loggerControl.ScrollToCaret();
+        //    loggerControl.Update();
+        //}
         public void Add(string message)
         {
             try
@@ -33,7 +36,7 @@ namespace My_BoomSosed_NET
                 File.AppendAllText(loggerFile, message);
 
                 var _add = new Action<string>((string type) => {
-                    loggerControl.Text += message+" "+type;
+                    loggerControl.Text += type + message;
                     loggerControl.SelectionStart = loggerControl.Text.Length;
                     loggerControl.SelectionLength = 0;
                     loggerControl.ScrollToCaret();
@@ -42,7 +45,7 @@ namespace My_BoomSosed_NET
 
                 if (loggerControl.InvokeRequired)
                 {
-                    loggerControl.Invoke(_add, "(invoked)");
+                    loggerControl.Invoke(_add, "i: ");
                 }
                 else
                 {

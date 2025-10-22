@@ -40,7 +40,7 @@ namespace My_BoomSosed_NET
             var audioFilePath = Path.GetDirectoryName(Application.ExecutablePath) + filePath;
             if (!File.Exists(audioFilePath))
             {
-                formController.LoggerAdd($"PlayMp3: File not exist {filePath}");
+                formController.Logger.Add($"PlayMp3: File not exist {filePath}");
                 return;
             }
 
@@ -57,7 +57,7 @@ namespace My_BoomSosed_NET
             volumeProvider.Volume = volumeAmplifier;
 
             double rounded = Math.Round(this.GetSoundLength(audioFilePath), 1);
-            formController.LoggerAdd($"Boom! {filePath} vol: {(int)(soundVolume * 100)} volAmpl: {(int)(volumeAmplifier * 100)} sec: {rounded:0.0}");
+            formController.Logger.Add($"Boom! {filePath} vol: {(int)(soundVolume * 100)} volAmpl: {(int)(volumeAmplifier * 100)} sec: {rounded:0.0}");
 
             if (currentRepeat == 0)
             {
@@ -82,12 +82,13 @@ namespace My_BoomSosed_NET
             {
                 currentRepeat++;
                 //formController.LoggerAdd($"Repeat {currentRepeat}/{totalRepeats}");
+                if(String.IsNullOrEmpty(currentFilePath) != true)
                 PlaySound(currentFilePath, totalRepeats);
                 return;
             }
 
             soundPlaying = false;
-            formController.LoggerAdd("Playback Stopped.");
+            formController.Logger.Add("Playback Stopped.");
             currentRepeat = 0;
             totalRepeats = 0;
             currentFilePath = null;

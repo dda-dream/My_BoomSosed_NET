@@ -23,18 +23,18 @@ namespace My_BoomSosed_NET
         public delegate void StartStopDelegate(string command);
         public void _StartStop(string command)
         {
-            formController.LoggerAdd($"start/stop: {command}");
+            formController.Logger.Add($"start/stop: {command}");
             if (command.Trim().Contains("start"))
-                btnStart_Click(this, null);
+                btnStart_Click(this, new EventArgs() { });
 
             if (command.Trim().Contains("stop"))
-                btnStart_Click(this, null);
+                btnStart_Click(this, new EventArgs() { });
 
         }
         public delegate void PlaySoundDelegate();
         public void _PlaySound()
         {
-            formController.LoggerAdd("play selectedFile sound");
+            formController.Logger.Add("play selectedFile sound");
             soundPlayer.PlaySound(".\\sounds\\Boom\\Boom.mp3");
         }
         #endregion
@@ -46,7 +46,7 @@ namespace My_BoomSosed_NET
 
             StartStopDelegate startStopDelegate = _StartStop;
             PlaySoundDelegate playSoundDelegate = _PlaySound;
-            formController = new FormController(this, ctrlLog, startStopDelegate, playSoundDelegate);
+            formController = new FormController(this, ctrlLog, startStopDelegate, playSoundDelegate, ctrl_SoundFolders, ctrl_Speed);
             soundPlayer = new SoundPlayer(formController, ctrl_RandomVolume, ctrl_VolumeAmplifier);
             visualBoom = new VisualBoom(ctrlVisualBoom, formController, groupBoxVisualBoom, ctrl_FillRatio, 
                                         ctrl_RecalcVisualBoom, soundPlayer, ctrl_RepeatQty, ctrl_RepeatRandom);
@@ -56,12 +56,13 @@ namespace My_BoomSosed_NET
             ctrl_FillRatio.Text = "5";
             ctrl_RepeatQty.Text = "1";
 
-            formController.LoggerAdd(_VERSION_);
-            ReadSoundFolders();
+            formController.Logger.Add(_VERSION_);
+            formController.ReadSoundFolders();
             formController.InitFormConfig();
-            formController.LoggerAdd("Config loaded from config.cfg");
+            formController.Logger.Add("Config loaded from config.cfg");
             visualBoom.CalcArray();
-            UpdateDesign();
+            formController.UpdateDesign();
+            visualBoom.InitVisualBoomGrid();
 
             timer_boom.Interval = 1000;
             timer_boom.Tick += Timer_boom_Tick;
@@ -74,41 +75,42 @@ namespace My_BoomSosed_NET
 
         void StartScheduler()
         {
-            if (!ValidBeforeStartTimer())
+            if (!formController.ValidBeforeStartTimer())
             {
-                formController.LoggerAdd("Scheduler is NOT started.");
+                formController.Logger.Add("Scheduler is NOT started.");
                 return;
             }
 
-            formController.ClearLog();
-            UpdateDesign();
+            formController.Logger.Clear();
+            formController.UpdateDesign();
+            visualBoom.InitVisualBoomGrid();
             visualBoom.ResetCurPos();
 
             scheduleEnabled = true;
             speedCounter = 0;
             //Зафиксировать выбранный плейлист и файл, что бы во время обработки по шедулеру помнить.
-            if (ctrl_SoundFolders.SelectedItem is String)
-                selectedLST = (String)ctrl_SoundFolders.SelectedItem;
-            if (ctrl_SoundFiles.SelectedItem is String)
-                selectedFile = (String)ctrl_SoundFiles.SelectedItem;
+            if (ctrl_SoundFolders.SelectedItem is String s_folder)
+                selectedLST = s_folder;
+            if (ctrl_SoundFiles.SelectedItem is String s_file)
+                selectedFile = s_file;
             selectedFile = selectedFile.Split(" | ")[0];
 
             Int32.TryParse(ctrl_SecondsToStop.Text, out secondsToStop);
                 
 
-            formController.LoggerAdd($"selectedFile playlist: {selectedLST}");
+            formController.Logger.Add($"selectedFile playlist: {selectedLST}");
             if (!string.IsNullOrEmpty(selectedFile))
-                formController.LoggerAdd($"selectedFile file: {selectedFile}");
+                formController.Logger.Add($"selectedFile file: {selectedFile}");
             else
-                formController.LoggerAdd($"selectedFile file: RANDOM");
+                formController.Logger.Add($"selectedFile file: RANDOM");
 
-            formController.LoggerAdd("Scheduler started.");
+            formController.Logger.Add("Scheduler started.");
             btnStart.Text = "Stop";
         }
         void StopScheduler()
         {
             scheduleEnabled = false;
-            formController.LoggerAdd("Scheduler stopped.");
+            formController.Logger.Add("Scheduler stopped.");
             btnStart.Text = "Start";
             ctrl_schedule_info.Text = "-";
             ctrl_schedule_info.BackColor = Color.Black;
@@ -141,7 +143,7 @@ namespace My_BoomSosed_NET
                 secondsToStop--;
                 if (secondsToStop < 0)
                 {
-                    formController.LoggerAdd("Таймер истек. Остановка шедулера.");
+                    formController.Logger.Add("Таймер истек. Остановка шедулера.");
                     StopScheduler();
                 }
             }
@@ -195,7 +197,9 @@ namespace My_BoomSosed_NET
         private void btnRecalcParams_Click(object sender, EventArgs e)
         {
             visualBoom.CalcArray();
-            UpdateDesign();
+            formController.UpdateDesign();
+            visualBoom.InitVisualBoomGrid();
+
         }
         private void ctrl_LST_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -221,8 +225,8 @@ namespace My_BoomSosed_NET
         }
         private void ctrl_FilesInLST_DoubleClick(object sender, EventArgs e)
         {
-            string selectedFld = (string)ctrl_SoundFolders.SelectedItem;
-            string selectedFile = (string)ctrl_SoundFiles.SelectedItem;
+            string selectedFld = ctrl_SoundFolders.SelectedItem as string ?? "";
+            string selectedFile = ctrl_SoundFiles.SelectedItem as string ?? ""  ;
             selectedFile = selectedFile.Split(" | ")[0];
 
             if ( selectedFile != null && selectedFld != null)
@@ -233,42 +237,9 @@ namespace My_BoomSosed_NET
         private void BoomSosed_MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
         }
-        void ReadSoundFolders()
-        {
-            var soundsDir = Directory.EnumerateDirectories(".\\sounds\\");
 
-            foreach (var folder in soundsDir)
-            {
-                ctrl_SoundFolders.Items.Add( folder.Replace(".\\sounds\\", "") );
-            }
-        }
-        void UpdateDesign()
-        {
-            //--------------------//-------------------- 1
-            //--------------------//-------------------- 2
-            Int32.TryParse(ctrl_Speed.Text, null, out Int32 val);
-            if (val > 60 * 60/*час*/ || val <= 0)
-            {
-                ctrl_Speed.Text = "5";
-            }
-            //--------------------//-------------------- 3
-            visualBoom.InitVisualBoomGrid();
-            //--------------------//-------------------- 4 
-        }
 
-        bool ValidBeforeStartTimer()
-        {
-            bool retVal = true;
 
-            var selected = ctrl_SoundFolders.SelectedItem;
-            if (selected == null)
-            {
-                formController.LoggerAdd("Choose PlayList!");
-                MessageBox.Show("Choose PlayList!");
-                retVal = false;
-            }
-            return retVal;
-        }
 
         private void BoomSosed_MainForm_Shown(object sender, EventArgs e)
         {
@@ -278,7 +249,7 @@ namespace My_BoomSosed_NET
         private void ctrl_SaveConfig_Click(object sender, EventArgs e)
         {
             formController.SafeToConfig();
-            formController.LoggerAdd("Config saved to config.cfg");
+            formController.Logger.Add("Config saved to config.cfg");
         }
     }
 }
