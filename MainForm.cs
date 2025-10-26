@@ -35,7 +35,7 @@ namespace My_BoomSosed_NET
         public void _PlaySound()
         {
             formController.Logger.Add("play selectedFile sound");
-            soundPlayer.PlaySound(".\\sounds\\Boom\\Boom.mp3");
+            soundPlayer.PlaySound(".\\sounds\\Ball\\01 Ball.mp3");
         }
         #endregion
 

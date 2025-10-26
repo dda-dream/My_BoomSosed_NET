@@ -4,14 +4,14 @@ namespace My_BoomSosed_NET
 {
     class VisualBoom
     {
-        TableLayoutPanel ctrlVisualBoom;
-        FormController formController;
-        GroupBox groupBoxVisualBoom;
-        TextBox ctrl_FillRatio;
-        TextBox ctrl_RepeatQty;
-        CheckBox ctrl_RecalcVisualBoom;
-        SoundPlayer soundPlayer;
-        CheckBox ctrl_RepeatRandom;
+        readonly TableLayoutPanel ctrlVisualBoom;
+        readonly FormController formController;
+        readonly GroupBox groupBoxVisualBoom;
+        readonly TextBox ctrl_FillRatio;
+        readonly TextBox ctrl_RepeatQty;
+        readonly CheckBox ctrl_RecalcVisualBoom;
+        readonly SoundPlayer soundPlayer;
+        readonly CheckBox ctrl_RepeatRandom;
         int[,] arr;
         int curRowSizeVisualBoom;
         int curColSizeVisualBoom;
